@@ -129,3 +129,32 @@ table {
 .cf:after {
    clear: both;
 }
+
+html {
+   font-size: 16px;
+}
+
+body {
+   background-color: #15202b;
+   font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+      Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+@media screen and (min-width: 760px) {
+   html {
+      font-size: 18px;
+   }
+}
+
+@media screen and (min-width: 800px) {
+   html {
+      font-size: 19px;
+   }
+}
+
+@media screen and (min-width: 1200px) {
+   html {
+      font-size: 20px;
+   }
+}
