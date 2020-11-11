@@ -86,7 +86,11 @@
    }
 </style>
 
-<div class="container">
-   <Header {segment} />
+{#if segment === 'join' || segment === 'login'}
    <slot />
-</div>
+{:else}
+   <div class="container">
+      <Header {segment} />
+      <slot />
+   </div>
+{/if}
