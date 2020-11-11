@@ -7,14 +7,20 @@
       display: flex;
       padding-bottom: 20px;
       flex-direction: column;
-      background-color: #212d38;
+      background-color: #062a35;
       border-bottom: 5px solid #38444d;
    }
 
    div {
       display: flex;
+      margin-top: 15px;
       margin-bottom: 32px;
       justify-content: center;
+   }
+
+   img {
+      border-radius: 100%;
+      border: 4px solid #38444d;
    }
 
    ul {
@@ -71,7 +77,7 @@
 <header>
    <div>
       <img
-         src="https://www.gravatar.com/avatar/1605042201304?s=210&d=robohash"
+         src="https://www.gravatar.com/avatar/1605042201304?s=150&d=robohash"
          loading="lazy"
          alt="1605042201304" />
    </div>

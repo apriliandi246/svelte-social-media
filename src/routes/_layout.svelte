@@ -6,13 +6,11 @@
 <style>
    .container {
       width: 100%;
-      height: 100vh;
-      margin: 0px auto 0 auto;
+      margin: 0 auto 60px auto;
    }
 
    @media screen and (min-width: 600px) {
       .container {
-         border: 1px solid #38444d;
          border-bottom: none;
          border-top: none;
          width: 90%;

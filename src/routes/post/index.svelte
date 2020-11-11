@@ -6,7 +6,7 @@
       width: 100%;
       resize: none;
       outline: none;
-      padding: 11px;
+      padding: 25px;
       display: block;
       color: #ffffff;
       font-size: 1rem;
@@ -70,6 +70,6 @@
 </svelte:head>
 
 <form spellcheck="false">
-   <textarea rows="18" placeholder="type some bulshit...." />
+   <textarea rows="18" placeholder="Type some bulshit...." />
    <button>Post</button>
 </form>
