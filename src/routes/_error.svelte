@@ -1,40 +1,38 @@
 <script>
-	export let status;
-	export let error;
-
-	const dev = process.env.NODE_ENV === 'development';
+   export let status;
+   export let error;
 </script>
 
 <style>
-	h1, p {
-		margin: 0 auto;
-	}
+   h1 {
+      color: #ffffff;
+      margin-top: 130px;
+      text-align: center;
+      letter-spacing: 4px;
+      font-family: monospace;
+   }
 
-	h1 {
-		font-size: 2.8em;
-		font-weight: 700;
-		margin: 0 0 0.5em 0;
-	}
+   h2 {
+      color: #ffffff;
+      margin-top: 14px;
+      text-align: center;
+      letter-spacing: 2px;
+   }
 
-	p {
-		margin: 1em auto;
-	}
+   @media (min-width: 480px) {
+      h1 {
+         font-size: 3em;
+      }
 
-	@media (min-width: 480px) {
-		h1 {
-			font-size: 4em;
-		}
-	}
+      h1 {
+         font-size: 2em;
+      }
+   }
 </style>
 
 <svelte:head>
-	<title>{status}</title>
+   <title>Page Not Found</title>
 </svelte:head>
 
 <h1>{status}</h1>
-
-<p>{error.message}</p>
-
-{#if dev && error.stack}
-	<pre>{error.stack}</pre>
-{/if}
+<h2>{error.message}</h2>
