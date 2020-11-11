@@ -97,9 +97,9 @@
       </li>
       <li>
          <a
-            href="/post"
-            class:current__menu={segment === 'post'}><span>&#8725;</span>
-            post</a>
+            href="/create"
+            class:current__menu={segment === 'create'}><span>&#8725;</span>
+            create</a>
       </li>
       <li><a href="/logout"><span>&#8725;</span> logout</a></li>
    </ul>
