@@ -1,20 +1,23 @@
 <script>
    import Card from "../../components/Card.svelte";
-   let posts = [];
+   let posts = [1, 2, 3, 4, 5];
 </script>
 
 <style>
    .user__profile {
       padding: 25px;
       color: #ffffff;
-      margin-bottom: 27px;
+      margin-top: 40px;
+      border-radius: 4px;
       background-color: #052530;
+      border: 2px solid #858992;
+      box-shadow: inset 0px 0px 3px rgba(255, 255, 255, 1);
    }
 
    .user__name {
       font-weight: bold;
-      letter-spacing: 0.4px;
       font-size: 1.2rem;
+      letter-spacing: 0.4px;
    }
 
    .user__bio {
@@ -33,6 +36,15 @@
       margin-top: 60px;
       font-size: 2.3rem;
       text-align: center;
+   }
+
+   @media screen and (max-width: 599px) {
+      .user__profile {
+         border-right: none;
+         border-left: none;
+         box-shadow: none;
+         border-radius: 0;
+      }
    }
 
    @media screen and (min-width: 760px) {

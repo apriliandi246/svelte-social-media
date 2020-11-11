@@ -8,7 +8,11 @@
       padding-bottom: 20px;
       flex-direction: column;
       background-color: #062a35;
-      border-bottom: 5px solid #38444d;
+      border-bottom-left-radius: 4px;
+      border-bottom-right-radius: 4px;
+      border-left: 5px solid #858992;
+      border-right: 5px solid #858992;
+      border-bottom: 5px solid #858992;
    }
 
    div {
@@ -20,7 +24,7 @@
 
    img {
       border-radius: 100%;
-      border: 4px solid #38444d;
+      box-shadow: inset 0px 0px 150px rgba(255, 255, 255, 0.4);
    }
 
    ul {
@@ -44,9 +48,16 @@
 
    a:hover,
    .current__menu {
-      color: #4c70e7;
+      color: #7f8488;
       padding-bottom: 19px;
-      border-bottom: 5px solid #4c70e7;
+      border-bottom: 5px solid #38444d;
+   }
+
+   @media screen and (max-width: 599px) {
+      header {
+         border: none;
+         border-radius: 0;
+      }
    }
 
    @media screen and (min-width: 600px) {
@@ -77,7 +88,7 @@
 <header>
    <div>
       <img
-         src="https://www.gravatar.com/avatar/1605042201304?s=150&d=robohash"
+         src="https://www.gravatar.com/avatar/2012201304?s=150&d=robohash"
          loading="lazy"
          alt="1605042201304" />
    </div>
@@ -86,7 +97,7 @@
       <li>
          <a
             href="/"
-            class:current__menu={segment === undefined}><span>&#8725;</span>
+            class:current__menu={segment === 'home'}><span>&#8725;</span>
             home</a>
       </li>
       <li>

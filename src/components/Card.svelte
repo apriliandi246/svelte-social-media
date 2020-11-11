@@ -10,11 +10,14 @@
    .card {
       width: 100%;
       padding: 8px;
+      margin-top: 40px;
       border-left: none;
       border-right: none;
-      margin-bottom: 27px;
+      border-radius: 4px;
       box-sizing: border-box;
       background-color: #052530;
+      border: 2px solid #858992;
+      box-shadow: inset 0px 0px 3px rgba(255, 255, 255, 1);
    }
 
    .card__head {
@@ -58,7 +61,7 @@
       text-align: center;
       letter-spacing: 1px;
       text-decoration: none;
-      margin: 24px 0 0 18px;
+      margin: 23px 0 0 18px;
       transition: padding-bottom 0.1s, color 0.1s;
    }
 
@@ -83,16 +86,25 @@
    .card__footer {
       float: right;
       padding: 15px;
-      color: #ffffff;
+      color: #858992;
       font-size: 0.9rem;
       letter-spacing: 1px;
       font-family: monospace;
    }
 
    .card__username:hover {
-      color: #4c70e7;
+      color: #858992;
       padding-bottom: 6px;
-      border-bottom: 2px solid #4c70e7;
+      border-bottom: 2px solid #858992;
+   }
+
+   @media screen and (max-width: 599px) {
+      .card {
+         border-right: none;
+         border-left: none;
+         box-shadow: none;
+         border-radius: 0;
+      }
    }
 
    @media screen and (min-width: 760px) {

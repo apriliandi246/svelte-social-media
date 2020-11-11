@@ -5,11 +5,15 @@
 </script>
 
 <style>
+   form {
+      margin-top: 40px;
+   }
+
    textarea {
       width: 100%;
       resize: none;
       outline: none;
-      padding: 25px;
+      padding: 18px;
       display: block;
       color: #ffffff;
       font-size: 1rem;
@@ -18,8 +22,12 @@
       white-space: pre-line;
       box-sizing: border-box;
       background-color: #192734;
-      border: 1px solid #273742;
+      border: 2px solid #858992;
       transition: background-color 0.2s;
+   }
+
+   textarea:invalid {
+      box-shadow: none;
    }
 
    textarea:focus {
@@ -37,16 +45,17 @@
       color: #ffffff;
       cursor: pointer;
       font-size: 1rem;
-      margin: 0px 0 10px 0;
+      margin: 28px 0 10px 0;
       letter-spacing: 1.2px;
       box-sizing: border-box;
       background-color: #192734;
-      border: 1px solid #273742;
+      border: 2px solid #858992;
       transition: color 0.2s, background-color 0.2s;
    }
 
    button,
    textarea {
+      border-radius: 4px;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto,
          "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -62,6 +71,15 @@
 
    .no-hover {
       pointer-events: none;
+   }
+
+   @media screen and (max-width: 599px) {
+      button,
+      textarea {
+         border-radius: 0;
+         border-left: none;
+         border-right: none;
+      }
    }
 
    @media screen and (min-width: 760px) {
