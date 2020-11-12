@@ -84,8 +84,8 @@
    <div>
       <img
          src="https://www.gravatar.com/avatar/2012201304?s=150&d=robohash"
-         loading="lazy"
-         alt="1605042201304" />
+         alt="1605042201304"
+         loading="lazy" />
    </div>
 
    <ul>

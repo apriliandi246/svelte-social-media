@@ -2,10 +2,6 @@
    export let post;
 
    let isLike = false;
-
-   function onLike() {
-      isLike = !isLike;
-   }
 </script>
 
 <style>
@@ -146,8 +142,8 @@
    <div class="card__like">
       <span
          class="card__like-icon"
-         on:click={onLike}>{isLike ? '💚' : '♡'}</span>
-      <span class="card__like-total">246</span>
+         on:click={() => (isLike = !isLike)}>{isLike ? '💚' : '♡'}</span>
+      <span class="card__like-total">{Intl.NumberFormat().format(10000)}</span>
    </div>
 
    <div class="card__head">
@@ -156,6 +152,7 @@
          class="card__profile-photo"
          alt="1605042201304"
          loading="lazy" />
+
       <a href="/user/{post}" class="card__username">{post}</a>
    </div>
 

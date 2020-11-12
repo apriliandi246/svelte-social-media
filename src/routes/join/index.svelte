@@ -183,16 +183,18 @@
 </svelte:head>
 
 <div class="container">
-   <div class="logo"><img src="/images/my-logo.jpg" alt="my_logo" /></div>
+   <div class="logo">
+      <img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />
+   </div>
 
    <form spellcheck="false" autocomplete="off">
       <div class="input-form">
          <label for="username" class="input-form__label">Username</label>
          <input
             type="text"
-            class="input-form__input"
             id="username"
-            placeholder="username" />
+            placeholder="username"
+            class="input-form__input" />
       </div>
 
       <div class="input-form">
@@ -207,10 +209,10 @@
       <div class="input-form">
          <label for="password" class="input-form__label">Password</label>
          <input
-            type="password"
-            class="input-form__input"
             id="password"
-            placeholder="password" />
+            type="password"
+            placeholder="password"
+            class="input-form__input" />
       </div>
 
       <div class="input-form">
@@ -218,12 +220,13 @@
             Confirm</label>
          <input
             type="password"
-            class="input-form__input"
             id="confirm-password"
+            class="input-form__input"
             placeholder="password confirm" />
       </div>
 
       <button type="submit" class="button-form">Join</button>
+
       <a href="/login" class="redirect-button-form">Login</a>
    </form>
 </div>

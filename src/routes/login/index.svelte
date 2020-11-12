@@ -182,27 +182,30 @@
 
 <div class="container">
    <form spellcheck="false" autocomplete="off">
-      <div class="logo"><img src="/images/my-logo.jpg" alt="my_logo" /></div>
+      <div class="logo">
+         <img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />
+      </div>
 
       <div class="input-form">
          <label for="email" class="input-form__label">Email</label>
          <input
             type="text"
-            class="input-form__input"
             id="email"
-            placeholder="email" />
+            placeholder="email"
+            class="input-form__input" />
       </div>
 
       <div class="input-form">
          <label for="password" class="input-form__label">Password</label>
          <input
-            type="password"
-            class="input-form__input"
             id="password"
-            placeholder="password" />
+            type="password"
+            placeholder="password"
+            class="input-form__input" />
       </div>
 
       <button type="submit" class="button-form">Login</button>
+
       <a href="/join" class="redirect-button-form">Join</a>
    </form>
 </div>
