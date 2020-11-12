@@ -1,6 +1,14 @@
 <script>
    import Card from "../../components/Card.svelte";
-   let posts = [1, 2, 3, 4, 5];
+
+   let posts = [
+      "farhan",
+      "farhan_apriliandi",
+      "apriliandi",
+      "parhan",
+      "sophie",
+      "calon_jenazah",
+   ];
 </script>
 
 <style>
@@ -17,7 +25,7 @@
 
 {#if posts.length > 1}
    {#each posts as post}
-      <Card />
+      <Card {post} />
    {/each}
 {:else}
    <h1>🙅</h1>

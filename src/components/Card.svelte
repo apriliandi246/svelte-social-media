@@ -1,4 +1,6 @@
 <script>
+   export let post;
+
    let isLike = false;
 
    function onLike() {
@@ -154,7 +156,7 @@
          class="card__profile-photo"
          alt="1605042201304"
          loading="lazy" />
-      <a href="/" class="card__username">sophie</a>
+      <a href="/user/{post}" class="card__username">{post}</a>
    </div>
 
    <div class="card__description">

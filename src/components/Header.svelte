@@ -41,11 +41,6 @@
       transition: color 0.1s;
    }
 
-   span {
-      font-weight: bold;
-      margin-right: 1px;
-   }
-
    a:hover,
    .current__menu {
       color: #7f8488;
@@ -94,24 +89,15 @@
    </div>
 
    <ul>
+      <li><a href="/" class:current__menu={segment === 'home'}>Home</a></li>
       <li>
-         <a
-            href="/"
-            class:current__menu={segment === 'home'}><span>&#8725;</span>
-            home</a>
-      </li>
-      <li>
-         <a
-            href="/profile"
-            class:current__menu={segment === 'profile'}><span>&#8725;</span>
+         <a href="/profile" class:current__menu={segment === 'profile'}>Your
             profile</a>
       </li>
       <li>
-         <a
-            href="/create"
-            class:current__menu={segment === 'create'}><span>&#8725;</span>
-            create</a>
+         <a href="/create" class:current__menu={segment === 'create'}>
+            Create</a>
       </li>
-      <li><a href="/logout"><span>&#8725;</span> logout</a></li>
+      <li><a href="/logout">Logout</a></li>
    </ul>
 </header>
