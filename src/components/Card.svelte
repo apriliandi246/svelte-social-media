@@ -14,8 +14,8 @@
       border-radius: 4px;
       box-sizing: border-box;
       background-color: #052530;
-      border: 2px solid #858992;
-      box-shadow: inset 0px 0px 3px rgba(255, 255, 255, 1);
+      border: 3px solid #858992;
+      box-shadow: 11px 11px 1px #5a5553;
    }
 
    .card__head {
@@ -102,6 +102,12 @@
          border-left: none;
          box-shadow: none;
          border-radius: 0;
+      }
+   }
+
+   @media screen and (min-width: 600px) {
+      .card {
+         margin-bottom: 54px;
       }
    }
 
