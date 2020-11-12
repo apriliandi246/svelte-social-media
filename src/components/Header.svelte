@@ -23,8 +23,11 @@
    }
 
    img {
+      width: 150px;
+      height: 150px;
+      margin-top: 13px;
       border-radius: 100%;
-      box-shadow: inset 0px 0px 150px rgba(255, 255, 255, 0.4);
+      border: 8px solid #273742;
    }
 
    ul {
@@ -81,12 +84,7 @@
 </style>
 
 <header>
-   <div>
-      <img
-         src="https://www.gravatar.com/avatar/2012201304?s=150&d=robohash"
-         alt="1605042201304"
-         loading="lazy" />
-   </div>
+   <div><img src="/images/my-logo.jpg" alt="the-logo" loading="lazy" /></div>
 
    <ul>
       <li><a href="/" class:current__menu={segment === 'home'}>Home</a></li>

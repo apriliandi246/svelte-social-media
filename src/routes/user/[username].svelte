@@ -29,47 +29,16 @@
 </script>
 
 <style>
-   .user-profile-picture {
-      padding: 25px;
-      margin-top: 40px;
-      text-align: center;
-      border-radius: 4px;
-      background-color: #052530;
-      border: 2px solid #858992;
-      box-shadow: inset 0px 0px 3px rgba(255, 255, 255, 1);
-   }
-
-   img {
-      border-radius: 100%;
-      box-shadow: inset 0px 0px 150px rgba(255, 255, 255, 0.4);
-   }
-
    .no-post {
       margin-top: 60px;
       font-size: 2.3rem;
       text-align: center;
-   }
-
-   @media screen and (max-width: 599px) {
-      .user-profile-picture {
-         border-right: none;
-         border-left: none;
-         box-shadow: none;
-         border-radius: 0;
-      }
    }
 </style>
 
 <svelte:head>
    <title>{username}</title>
 </svelte:head>
-
-<div class="user-profile-picture">
-   <img
-      src="https://www.gravatar.com/avatar/{username.length}?s=120&d=robohash"
-      loading="lazy"
-      alt="16050421304" />
-</div>
 
 <Profile {user} />
 

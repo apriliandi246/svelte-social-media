@@ -16,11 +16,17 @@
    };
 
    function handleSubmit() {}
+
+   function showEditForm() {
+      isEdit = !isEdit;
+      username = "";
+      bio = "";
+   }
 </script>
 
 <style>
    .no-post {
-      margin-top: 60px;
+      margin-top: 50px;
       font-size: 2.3rem;
       text-align: center;
    }
@@ -111,12 +117,12 @@
 
    @media screen and (max-width: 599px) {
       .show-form {
-         width: 90%;
+         width: 94%;
          margin: 0px auto;
       }
 
       .update__profile-form {
-         width: 90%;
+         width: 95%;
          margin: 0px auto;
       }
    }
@@ -143,7 +149,7 @@
 </svelte:head>
 
 <div class="show-form">
-   <button class="button-form" on:click={() => (isEdit = !isEdit)}>
+   <button class="button-form" on:click={showEditForm}>
       {isEdit === true ? 'Edit Profile' : 'Cancel'}
    </button>
 </div>
