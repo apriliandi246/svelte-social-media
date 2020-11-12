@@ -10,7 +10,7 @@
       border-radius: 4px;
       background-color: #052530;
       border: 2px solid #858992;
-      box-shadow: inset 0px 0px 3px rgba(255, 255, 255, 1);
+      box-shadow: 11px 11px 1px #5a5553;
    }
 
    .user__name {
@@ -31,8 +31,24 @@
       letter-spacing: 1.2px;
    }
 
+   .user-profile-picture {
+      padding: 25px;
+      margin-top: 35px;
+      text-align: center;
+      border-radius: 4px;
+      background-color: #052530;
+      border: 2px solid #858992;
+      box-shadow: 11px 11px 1px #5a5553;
+   }
+
+   .user-profile-picture img {
+      border-radius: 100%;
+      box-shadow: inset 0px 0px 150px rgba(255, 255, 255, 0.4);
+   }
+
    @media screen and (max-width: 599px) {
-      .user__profile {
+      .user__profile,
+      .user-profile-picture {
          border-right: none;
          border-left: none;
          box-shadow: none;
@@ -54,6 +70,13 @@
       }
    }
 </style>
+
+<div class="user-profile-picture">
+   <img
+      src="https://www.gravatar.com/avatar/{user.username.length}?s=120&d=robohash"
+      loading="lazy"
+      alt="16050421304" />
+</div>
 
 <div class="user__profile">
    <p class="user__name">{user.username}</p>
