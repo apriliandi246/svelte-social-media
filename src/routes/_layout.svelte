@@ -1,5 +1,6 @@
 <script>
    import Header from "../components/Header.svelte";
+   import Logo from "../components/Logo.svelte";
    export let segment;
 </script>
 
@@ -85,6 +86,7 @@
 </style>
 
 {#if segment === 'join' || segment === 'login'}
+   <Logo />
    <slot />
 {:else}
    <div class="container">

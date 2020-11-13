@@ -74,19 +74,7 @@
 <style>
    .container {
       width: 88%;
-      margin: 35px auto;
-   }
-
-   .logo {
-      text-align: center;
-   }
-
-   .logo img {
-      width: 160px;
-      height: 160px;
-      color: #ffffff;
-      border-radius: 100%;
-      border: 5px solid #273742;
+      margin: 10px auto;
    }
 
    form {
@@ -266,10 +254,6 @@
 </svelte:head>
 
 <div class="container">
-   <div class="logo">
-      <img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />
-   </div>
-
    <form
       spellcheck="false"
       autocomplete="off"

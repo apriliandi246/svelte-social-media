@@ -8,18 +8,7 @@
 <style>
    .container {
       width: 88%;
-      margin: 35px auto;
-   }
-
-   .logo {
-      text-align: center;
-   }
-
-   .logo img {
-      width: 160px;
-      height: 160px;
-      border-radius: 100%;
-      border: 5px solid #273742;
+      margin: 10px auto;
    }
 
    form {
@@ -193,10 +182,6 @@
       spellcheck="false"
       autocomplete="off"
       on:submit|preventDefault={handleLogin}>
-      <div class="logo">
-         <img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />
-      </div>
-
       <div class="input-form">
          <label for="email" class="input-form__label">Email</label>
 
