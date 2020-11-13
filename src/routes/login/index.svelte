@@ -1,4 +1,8 @@
 <script>
+   let email = "";
+   let password = "";
+
+   function handleLogin() {}
 </script>
 
 <style>
@@ -54,7 +58,7 @@
       color: #ffffff;
       cursor: pointer;
       font-size: 1rem;
-      letter-spacing: 1.2px;
+      letter-spacing: 1px;
       margin: 45px 0 10px 0;
       box-sizing: border-box;
       background-color: #192734;
@@ -103,6 +107,10 @@
       font-family: system-ui, -apple-system, "Segoe UI", Roboto,
          "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+   }
+
+   button:disabled {
+      pointer-events: none;
    }
 
    @media screen and (min-width: 600px) {
@@ -181,30 +189,40 @@
 </svelte:head>
 
 <div class="container">
-   <form spellcheck="false" autocomplete="off">
+   <form
+      spellcheck="false"
+      autocomplete="off"
+      on:submit|preventDefault={handleLogin}>
       <div class="logo">
          <img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />
       </div>
 
       <div class="input-form">
          <label for="email" class="input-form__label">Email</label>
+
          <input
             type="text"
             id="email"
             placeholder="email"
+            bind:value={email}
             class="input-form__input" />
       </div>
 
       <div class="input-form">
          <label for="password" class="input-form__label">Password</label>
+
          <input
             id="password"
             type="password"
+            bind:value={password}
             placeholder="password"
             class="input-form__input" />
       </div>
 
-      <button type="submit" class="button-form">Login</button>
+      <button
+         type="submit"
+         class="button-form"
+         disabled={email === '' || password === ''}>Login</button>
 
       <a href="/join" class="redirect-button-form">Join</a>
    </form>

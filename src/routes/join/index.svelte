@@ -1,4 +1,74 @@
 <script>
+   import { scale } from "svelte/transition";
+
+   const { username, email, password, confirmPassword } = {
+      username: {
+         value: undefined,
+         isInvalid: true,
+         regexPattern: /^[\S*]{5,12}$/i,
+      },
+
+      email: {
+         value: undefined,
+         isInvalid: true,
+         regexPattern: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
+      },
+
+      password: {
+         value: undefined,
+         isInvalid: true,
+         regexPattern: /^[\w@-]{6,}$/,
+      },
+
+      confirmPassword: {
+         value: "",
+         isInvalid: true,
+      },
+   };
+
+   $: {
+      // usernames
+      if (username.regexPattern.test(username.value) === false) {
+         username.isInvalid = false;
+      } else {
+         if (username.value !== undefined) {
+            username.isInvalid = true;
+         }
+      }
+
+      // email
+      if (
+         email.regexPattern.test(email.value) === false &&
+         email.value !== undefined
+      ) {
+         email.isInvalid = false;
+      } else {
+         if (email.value !== undefined) {
+            email.isInvalid = true;
+         }
+      }
+
+      // password
+      if (password.regexPattern.test(password.value) === false) {
+         password.isInvalid = false;
+         confirmPassword.value = "";
+      } else {
+         if (password.value !== undefined) {
+            password.isInvalid = true;
+         }
+      }
+
+      // confirm-password
+      if (confirmPassword.value !== password.value) {
+         confirmPassword.isInvalid = false;
+      } else {
+         if (confirmPassword.value !== undefined) {
+            confirmPassword.isInvalid = true;
+         }
+      }
+   }
+
+   function handleJoin() {}
 </script>
 
 <style>
@@ -31,6 +101,7 @@
       color: #ffffff;
       font-size: 1rem;
       letter-spacing: 1px;
+      transition: color 0.2s;
    }
 
    .input-form__input {
@@ -41,11 +112,11 @@
       color: #ffffff;
       font-size: 1rem;
       margin-top: 15px;
-      letter-spacing: 1.2px;
+      letter-spacing: 1px;
       box-sizing: border-box;
       background-color: #192734;
       border: 1px solid #273742;
-      transition: background-color 0.2s;
+      transition: background-color 0.2s, border-color 0.2s;
    }
 
    .button-form {
@@ -105,6 +176,18 @@
    .button-form:focus,
    .redirect-button-form:focus {
       background-color: #273742;
+   }
+
+   .color-invalid {
+      color: orangered;
+   }
+
+   .border-invalid {
+      border-color: orangered;
+   }
+
+   button:disabled {
+      pointer-events: none;
    }
 
    @media screen and (min-width: 600px) {
@@ -187,46 +270,74 @@
       <img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />
    </div>
 
-   <form spellcheck="false" autocomplete="off">
+   <form
+      spellcheck="false"
+      autocomplete="off"
+      on:submit|preventDefault={handleJoin}>
       <div class="input-form">
-         <label for="username" class="input-form__label">Username</label>
+         <label
+            for="username"
+            class="input-form__label"
+            class:color-invalid={username.isInvalid === false}>Username</label>
+
          <input
             type="text"
             id="username"
+            bind:value={username.value}
             placeholder="username"
+            class:border-invalid={username.isInvalid === false}
             class="input-form__input" />
       </div>
 
       <div class="input-form">
-         <label for="email" class="input-form__label">Email</label>
+         <label
+            for="email"
+            class="input-form__label"
+            class:color-invalid={email.isInvalid === false}>Email</label>
+
          <input
-            type="text"
-            class="input-form__input"
             id="email"
-            placeholder="email" />
+            type="text"
+            placeholder="email"
+            class="input-form__input"
+            bind:value={email.value}
+            class:border-invalid={email.isInvalid === false} />
       </div>
 
       <div class="input-form">
-         <label for="password" class="input-form__label">Password</label>
+         <label
+            for="password"
+            class="input-form__label"
+            class:color-invalid={password.isInvalid === false}>Password</label>
+
          <input
             id="password"
             type="password"
             placeholder="password"
-            class="input-form__input" />
+            class="input-form__input"
+            bind:value={password.value}
+            class:border-invalid={password.isInvalid === false} />
       </div>
 
-      <div class="input-form">
-         <label for="confirm-password" class="input-form__label">Password
-            Confirm</label>
-         <input
-            type="password"
-            id="confirm-password"
-            class="input-form__input"
-            placeholder="password confirm" />
-      </div>
+      {#if password.isInvalid === true && password.value !== undefined}
+         <div class="input-form" in:scale|local out:scale|local>
+            <label
+               for="confirm-password"
+               class="input-form__label"
+               class:color-invalid={confirmPassword.isInvalid === false}>Password
+               Confirm</label>
+
+            <input
+               type="password"
+               id="confirm-password"
+               class="input-form__input"
+               placeholder="password confirm"
+               bind:value={confirmPassword.value}
+               class:border-invalid={confirmPassword.isInvalid === false} />
+         </div>
+      {/if}
 
       <button type="submit" class="button-form">Join</button>
-
       <a href="/login" class="redirect-button-form">Login</a>
    </form>
 </div>

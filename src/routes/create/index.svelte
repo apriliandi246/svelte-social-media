@@ -69,7 +69,7 @@
       background-color: #273742;
    }
 
-   .no-hover {
+   button:disabled {
       pointer-events: none;
    }
 
