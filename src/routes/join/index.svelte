@@ -1,70 +1,92 @@
 <script>
    import { scale } from "svelte/transition";
 
+   let allInvalid = true;
+
    const { username, email, password, confirmPassword } = {
       username: {
-         value: undefined,
-         isInvalid: true,
+         value: "",
+         isValid: false,
+         isTyping: false,
          regexPattern: /^[\S*]{5,12}$/i,
       },
 
       email: {
-         value: undefined,
-         isInvalid: true,
+         value: "",
+         isValid: false,
+         isTyping: false,
          regexPattern: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
       },
 
       password: {
-         value: undefined,
-         isInvalid: true,
+         value: "",
+         isValid: false,
          regexPattern: /^[\w@-]{6,}$/,
       },
 
       confirmPassword: {
          value: "",
-         isInvalid: true,
+         isSame: false,
       },
    };
 
    $: {
       // usernames
-      if (username.regexPattern.test(username.value) === false) {
-         username.isInvalid = false;
-      } else {
-         if (username.value !== undefined) {
-            username.isInvalid = true;
-         }
+      if (
+         username.regexPattern.test(username.value) === false &&
+         username.value !== ""
+      ) {
+         username.isValid = false;
+         username.isTyping = true;
+      } else if (username.value !== "") {
+         username.isValid = true;
+      } else if (username.value === "" && username.isTyping === true) {
+         username.isValid = false;
       }
 
       // email
       if (
          email.regexPattern.test(email.value) === false &&
-         email.value !== undefined
+         email.value !== ""
       ) {
-         email.isInvalid = false;
-      } else {
-         if (email.value !== undefined) {
-            email.isInvalid = true;
-         }
+         email.isValid = false;
+         email.isTyping = true;
+      } else if (email.value !== "") {
+         email.isValid = true;
+      } else if (email.value === "" && email.isTyping === true) {
+         email.isValid = false;
       }
 
       // password
-      if (password.regexPattern.test(password.value) === false) {
-         password.isInvalid = false;
+      if (
+         password.regexPattern.test(password.value) === false &&
+         password.value !== ""
+      ) {
+         password.isValid = false;
+         password.isTyping = true;
          confirmPassword.value = "";
-      } else {
-         if (password.value !== undefined) {
-            password.isInvalid = true;
-         }
+      } else if (password.value !== "") {
+         password.isValid = true;
+      } else if (password.value === "" && password.isTyping === true) {
+         password.isValid = false;
       }
 
       // confirm-password
-      if (confirmPassword.value !== password.value) {
-         confirmPassword.isInvalid = false;
+      if (confirmPassword.value === password.value) {
+         confirmPassword.isSame = true;
       } else {
-         if (confirmPassword.value !== undefined) {
-            confirmPassword.isInvalid = true;
-         }
+         confirmPassword.isSame = false;
+      }
+
+      if (
+         username.isValid === true &&
+         email.isValid === true &&
+         password.isValid === true &&
+         confirmPassword.isSame === true
+      ) {
+         allInvalid = false;
+      } else {
+         allInvalid = true;
       }
    }
 
@@ -262,14 +284,15 @@
          <label
             for="username"
             class="input-form__label"
-            class:color-invalid={username.isInvalid === false}>Username</label>
+            class:color-invalid={username.isValid === false && username.isTyping === true}>Username</label>
 
          <input
+            required
             type="text"
             id="username"
             bind:value={username.value}
             placeholder="username"
-            class:border-invalid={username.isInvalid === false}
+            class:border-invalid={username.isValid === false && username.isTyping === true}
             class="input-form__input" />
       </div>
 
@@ -277,51 +300,56 @@
          <label
             for="email"
             class="input-form__label"
-            class:color-invalid={email.isInvalid === false}>Email</label>
+            class:color-invalid={email.isValid === false && email.isTyping === true}>Email</label>
 
          <input
+            required
             id="email"
             type="text"
             placeholder="email"
             class="input-form__input"
             bind:value={email.value}
-            class:border-invalid={email.isInvalid === false} />
+            class:border-invalid={email.isValid === false && email.isTyping === true} />
       </div>
 
       <div class="input-form">
          <label
             for="password"
             class="input-form__label"
-            class:color-invalid={password.isInvalid === false}>Password</label>
+            class:color-invalid={password.isValid === false && password.isTyping === true}>Password</label>
 
          <input
+            required
             id="password"
             type="password"
             placeholder="password"
             class="input-form__input"
             bind:value={password.value}
-            class:border-invalid={password.isInvalid === false} />
+            class:border-invalid={password.isValid === false && password.isTyping === true} />
       </div>
 
-      {#if password.isInvalid === true && password.value !== undefined}
+      {#if password.isValid === true && password.value !== undefined}
          <div class="input-form" in:scale|local out:scale|local>
             <label
                for="confirm-password"
                class="input-form__label"
-               class:color-invalid={confirmPassword.isInvalid === false}>Password
-               Confirm</label>
+               class:color-invalid={confirmPassword.isSame === false}>PasswordConfirm</label>
 
             <input
+               required
                type="password"
                id="confirm-password"
                class="input-form__input"
                placeholder="password confirm"
                bind:value={confirmPassword.value}
-               class:border-invalid={confirmPassword.isInvalid === false} />
+               class:border-invalid={confirmPassword.isSame === false} />
          </div>
       {/if}
 
-      <button type="submit" class="button-form">Join</button>
+      <button
+         type="submit"
+         class="button-form"
+         disabled={allInvalid}>Join</button>
       <a href="/login" class="redirect-button-form">Login</a>
    </form>
 </div>
