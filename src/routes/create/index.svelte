@@ -1,12 +1,31 @@
 <script>
-   let words = "";
+   import { scale } from "svelte/transition";
+
+   let post = {
+      value: "",
+      isLimit: false,
+      isValid: false,
+   };
+
+   $: if (post.value.trim() === "") {
+      post.isValid = false;
+      post.isLimit = false;
+   } else if (post.value.trim() !== "" && post.value.trim().length >= 280) {
+      post.isLimit = true;
+      post.isValid = false;
+   } else {
+      post.isValid = true;
+      post.isLimit = false;
+   }
 
    function onSubmit() {}
 </script>
 
 <style>
    form {
+      width: 100%;
       margin-top: 40px;
+      margin: 40px auto 0 auto;
    }
 
    textarea {
@@ -53,8 +72,27 @@
       transition: color 0.2s, background-color 0.2s;
    }
 
+   .alert {
+      width: 100%;
+      display: flex;
+      padding: 13px;
+      color: #ffffff;
+      font-weight: bolder;
+      align-items: center;
+      box-sizing: border-box;
+      margin: 40px auto 0 auto;
+      background-color: #ff4500;
+      justify-content: space-between;
+   }
+
+   .alert__message {
+      font-size: 1rem;
+      letter-spacing: 0.7px;
+   }
+
    button,
-   textarea {
+   textarea,
+   .alert__message {
       border-radius: 4px;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto,
          "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
@@ -74,11 +112,12 @@
    }
 
    @media screen and (max-width: 599px) {
-      button,
-      textarea {
-         border-radius: 0;
-         border-left: none;
-         border-right: none;
+      form {
+         width: 93%;
+      }
+
+      .alert {
+         width: 93%;
       }
    }
 
@@ -87,6 +126,16 @@
       textarea {
          font-size: 0.9rem;
       }
+
+      .alert__message {
+         font-size: 0.9rem;
+      }
+   }
+
+   @media screen and (min-width: 1200px) {
+      .alert__message {
+         font-size: calc(0.9rem - 1px);
+      }
    }
 </style>
 
@@ -94,11 +143,22 @@
    <title>Post</title>
 </svelte:head>
 
+{#if post.isLimit === true}
+   <div
+      class="alert"
+      in:scale|local={{ duration: 350 }}
+      out:scale|local={{ duration: 350 }}>
+      <p class="alert__message">Words must be less than 280 characters</p>
+   </div>
+{:else}
+   <!-- Nothing -->
+{/if}
+
 <form spellcheck="false" on:submit|preventDefault={onSubmit}>
    <textarea
       rows="18"
       required
-      bind:value={words}
+      bind:value={post.value}
       placeholder="What do you think ?" />
-   <button disabled={words === ''} class:no-hover={words === ''}>Post</button>
+   <button type="submit" disabled={post.isValid === false}>Post</button>
 </form>
