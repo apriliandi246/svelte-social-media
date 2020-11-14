@@ -5,8 +5,8 @@
 <style>
    header {
       display: flex;
-      padding-bottom: 20px;
       flex-direction: column;
+      padding: 0 20px 20px 20px;
       background-color: #062a35;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
@@ -32,7 +32,7 @@
 
    ul {
       display: flex;
-      justify-content: space-around;
+      justify-content: space-between;
    }
 
    a {
@@ -59,6 +59,11 @@
    }
 
    @media screen and (min-width: 600px) {
+      header {
+         padding-left: 27px;
+         padding-right: 27px;
+      }
+
       a {
          font-size: calc(1rem + 1px);
       }
