@@ -2,9 +2,7 @@
    import Card from "../../components/Card.svelte";
    import Profile from "../../components/Profile.svelte";
 
-   let bio = "";
    let isEdit = true;
-   let username = "";
    let posts = [1, 2, 3, 4, 5];
 
    const user = {
@@ -15,13 +13,11 @@
       joined: "October 2020",
    };
 
-   function handleSubmit() {}
-
    function showEditForm() {
       isEdit = !isEdit;
-      username = "";
-      bio = "";
    }
+
+   function handleSubmit() {}
 </script>
 
 <style>
@@ -33,7 +29,7 @@
 
    .show-form button {
       border-radius: 4px;
-      box-shadow: inset 0px 0px 3px rgba(255, 255, 255, 1);
+      box-shadow: inset 0px 0px 2px rgba(255, 255, 255, 1);
    }
 
    .hide {
@@ -71,7 +67,7 @@
       letter-spacing: 1.2px;
       box-sizing: border-box;
       background-color: #192734;
-      border: 1px solid #273742;
+      border: 2px solid #858992;
       transition: background-color 0.2s;
    }
 
@@ -86,14 +82,13 @@
       margin: 45px 0 10px 0;
       box-sizing: border-box;
       background-color: #192734;
-      border: 1px solid #273742;
+      border: 2px solid #858992;
       transition: color 0.2s, background-color 0.2s;
    }
 
    .input-form__input,
    .button-form {
       border-radius: 4px;
-      box-shadow: inset 0px 0px 3px rgba(255, 255, 255, 1);
       font-family: system-ui, -apple-system, "Segoe UI", Roboto,
          "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -165,7 +160,7 @@
             required
             type="text"
             id="username"
-            bind:value={username}
+            bind:value={user.username}
             class="input-form__input"
             placeholder="username" />
       </div>
@@ -176,7 +171,7 @@
             id="bio"
             rows="10"
             required
-            bind:value={bio}
+            bind:value={user.bio}
             placeholder="bio"
             class="input-form__input" />
       </div>
@@ -184,8 +179,8 @@
       <button
          type="submit"
          class="button-form"
-         disabled={username === '' || bio === ''}
-         class:no-hover={username === '' || bio === ''}>Save</button>
+         disabled={user.username === '' || user.bio === ''}
+         class:no-hover={user.username === '' || user.bio === ''}>Save</button>
    </form>
 </div>
 

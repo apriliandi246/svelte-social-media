@@ -45,18 +45,6 @@
       transition: background-color 0.2s;
    }
 
-   textarea:invalid {
-      box-shadow: none;
-   }
-
-   textarea:focus {
-      background-color: #15202b;
-   }
-
-   textarea::placeholder {
-      letter-spacing: 1px;
-   }
-
    button {
       width: 100%;
       padding: 10px;
@@ -72,8 +60,6 @@
       transition: color 0.2s, background-color 0.2s;
    }
 
-   button,
-   textarea,
    button:hover {
       background-color: #15202b;
    }
@@ -84,6 +70,26 @@
 
    button:disabled {
       pointer-events: none;
+   }
+
+   textarea:invalid {
+      box-shadow: none;
+   }
+
+   textarea:focus {
+      background-color: #15202b;
+   }
+
+   textarea::placeholder {
+      letter-spacing: 1px;
+   }
+
+   button,
+   textarea {
+      border-radius: 4px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto,
+         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
    }
 
    @media screen and (max-width: 599px) {
