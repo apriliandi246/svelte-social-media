@@ -8,9 +8,13 @@
       color: #ffffff;
       margin-top: 40px;
       border-radius: 4px;
-      background-color: #052530;
       border: 2px solid #858992;
       box-shadow: 11px 11px 1px #5a5553;
+      background: linear-gradient(
+         360deg,
+         rgba(2, 0, 36, 1) 0%,
+         rgba(48, 30, 60, 1) 0%
+      );
    }
 
    .user__name {
@@ -32,18 +36,15 @@
    }
 
    .user-profile-picture {
-      padding: 25px;
-      margin-top: 35px;
-      text-align: center;
+      font-size: 0.9rem;
       border-radius: 4px;
-      background-color: #052530;
-      border: 2px solid #858992;
-      box-shadow: 11px 11px 1px #5a5553;
+      margin-top: -17px;
+      margin-bottom: 28px;
    }
 
    .user-profile-picture img {
+      color: #ffffff;
       border-radius: 100%;
-      box-shadow: inset 0px 0px 150px rgba(255, 255, 255, 0.4);
    }
 
    @media screen and (max-width: 599px) {
@@ -71,14 +72,14 @@
    }
 </style>
 
-<div class="user-profile-picture">
-   <img
-      src="https://www.gravatar.com/avatar/{user.username.length}?s=120&d=robohash"
-      loading="lazy"
-      alt="16050421304" />
-</div>
-
 <div class="user__profile">
+   <div class="user-profile-picture">
+      <img
+         src="https://www.gravatar.com/avatar/{user.username.length}?s=120&d=robohash"
+         loading="lazy"
+         alt={user.username} />
+   </div>
+
    <p class="user__name">{user.username}</p>
    <p class="user__bio">{user.bio}</p>
    <p class="user__joined">Joined {user.joined}</p>

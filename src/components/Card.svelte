@@ -1,7 +1,5 @@
 <script>
    export let post;
-
-   let isLike = false;
 </script>
 
 <style>
@@ -42,14 +40,16 @@
    .card__like-total {
       font-size: 1rem;
       color: #ffffff;
+      margin-right: 5px;
       letter-spacing: 1.4px;
       font-family: monospace;
    }
 
    .card__profile-photo {
       float: left;
+      color: #ffffff;
+      font-size: 0.8rem;
       border-radius: 100%;
-      border: 3px solid #273742;
    }
 
    .card__username {
@@ -58,8 +58,10 @@
       font-size: 1rem;
       text-align: center;
       letter-spacing: 1px;
+      padding-bottom: 6px;
       text-decoration: none;
-      margin: 23px 0 0 18px;
+      margin: 25px 0 0 18px;
+      border-bottom: 2px solid #858992;
       transition: padding-bottom 0.1s, color 0.1s;
    }
 
@@ -83,7 +85,7 @@
 
    .card__footer {
       float: right;
-      padding: 15px;
+      padding: 11px;
       color: #858992;
       font-size: 0.9rem;
       letter-spacing: 1px;
@@ -92,8 +94,11 @@
 
    .card__username:hover {
       color: #858992;
-      padding-bottom: 6px;
-      border-bottom: 2px solid #858992;
+      padding-bottom: 11px;
+   }
+
+   .card__like-icon:hover {
+      transform: scale(1.3);
    }
 
    @media screen and (max-width: 599px) {
@@ -146,27 +151,22 @@
 
 <div class="card cf">
    <div class="card__like">
+      <span class="card__like-icon">💚</span>
       <span
-         class="card__like-icon"
-         on:click={() => (isLike = !isLike)}>{isLike ? '💚' : '♡'}</span>
-      <span class="card__like-total">{Intl.NumberFormat().format(10000)}</span>
+         class="card__like-total">{Intl.NumberFormat().format(post.likes)}</span>
    </div>
 
    <div class="card__head">
       <img
          src="https://www.gravatar.com/avatar/1605042202344?s=60&d=robohash"
          class="card__profile-photo"
-         alt="1605042201304"
+         alt={post.username}
          loading="lazy" />
 
-      <a href="/user/{post}" class="card__username">{post}</a>
+      <a href="/user/{post.username}" class="card__username">{post.username}</a>
    </div>
 
-   <div class="card__description">
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam recusandae
-      perspiciatis, qui quas sed explicabo iure. Laborum, quidem maxime quos
-      accusamus labore dolores a voluptatibus soluta
-   </div>
+   <div class="card__description">{post.words}</div>
 
    <div class="card__footer">2 days ago</div>
 </div>
