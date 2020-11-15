@@ -31,7 +31,7 @@
    };
 
    $: {
-      // usernames
+      // username
       if (
          username.regexPattern.test(username.value) === false &&
          username.value !== ""

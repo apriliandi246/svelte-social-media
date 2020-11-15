@@ -1,21 +1,21 @@
 <script>
-   import { scale } from "svelte/transition";
+   import Alert from "../../components/Alert.svelte";
 
-   let post = {
+   let { value, isLimit, isValid } = {
       value: "",
       isLimit: false,
       isValid: false,
    };
 
-   $: if (post.value.trim() === "") {
-      post.isValid = false;
-      post.isLimit = false;
-   } else if (post.value.trim() !== "" && post.value.trim().length >= 280) {
-      post.isLimit = true;
-      post.isValid = false;
+   $: if (value.trim() === "") {
+      isValid = false;
+      isLimit = false;
+   } else if (value.trim() !== "" && value.trim().length >= 280) {
+      isLimit = true;
+      isValid = false;
    } else {
-      post.isValid = true;
-      post.isLimit = false;
+      isValid = true;
+      isLimit = false;
    }
 
    function onSubmit() {}
@@ -72,33 +72,8 @@
       transition: color 0.2s, background-color 0.2s;
    }
 
-   .alert {
-      width: 100%;
-      display: flex;
-      padding: 13px;
-      color: #ffffff;
-      font-weight: bolder;
-      align-items: center;
-      box-sizing: border-box;
-      margin: 40px auto 0 auto;
-      background-color: #ff4500;
-      justify-content: space-between;
-   }
-
-   .alert__message {
-      font-size: 1rem;
-      letter-spacing: 0.7px;
-   }
-
    button,
    textarea,
-   .alert__message {
-      border-radius: 4px;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto,
-         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-   }
-
    button:hover {
       background-color: #15202b;
    }
@@ -115,26 +90,12 @@
       form {
          width: 93%;
       }
-
-      .alert {
-         width: 93%;
-      }
    }
 
    @media screen and (min-width: 760px) {
       button,
       textarea {
          font-size: 0.9rem;
-      }
-
-      .alert__message {
-         font-size: 0.9rem;
-      }
-   }
-
-   @media screen and (min-width: 1200px) {
-      .alert__message {
-         font-size: calc(0.9rem - 1px);
       }
    }
 </style>
@@ -143,22 +104,13 @@
    <title>Post</title>
 </svelte:head>
 
-{#if post.isLimit === true}
-   <div
-      class="alert"
-      in:scale|local={{ duration: 350 }}
-      out:scale|local={{ duration: 350 }}>
-      <p class="alert__message">Words must be less than 280 characters</p>
-   </div>
+{#if isLimit === true}
+   <Alert message="Words must be less than 280 characters" />
 {:else}
-   <!-- Nothing -->
+   <!-- Dont show the alert -->
 {/if}
 
 <form spellcheck="false" on:submit|preventDefault={onSubmit}>
-   <textarea
-      rows="18"
-      required
-      bind:value={post.value}
-      placeholder="What do you think ?" />
-   <button type="submit" disabled={post.isValid === false}>Post</button>
+   <textarea rows="18" required bind:value placeholder="What do you think ?" />
+   <button type="submit" disabled={isValid === false}>Post</button>
 </form>

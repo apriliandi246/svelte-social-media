@@ -1,6 +1,23 @@
 <script>
-   let email = "";
-   let password = "";
+   let { email, password, isValid } = {
+      email: "",
+      password: "",
+      isValid: false,
+   };
+
+   $: {
+      if (email.trim() === "") {
+         isValid = false;
+      } else {
+         isValid = true;
+      }
+
+      if (password.trim() === "") {
+         isValid = false;
+      } else {
+         isValid = true;
+      }
+   }
 
    function handleLogin() {}
 </script>
@@ -207,8 +224,7 @@
       <button
          type="submit"
          class="button-form"
-         disabled={email === '' || password === ''}>Login</button>
-
+         disabled={isValid === false}>Login</button>
       <a href="/join" class="redirect-button-form">Join</a>
    </form>
 </div>
