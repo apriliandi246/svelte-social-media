@@ -7,12 +7,17 @@
       display: flex;
       flex-direction: column;
       padding: 0 20px 20px 20px;
-      background-color: #062a35;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       border-left: 5px solid #858992;
       border-right: 5px solid #858992;
       border-bottom: 5px solid #858992;
+      background: rgb(2, 0, 36);
+      background: linear-gradient(
+         219deg,
+         rgba(2, 0, 36, 1) 0%,
+         rgba(48, 31, 61, 1) 1%
+      );
    }
 
    div {
@@ -26,8 +31,7 @@
       width: 150px;
       height: 150px;
       margin-top: 13px;
-      border-radius: 100%;
-      border: 8px solid #273742;
+      border-radius: 4px;
    }
 
    ul {
@@ -44,16 +48,15 @@
       transition: color 0.1s;
    }
 
-   a:hover,
    .current__menu {
-      color: #7f8488;
       padding-bottom: 19px;
       border-bottom: 5px solid #38444d;
    }
 
    @media screen and (max-width: 599px) {
       header {
-         border: none;
+         border-right: none;
+         border-left: none;
          border-radius: 0;
       }
    }

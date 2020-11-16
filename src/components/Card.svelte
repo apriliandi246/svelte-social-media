@@ -1,4 +1,5 @@
 <script>
+   import { scale } from "svelte/transition";
    export let post;
 </script>
 
@@ -11,9 +12,13 @@
       border-right: none;
       border-radius: 4px;
       box-sizing: border-box;
-      background-color: #052530;
       border: 3px solid #858992;
-      box-shadow: 11px 11px 1px #5a5553;
+      box-shadow: 12px 12px 1px #5a5553;
+      background: linear-gradient(
+         360deg,
+         rgba(2, 0, 36, 1) 0%,
+         rgba(48, 30, 60, 1) 0%
+      );
    }
 
    .card__head {
@@ -60,8 +65,8 @@
       letter-spacing: 1px;
       padding-bottom: 6px;
       text-decoration: none;
-      margin: 25px 0 0 18px;
-      border-bottom: 2px solid #858992;
+      margin: 23.5px 0 0 18px;
+      border-bottom: 4px solid #858992;
       transition: padding-bottom 0.1s, color 0.1s;
    }
 
@@ -149,7 +154,7 @@
    }
 </style>
 
-<div class="card cf">
+<div class="card cf" in:scale>
    <div class="card__like">
       <span class="card__like-icon">💚</span>
       <span

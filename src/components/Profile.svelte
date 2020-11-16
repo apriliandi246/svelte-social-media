@@ -1,4 +1,5 @@
 <script>
+   import { scale } from "svelte/transition";
    export let user;
 </script>
 
@@ -9,7 +10,7 @@
       margin-top: 40px;
       border-radius: 4px;
       border: 2px solid #858992;
-      box-shadow: 11px 11px 1px #5a5553;
+      box-shadow: 12px 12px 1px #5a5553;
       background: linear-gradient(
          360deg,
          rgba(2, 0, 36, 1) 0%,
@@ -72,7 +73,7 @@
    }
 </style>
 
-<div class="user__profile">
+<div class="user__profile" in:scale>
    <div class="user-profile-picture">
       <img
          src="https://www.gravatar.com/avatar/{user.username.length}?s=120&d=robohash"
