@@ -2,7 +2,7 @@
    import Card from "../../components/Card.svelte";
    import Profile from "../../components/Profile.svelte";
 
-   let isEdit = true;
+   let isEdit = false;
    let posts = [1, 2, 3, 4, 5];
 
    const user = {
@@ -30,10 +30,6 @@
    .show-form button {
       border-radius: 4px;
       box-shadow: inset 0px 0px 2px rgba(255, 255, 255, 1);
-   }
-
-   .hide {
-      display: none;
    }
 
    .no-hover {
@@ -145,44 +141,46 @@
 
 <div class="show-form">
    <button class="button-form" on:click={showEditForm}>
-      {isEdit === true ? 'Edit Profile' : 'Cancel'}
+      {isEdit === false ? 'Edit Profile' : 'Cancel'}
    </button>
 </div>
 
-<div class="update__profile-form" class:hide={isEdit === true}>
-   <form
-      spellcheck="false"
-      autocomplete="off"
-      on:submit|preventDefault={handleSubmit}>
-      <div class="input-form">
-         <label for="username" class="input-form__label">Username</label>
-         <input
-            required
-            type="text"
-            id="username"
-            bind:value={user.username}
-            class="input-form__input"
-            placeholder="username" />
-      </div>
+{#if isEdit === true}
+   <div class="update__profile-form">
+      <form
+         spellcheck="false"
+         autocomplete="off"
+         on:submit|preventDefault={handleSubmit}>
+         <div class="input-form">
+            <label for="username" class="input-form__label">Username</label>
+            <input
+               required
+               type="text"
+               id="username"
+               bind:value={user.username}
+               class="input-form__input"
+               placeholder="username" />
+         </div>
 
-      <div class="input-form">
-         <label for="bio" class="input-form__label">Bio</label>
-         <textarea
-            id="bio"
-            rows="10"
-            required
-            bind:value={user.bio}
-            placeholder="bio"
-            class="input-form__input" />
-      </div>
+         <div class="input-form">
+            <label for="bio" class="input-form__label">Bio</label>
+            <textarea
+               id="bio"
+               rows="10"
+               required
+               bind:value={user.bio}
+               placeholder="bio"
+               class="input-form__input" />
+         </div>
 
-      <button
-         type="submit"
-         class="button-form"
-         disabled={user.username === '' || user.bio === ''}
-         class:no-hover={user.username === '' || user.bio === ''}>Save</button>
-   </form>
-</div>
+         <button
+            type="submit"
+            class="button-form"
+            disabled={user.username === '' || user.bio === ''}
+            class:no-hover={user.username === '' || user.bio === ''}>Save</button>
+      </form>
+   </div>
+{/if}
 
 <Profile {user} />
 

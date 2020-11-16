@@ -1,4 +1,5 @@
 <script>
+   import { scale } from "svelte/transition";
    import Alert from "../../components/Alert.svelte";
 
    let { value, isLimit, isValid } = {
@@ -112,11 +113,9 @@
 
 {#if isLimit === true}
    <Alert message="Words must be less than 280 characters" />
-{:else}
-   <!-- Dont show the alert -->
 {/if}
 
-<form spellcheck="false" on:submit|preventDefault={onSubmit}>
+<form spellcheck="false" on:submit|preventDefault={onSubmit} in:scale>
    <textarea rows="18" required bind:value placeholder="What do you think ?" />
    <button type="submit" disabled={isValid === false}>Post</button>
 </form>

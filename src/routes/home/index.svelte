@@ -6,7 +6,7 @@
 
    onMount(() => {
       db.collection("posts")
-         .orderBy("date")
+         .orderBy("date", "desc")
          .onSnapshot((snapshot) => {
             posts = snapshot.docs;
          });
