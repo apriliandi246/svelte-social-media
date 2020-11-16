@@ -5,16 +5,15 @@
 <style>
    header {
       display: flex;
+      padding-bottom: 20px;
       flex-direction: column;
-      padding: 0 20px 20px 20px;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       border-left: 5px solid #858992;
       border-right: 5px solid #858992;
       border-bottom: 5px solid #858992;
-      background: rgb(2, 0, 36);
       background: linear-gradient(
-         219deg,
+         4deg,
          rgba(2, 0, 36, 1) 0%,
          rgba(48, 31, 61, 1) 1%
       );
@@ -36,12 +35,14 @@
 
    ul {
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
    }
 
+   li,
    a {
       color: #ffffff;
       font-size: 1rem;
+      cursor: pointer;
       font-weight: bold;
       letter-spacing: 1px;
       text-decoration: none;
@@ -62,11 +63,6 @@
    }
 
    @media screen and (min-width: 600px) {
-      header {
-         padding-left: 27px;
-         padding-right: 27px;
-      }
-
       a {
          font-size: calc(1rem + 1px);
       }
@@ -104,6 +100,5 @@
          <a href="/create" class:current__menu={segment === 'create'}>
             Create</a>
       </li>
-      <li><a href="/logout">Logout</a></li>
    </ul>
 </header>

@@ -1,21 +1,15 @@
 <script>
    import { scale } from "svelte/transition";
 
+   let isJoin = false;
    let allInvalid = true;
 
-   const { username, email, password, confirmPassword } = {
+   const { username, password, confirmPassword } = {
       username: {
          value: "",
          isValid: false,
          isTyping: false,
-         regexPattern: /^[\S*]{5,12}$/i,
-      },
-
-      email: {
-         value: "",
-         isValid: false,
-         isTyping: false,
-         regexPattern: /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/,
+         regexPattern: /^[\S*]{6,12}$/i,
       },
 
       password: {
@@ -44,19 +38,6 @@
          username.isValid = false;
       }
 
-      // email
-      if (
-         email.regexPattern.test(email.value) === false &&
-         email.value !== ""
-      ) {
-         email.isValid = false;
-         email.isTyping = true;
-      } else if (email.value !== "") {
-         email.isValid = true;
-      } else if (email.value === "" && email.isTyping === true) {
-         email.isValid = false;
-      }
-
       // password
       if (
          password.regexPattern.test(password.value) === false &&
@@ -80,7 +61,6 @@
 
       if (
          username.isValid === true &&
-         email.isValid === true &&
          password.isValid === true &&
          confirmPassword.isSame === true
       ) {
@@ -90,7 +70,7 @@
       }
    }
 
-   function handleJoin() {}
+   async function handleJoin() {}
 </script>
 
 <style>
@@ -275,7 +255,7 @@
    <title>Join</title>
 </svelte:head>
 
-<div class="container">
+<div class="container" in:scale>
    <form
       spellcheck="false"
       autocomplete="off"
@@ -290,26 +270,11 @@
             required
             type="text"
             id="username"
-            bind:value={username.value}
             placeholder="username"
+            bind:value={username.value}
+            disabled={isJoin === true}
             class:border-invalid={username.isValid === false && username.isTyping === true}
             class="input-form__input" />
-      </div>
-
-      <div class="input-form">
-         <label
-            for="email"
-            class="input-form__label"
-            class:color-invalid={email.isValid === false && email.isTyping === true}>Email</label>
-
-         <input
-            required
-            id="email"
-            type="text"
-            placeholder="email"
-            class="input-form__input"
-            bind:value={email.value}
-            class:border-invalid={email.isValid === false && email.isTyping === true} />
       </div>
 
       <div class="input-form">
@@ -325,6 +290,7 @@
             placeholder="password"
             class="input-form__input"
             bind:value={password.value}
+            disabled={isJoin === true}
             class:border-invalid={password.isValid === false && password.isTyping === true} />
       </div>
 
@@ -340,6 +306,7 @@
                type="password"
                id="confirm-password"
                class="input-form__input"
+               disabled={isJoin === true}
                placeholder="password confirm"
                bind:value={confirmPassword.value}
                class:border-invalid={confirmPassword.isSame === false} />
@@ -349,7 +316,11 @@
       <button
          type="submit"
          class="button-form"
-         disabled={allInvalid}>Join</button>
-      <a href="/login" class="redirect-button-form">Login</a>
+         disabled={allInvalid === true || isJoin === true}>{isJoin === true ? 'Loading...' : 'Join'}</button>
+
+      <a
+         href="/login"
+         class="redirect-button-form"
+         disabled={isJoin === true}>Login</a>
    </form>
 </div>

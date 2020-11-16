@@ -1,16 +1,8 @@
 <script>
-   import { onMount } from "svelte";
+   import { scale } from "svelte/transition";
    import Card from "../../components/Card.svelte";
 
-   let posts;
-
-   onMount(() => {
-      db.collection("posts")
-         .orderBy("date", "desc")
-         .onSnapshot((snapshot) => {
-            posts = snapshot.docs;
-         });
-   });
+   let posts = [];
 </script>
 
 <style>
@@ -53,5 +45,5 @@
       <Card post={post.data()} />
    {/each}
 {:else}
-   <h1>🙅</h1>
+   <h1 in:scale>🙅</h1>
 {/if}

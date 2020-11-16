@@ -1,12 +1,16 @@
 <script>
-   let { email, password, isValid } = {
-      email: "",
+   import { scale } from "svelte/transition";
+
+   let isLogin = false;
+
+   let { username, password, isValid } = {
+      username: "",
       password: "",
       isValid: false,
    };
 
    $: {
-      if (email.trim() === "") {
+      if (username.trim() === "") {
          isValid = false;
       } else {
          isValid = true;
@@ -95,6 +99,7 @@
 
    .input-form__input::placeholder {
       letter-spacing: 1px;
+      font-family: monospace;
    }
 
    .button-form:hover,
@@ -194,19 +199,20 @@
    <title>Login</title>
 </svelte:head>
 
-<div class="container">
+<div class="container" in:scale>
    <form
       spellcheck="false"
       autocomplete="off"
       on:submit|preventDefault={handleLogin}>
       <div class="input-form">
-         <label for="email" class="input-form__label">Email</label>
+         <label for="email" class="input-form__label">Username</label>
 
          <input
             type="text"
             id="email"
-            placeholder="email"
-            bind:value={email}
+            placeholder="username"
+            bind:value={username}
+            disabled={isLogin === true}
             class="input-form__input" />
       </div>
 
@@ -216,15 +222,20 @@
          <input
             id="password"
             type="password"
-            bind:value={password}
             placeholder="password"
+            bind:value={password}
+            disabled={isLogin === true}
             class="input-form__input" />
       </div>
 
       <button
          type="submit"
          class="button-form"
-         disabled={isValid === false}>Login</button>
-      <a href="/join" class="redirect-button-form">Join</a>
+         disabled={isValid === false || isLogin === true}>{isLogin === true ? 'Loading...' : 'Login'}</button>
+
+      <a
+         href="/join"
+         class="redirect-button-form"
+         disabled={isLogin === true}>Join</a>
    </form>
 </div>

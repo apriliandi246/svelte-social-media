@@ -1,16 +1,15 @@
 <script>
+   import { scale } from "svelte/transition";
    import Card from "../../components/Card.svelte";
    import Profile from "../../components/Profile.svelte";
 
    let isEdit = false;
-   let posts = [1, 2, 3, 4, 5];
+   let posts = [];
 
-   const user = {
-      username: "farhan_apriliandi",
-      bio: `Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam recusandae
-      perspiciatis, qui quas sed explicabo iure. Laborum, quidem maxime quos
-      accusamus labore dolores a voluptatibus solut`,
-      joined: "October 2020",
+   let user = {
+      username: "farhan",
+      bio: "this is the bio",
+      joined: "20 Nov 2020",
    };
 
    function showEditForm() {
@@ -22,7 +21,7 @@
 
 <style>
    .no-post {
-      margin-top: 50px;
+      margin-top: 80px;
       font-size: 2.3rem;
       text-align: center;
    }
@@ -85,6 +84,7 @@
    .input-form__input,
    .button-form {
       border-radius: 4px;
+      box-shadow: inset 0px 0px 2px rgba(255, 255, 255, 1);
       font-family: system-ui, -apple-system, "Segoe UI", Roboto,
          "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -106,9 +106,24 @@
       background-color: #273742;
    }
 
+   .spinner-1::before {
+      top: 50%;
+      left: 50%;
+      width: 60px;
+      content: "";
+      height: 60px;
+      position: absolute;
+      border-radius: 100%;
+      box-sizing: border-box;
+      margin: -10px 0 0 -30px;
+      border: 6px solid #ffffff;
+      border-top-color: transparent;
+      animation: spinner 0.8s linear infinite;
+   }
+
    @media screen and (max-width: 599px) {
       .show-form {
-         width: 94%;
+         width: 92%;
          margin: 0px auto;
       }
 
@@ -139,7 +154,7 @@
    <title>My Profile</title>
 </svelte:head>
 
-<div class="show-form">
+<div class="show-form" in:scale>
    <button class="button-form" on:click={showEditForm}>
       {isEdit === false ? 'Edit Profile' : 'Cancel'}
    </button>
@@ -182,12 +197,16 @@
    </div>
 {/if}
 
-<Profile {user} />
+{#if user === undefined}
+   <div class="spinner-1" />
+{:else}
+   <Profile {user} />
+{/if}
 
 {#if posts.length > 1}
    {#each posts as post}
       <Card post="farhan_apriliandi" />
    {/each}
 {:else}
-   <h1 class="no-post">🙅</h1>
+   <h1 class="no-post" in:scale>🙅</h1>
 {/if}

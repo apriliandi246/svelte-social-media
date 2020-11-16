@@ -1,15 +1,14 @@
 <style>
    .logo {
       text-align: center;
-      margin-top: 50px;
+      margin-top: 40px;
    }
 
    .logo img {
       width: 160px;
       height: 160px;
       color: #ffffff;
-      border-radius: 100%;
-      border: 5px solid #273742;
+      border-radius: 4px;
    }
 </style>
 
