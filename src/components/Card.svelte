@@ -177,7 +177,7 @@
 <div class="card cf" in:scale>
    <div class="card__like">
       <span class="card__like-icon" on:click={handleLike}>
-         {post.likes.includes($user.userId) == true ? '💚' : '♡'}
+         {post.likes.includes($user.userId) === true ? '💚' : '♡'}
       </span>
       <span
          class="card__like-total">{Intl.NumberFormat().format(post.likes.length)}</span>

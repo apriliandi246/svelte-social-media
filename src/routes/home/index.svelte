@@ -1,11 +1,18 @@
 <script>
    import { onMount } from "svelte";
+   import { goto } from "@sapper/app";
+   import { user } from "../../store/user.js";
    import { scale } from "svelte/transition";
    import Card from "../../components/Card.svelte";
 
    let posts;
 
    onMount(() => {
+      if ($user === null) {
+         goto("/login");
+         return;
+      }
+
       db.collection("posts")
          .orderBy("date", "desc")
          .onSnapshot((snapshot) => {

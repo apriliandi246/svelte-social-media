@@ -1,5 +1,7 @@
 <script>
    import { onMount } from "svelte";
+   import { goto } from "@sapper/app";
+   import { user } from "../../store/user.js";
    import { scale } from "svelte/transition";
    import Card from "../../components/Card.svelte";
    import Profile from "../../components/Profile.svelte";
@@ -8,10 +10,13 @@
    let userData;
 
    onMount(() => {
-      const { username } = JSON.parse(window.localStorage.getItem("userData"));
+      if ($user === null) {
+         goto("/login");
+         return;
+      }
 
       db.collection("users")
-         .where("username", "==", username)
+         .where("username", "==", $user.username)
          .get()
          .then((snapshot) => {
             snapshot.docs.forEach((doc) => {
@@ -19,9 +24,8 @@
             });
 
             db.collection("posts")
-               .where("username", "==", username)
-               .get()
-               .then((snapshot) => {
+               .where("username", "==", $user.username)
+               .onSnapshot((snapshot) => {
                   if (snapshot.docs.length >= 1) {
                      posts = snapshot.docs;
                   } else {

@@ -3,6 +3,7 @@
    import { user } from "../../store/user.js";
    import { scale } from "svelte/transition";
    import Alert from "../../components/Alert.svelte";
+   import { onMount } from "svelte";
 
    let isCreate = false;
 
@@ -37,6 +38,13 @@
             goto("/");
          });
    }
+
+   onMount(() => {
+      if ($user === null) {
+         goto("/login");
+         return;
+      }
+   });
 </script>
 
 <style>
