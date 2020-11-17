@@ -1,5 +1,6 @@
 <script>
    import { goto } from "@sapper/app";
+   import { user } from "../../store/user.js";
    import { scale } from "svelte/transition";
    import Alert from "../../components/Alert.svelte";
 
@@ -25,11 +26,9 @@
    function onSubmit() {
       isCreate = true;
 
-      const user = JSON.parse(window.localStorage.getItem("userData"));
-
       db.collection("posts")
          .add({
-            username: user.username,
+            username: $user.username,
             words: value,
             date: Date.now(),
             likes: [],

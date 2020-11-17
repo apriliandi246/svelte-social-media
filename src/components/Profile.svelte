@@ -1,5 +1,7 @@
 <script>
+   import { Time } from "../utils/date.js";
    import { scale } from "svelte/transition";
+
    export let userData;
 </script>
 
@@ -88,5 +90,8 @@
 
    <p class="user__name">{userData.username}</p>
    <p class="user__bio">{userData.bio}</p>
-   <p class="user__joined">Joined {userData.joined}</p>
+   <p class="user__joined">
+      Joined
+      {new Time(userData.joined).format('medium')}
+   </p>
 </div>

@@ -1,19 +1,19 @@
 <script>
+   import { user } from "../store/user.js";
+   import { Time } from "../utils/date.js";
    import { scale } from "svelte/transition";
 
    export let post;
    export let postId;
 
-   let userId = JSON.parse(window.localStorage.getItem("userData")).userId;
-
    function handleLike() {
       const currentLikes = [...post.likes];
 
-      if (currentLikes.includes(userId) === true) {
+      if (currentLikes.includes($user.userId) === true) {
          const index = currentLikes.indexOf(postId);
          currentLikes.splice(index, 1);
       } else {
-         currentLikes.push(userId);
+         currentLikes.push($user.userId);
       }
 
       db.collection("posts")
@@ -93,7 +93,6 @@
       text-decoration: none;
       margin: 23.5px 0 0 18px;
       border-bottom: 4px solid #858992;
-      transition: padding-bottom 0.1s, color 0.1s;
    }
 
    .card__description {
@@ -119,13 +118,8 @@
       padding: 11px;
       color: #858992;
       font-size: 0.9rem;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       font-family: monospace;
-   }
-
-   .card__username:hover {
-      color: #858992;
-      padding-bottom: 11px;
    }
 
    .card__like-icon:hover {
@@ -183,7 +177,7 @@
 <div class="card cf" in:scale>
    <div class="card__like">
       <span class="card__like-icon" on:click={handleLike}>
-         {post.likes.includes(userId) == true ? '💚' : '♡'}
+         {post.likes.includes($user.userId) == true ? '💚' : '♡'}
       </span>
       <span
          class="card__like-total">{Intl.NumberFormat().format(post.likes.length)}</span>
@@ -196,10 +190,10 @@
          alt={post.username}
          loading="lazy" />
 
-      <a href="/user/{post.username}" class="card__username">{post.username}</a>
+      <p class="card__username">{post.username}</p>
    </div>
 
    <div class="card__description">{post.words}</div>
 
-   <div class="card__footer">{post.date}</div>
+   <div class="card__footer">{new Time(post.date).fromNow()}</div>
 </div>
