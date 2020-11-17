@@ -1,6 +1,9 @@
 <script>
+   import { goto } from "@sapper/app";
    import { scale } from "svelte/transition";
    import Alert from "../../components/Alert.svelte";
+
+   let isCreate = false;
 
    let { value, isLimit, isValid } = {
       value: "",
@@ -19,7 +22,22 @@
       isLimit = false;
    }
 
-   function onSubmit() {}
+   function onSubmit() {
+      isCreate = true;
+
+      const user = JSON.parse(window.localStorage.getItem("userData"));
+
+      db.collection("posts")
+         .add({
+            username: user.username,
+            words: value,
+            date: Date.now(),
+            likes: [],
+         })
+         .then(() => {
+            goto("/");
+         });
+   }
 </script>
 
 <style>
@@ -117,6 +135,13 @@
 {/if}
 
 <form spellcheck="false" on:submit|preventDefault={onSubmit} in:scale>
-   <textarea rows="18" required bind:value placeholder="What do you think ?" />
-   <button type="submit" disabled={isValid === false}>Post</button>
+   <textarea
+      rows="18"
+      required
+      bind:value
+      placeholder="What do you think ?"
+      disabled={isCreate === true} />
+   <button type="submit" disabled={isValid === false}>
+      {isCreate === true ? 'Loading....' : 'Post'}
+   </button>
 </form>

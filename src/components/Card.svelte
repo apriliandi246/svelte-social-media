@@ -1,6 +1,31 @@
 <script>
    import { scale } from "svelte/transition";
+
    export let post;
+   export let postId;
+
+   let userId = JSON.parse(window.localStorage.getItem("userData")).userId;
+
+   function handleLike() {
+      const currentLikes = [...post.likes];
+
+      if (currentLikes.includes(userId) === true) {
+         const index = currentLikes.indexOf(postId);
+         currentLikes.splice(index, 1);
+      } else {
+         currentLikes.push(userId);
+      }
+
+      db.collection("posts")
+         .doc(postId)
+         .update({
+            likes: [...currentLikes],
+         })
+         .then()
+         .catch((ex) => {
+            console.log(ex.message);
+         });
+   }
 </script>
 
 <style>
@@ -39,7 +64,8 @@
       cursor: pointer;
       font-size: 1.3rem;
       font-weight: bold;
-      margin-right: 2px;
+      margin-right: 5px;
+      transition: transform 0.1s;
    }
 
    .card__like-total {
@@ -103,7 +129,7 @@
    }
 
    .card__like-icon:hover {
-      transform: scale(1.3);
+      transform: scale(1.4);
    }
 
    @media screen and (max-width: 599px) {
@@ -156,9 +182,11 @@
 
 <div class="card cf" in:scale>
    <div class="card__like">
-      <span class="card__like-icon">💚</span>
+      <span class="card__like-icon" on:click={handleLike}>
+         {post.likes.includes(userId) == true ? '💚' : '♡'}
+      </span>
       <span
-         class="card__like-total">{Intl.NumberFormat().format(post.likes)}</span>
+         class="card__like-total">{Intl.NumberFormat().format(post.likes.length)}</span>
    </div>
 
    <div class="card__head">
@@ -173,5 +201,5 @@
 
    <div class="card__description">{post.words}</div>
 
-   <div class="card__footer">2 days ago</div>
+   <div class="card__footer">{post.date}</div>
 </div>

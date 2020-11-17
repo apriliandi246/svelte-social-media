@@ -1,6 +1,9 @@
 <script>
+   import { goto } from "@sapper/app";
    import { scale } from "svelte/transition";
+   import Alert from "../../components/Alert.svelte";
 
+   let error;
    let isLogin = false;
 
    let { username, password, isValid } = {
@@ -23,7 +26,33 @@
       }
    }
 
-   function handleLogin() {}
+   function handleLogin() {
+      isLogin = true;
+
+      db.collection("users")
+         .where("username", "==", username)
+         .where("password", "==", password)
+         .get()
+         .then((snapshot) => {
+            if (snapshot.empty === true) {
+               error = "Username or password not found";
+               isLogin = false;
+               return;
+            }
+
+            snapshot.docs.forEach((doc) => {
+               window.localStorage.setItem(
+                  "userData",
+                  JSON.stringify({
+                     userId: doc.id,
+                     username: doc.data().username,
+                  })
+               );
+
+               goto("/");
+            });
+         });
+   }
 </script>
 
 <style>
@@ -200,6 +229,10 @@
 </svelte:head>
 
 <div class="container" in:scale>
+   {#if error !== undefined}
+      <Alert message={error} />
+   {/if}
+
    <form
       spellcheck="false"
       autocomplete="off"
@@ -231,6 +264,7 @@
       <button
          type="submit"
          class="button-form"
+         on:click={handleLogin}
          disabled={isValid === false || isLogin === true}>{isLogin === true ? 'Loading...' : 'Login'}</button>
 
       <a

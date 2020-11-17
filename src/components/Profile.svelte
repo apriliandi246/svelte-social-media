@@ -1,6 +1,6 @@
 <script>
    import { scale } from "svelte/transition";
-   export let user;
+   export let userData;
 </script>
 
 <style>
@@ -56,6 +56,11 @@
          box-shadow: none;
          border-radius: 0;
       }
+
+      .user__profile {
+         padding-left: 14.8px;
+         padding-right: 14.8px;
+      }
    }
 
    @media screen and (min-width: 760px) {
@@ -76,12 +81,12 @@
 <div class="user__profile" in:scale>
    <div class="user-profile-picture">
       <img
-         src="https://www.gravatar.com/avatar/{user.username.length}?s=120&d=robohash"
+         src="https://www.gravatar.com/avatar/{userData.username.length}?s=120&d=robohash"
          loading="lazy"
-         alt={user.username} />
+         alt={userData.username} />
    </div>
 
-   <p class="user__name">{user.username}</p>
-   <p class="user__bio">{user.bio}</p>
-   <p class="user__joined">Joined {user.joined}</p>
+   <p class="user__name">{userData.username}</p>
+   <p class="user__bio">{userData.bio}</p>
+   <p class="user__joined">Joined {userData.joined}</p>
 </div>

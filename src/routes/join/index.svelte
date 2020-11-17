@@ -1,4 +1,5 @@
 <script>
+   import { goto } from "@sapper/app";
    import { scale } from "svelte/transition";
 
    let isJoin = false;
@@ -70,7 +71,20 @@
       }
    }
 
-   async function handleJoin() {}
+   function handleJoin() {
+      isJoin = true;
+
+      db.collection("users")
+         .add({
+            username: username.value,
+            password: password.value,
+            bio: "-",
+            joined: Date.now(),
+         })
+         .then(() => {
+            goto("/login");
+         });
+   }
 </script>
 
 <style>

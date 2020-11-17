@@ -50,7 +50,7 @@
    }
 
    .current__menu {
-      padding-bottom: 19px;
+      padding-bottom: 18.5px;
       border-bottom: 5px solid #38444d;
    }
 

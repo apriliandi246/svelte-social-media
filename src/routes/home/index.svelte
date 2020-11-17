@@ -1,8 +1,23 @@
 <script>
+   import { onMount } from "svelte";
    import { scale } from "svelte/transition";
    import Card from "../../components/Card.svelte";
 
-   let posts = [];
+   let posts;
+
+   onMount(() => {
+      db.collection("posts")
+         .orderBy("date", "desc")
+         .onSnapshot((snapshot) => {
+            let changes = snapshot.docs;
+
+            if (changes.length === 0) {
+               posts = [];
+            } else {
+               posts = changes;
+            }
+         });
+   });
 </script>
 
 <style>
@@ -15,9 +30,9 @@
    .spinner-1::before {
       top: 50%;
       left: 50%;
-      width: 60px;
+      width: 55px;
       content: "";
-      height: 60px;
+      height: 55px;
       position: absolute;
       border-radius: 100%;
       box-sizing: border-box;
@@ -42,7 +57,7 @@
    <div class="spinner-1" />
 {:else if posts.length !== 0}
    {#each posts as post}
-      <Card post={post.data()} />
+      <Card post={post.data()} postId={post.id} />
    {/each}
 {:else}
    <h1 in:scale>🙅</h1>
