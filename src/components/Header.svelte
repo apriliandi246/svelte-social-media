@@ -9,9 +9,7 @@
       flex-direction: column;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
-      border-left: 5px solid #858992;
-      border-right: 5px solid #858992;
-      border-bottom: 5px solid #858992;
+      box-shadow: 13px 13px 1px #5a5553;
       background: linear-gradient(
          4deg,
          rgba(2, 0, 36, 1) 0%,
@@ -46,18 +44,24 @@
       font-weight: bold;
       letter-spacing: 1px;
       text-decoration: none;
-      transition: color 0.1s;
+      transition: padding-bottom 0.2s;
    }
 
    .current__menu {
-      padding-bottom: 18.5px;
-      border-bottom: 5px solid #38444d;
+      padding-bottom: 14.3px;
+      border-bottom: 5px solid #ffffff;
+   }
+
+   a:hover {
+      padding-bottom: 14.3px;
+      border-bottom: 5px solid #ffffff;
    }
 
    @media screen and (max-width: 599px) {
       header {
          border-right: none;
          border-left: none;
+         box-shadow: none;
          border-radius: 0;
       }
    }
@@ -69,20 +73,8 @@
    }
 
    @media screen and (min-width: 800px) {
-      a:hover,
-      .current__menu {
-         padding-bottom: 20px;
-      }
-
       a {
          font-size: calc(1rem - 1px);
-      }
-   }
-
-   @media screen and (min-width: 1200px) {
-      a:hover,
-      .current__menu {
-         padding-bottom: 19px;
       }
    }
 </style>

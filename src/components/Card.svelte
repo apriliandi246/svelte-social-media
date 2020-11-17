@@ -31,14 +31,13 @@
 <style>
    .card {
       width: 100%;
-      padding: 8px;
+      padding: 4px;
       margin-top: 40px;
       border-left: none;
       border-right: none;
       border-radius: 4px;
       box-sizing: border-box;
-      border: 3px solid #858992;
-      box-shadow: 12px 12px 1px #5a5553;
+      box-shadow: 13px 13px 1px #5a5553;
       background: linear-gradient(
          360deg,
          rgba(2, 0, 36, 1) 0%,
@@ -47,7 +46,7 @@
    }
 
    .card__head {
-      padding: 15px;
+      padding: 13px;
       margin: 3px 0 4px 0;
    }
 
@@ -81,6 +80,7 @@
       color: #ffffff;
       font-size: 0.8rem;
       border-radius: 100%;
+      border: 2px solid #ffffff;
    }
 
    .card__username {
@@ -88,15 +88,13 @@
       color: #ffffff;
       font-size: 1rem;
       text-align: center;
-      letter-spacing: 1px;
-      padding-bottom: 6px;
+      letter-spacing: 1.5px;
       text-decoration: none;
-      margin: 23.5px 0 0 18px;
-      border-bottom: 4px solid #858992;
+      margin: 17px 0 0 18px;
    }
 
    .card__description {
-      padding: 17px;
+      padding: 9px;
       color: #ffffff;
       font-size: 1rem;
       margin-top: 55px;
@@ -139,6 +137,10 @@
       .card {
          margin-bottom: 54px;
       }
+
+      .card__description {
+         padding: 17px;
+      }
    }
 
    @media screen and (min-width: 760px) {
@@ -156,6 +158,12 @@
 
       .card__like-total {
          font-size: calc(0.9rem - 2px);
+      }
+   }
+
+   @media screen and (min-width: 1050px) {
+      .card__username {
+         margin: 15px 0 0 18px;
       }
    }
 
@@ -185,7 +193,7 @@
 
    <div class="card__head">
       <img
-         src="https://www.gravatar.com/avatar/1605042202344?s=60&d=robohash"
+         src="https://www.gravatar.com/avatar/{post.username.length}?s=47&d=robohash"
          class="card__profile-photo"
          alt={post.username}
          loading="lazy" />

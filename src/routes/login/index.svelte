@@ -36,21 +36,23 @@
          .then((snapshot) => {
             if (snapshot.empty === true) {
                error = "Username or password not found";
+               username = "";
+               password = "";
+               isValid = false;
                isLogin = false;
-               return;
+            } else {
+               snapshot.docs.forEach((doc) => {
+                  localStorage.setItem(
+                     "userData",
+                     JSON.stringify({
+                        userId: doc.id,
+                        username: doc.data().username,
+                     })
+                  );
+
+                  goto("/");
+               });
             }
-
-            snapshot.docs.forEach((doc) => {
-               window.localStorage.setItem(
-                  "userData",
-                  JSON.stringify({
-                     userId: doc.id,
-                     username: doc.data().username,
-                  })
-               );
-
-               goto("/");
-            });
          });
    }
 </script>
@@ -228,7 +230,7 @@
    <title>Login</title>
 </svelte:head>
 
-<div class="container" in:scale>
+<div class="container" in:scale|local>
    {#if error !== undefined}
       <Alert message={error} />
    {/if}

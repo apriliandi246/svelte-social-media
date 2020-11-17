@@ -10,9 +10,9 @@
       padding: 25px;
       color: #ffffff;
       margin-top: 40px;
+      text-align: center;
       border-radius: 4px;
-      border: 2px solid #858992;
-      box-shadow: 12px 12px 1px #5a5553;
+      box-shadow: 13px 13px 1px #5a5553;
       background: linear-gradient(
          360deg,
          rgba(2, 0, 36, 1) 0%,
@@ -26,15 +26,9 @@
       letter-spacing: 0.4px;
    }
 
-   .user__bio {
-      font-size: 1rem;
-      margin-top: 25px;
-      line-height: 22px;
-      margin-bottom: 25px;
-      letter-spacing: 0.6px;
-   }
-
    .user__joined {
+      font-size: 1rem;
+      margin-top: 15px;
       letter-spacing: 1.2px;
    }
 
@@ -70,12 +64,8 @@
          font-size: 1.1rem;
       }
 
-      .user__bio {
-         font-size: calc(0.9rem - 1px);
-      }
-
       .user__joined {
-         font-size: 0.8rem;
+         font-size: calc(0.9rem - 1px);
       }
    }
 </style>
@@ -89,7 +79,6 @@
    </div>
 
    <p class="user__name">{userData.username}</p>
-   <p class="user__bio">{userData.bio}</p>
    <p class="user__joined">
       Joined
       {new Time(userData.joined).format('medium')}

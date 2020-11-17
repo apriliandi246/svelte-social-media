@@ -1,8 +1,10 @@
 <script>
    import { goto } from "@sapper/app";
-   import { scale } from "svelte/transition";
+   import { slide, scale } from "svelte/transition";
+   import Alert from "../../components/Alert.svelte";
 
    let isJoin = false;
+   let isError = false;
    let allInvalid = true;
 
    const { username, password, confirmPassword } = {
@@ -16,6 +18,7 @@
       password: {
          value: "",
          isValid: false,
+         isTyping: false,
          regexPattern: /^[\w@-]{6,}$/,
       },
 
@@ -72,17 +75,34 @@
    }
 
    function handleJoin() {
+      isError = false;
       isJoin = true;
 
       db.collection("users")
-         .add({
-            username: username.value,
-            password: password.value,
-            bio: "-",
-            joined: Date.now(),
-         })
-         .then(() => {
-            goto("/login");
+         .where("username", "==", username.value)
+         .get()
+         .then((snapshot) => {
+            if (snapshot.empty === true) {
+               db.collection("users")
+                  .add({
+                     username: username.value,
+                     password: password.value,
+                     bio: "-",
+                     joined: Date.now(),
+                  })
+                  .then(() => {
+                     goto("/login");
+                  });
+            } else {
+               confirmPassword.isSame = false;
+               confirmPassword.value = "";
+               password.isTyping = false;
+               password.isValid = false;
+               password.value = "";
+               username.value = "";
+               isJoin = false;
+               isError = true;
+            }
          });
    }
 </script>
@@ -269,7 +289,11 @@
    <title>Join</title>
 </svelte:head>
 
-<div class="container" in:scale>
+<div class="container" in:scale|local>
+   {#if isError === true && username.value === ''}
+      <Alert message="username already in use" />
+   {/if}
+
    <form
       spellcheck="false"
       autocomplete="off"
@@ -308,12 +332,16 @@
             class:border-invalid={password.isValid === false && password.isTyping === true} />
       </div>
 
-      {#if password.isValid === true && password.value !== undefined}
-         <div class="input-form" in:scale|local out:scale|local>
+      {#if password.isValid === true}
+         <div
+            class="input-form"
+            in:slide|local={{ duration: 210 }}
+            out:slide|local={{ duration: 210 }}>
             <label
                for="confirm-password"
                class="input-form__label"
-               class:color-invalid={confirmPassword.isSame === false}>PasswordConfirm</label>
+               class:color-invalid={confirmPassword.isSame === false}>Password
+               Confirm</label>
 
             <input
                required

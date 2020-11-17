@@ -45,9 +45,6 @@
    }
 </style>
 
-<div
-   class="alert"
-   in:scale|local={{ duration: 350 }}
-   out:scale|local={{ duration: 350 }}>
+<div class="alert" in:scale|local out:scale|local>
    <p class="alert__message">{message}</p>
 </div>

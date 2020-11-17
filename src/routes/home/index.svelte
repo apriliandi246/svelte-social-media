@@ -1,9 +1,10 @@
 <script>
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
-   import { user } from "../../store/user.js";
    import { scale } from "svelte/transition";
+   import { user } from "../../store/user.js";
    import Card from "../../components/Card.svelte";
+   import Spinner from "../../components/Spinner.svelte";
 
    let posts;
 
@@ -33,27 +34,6 @@
       font-size: 2.3rem;
       text-align: center;
    }
-
-   .spinner-1::before {
-      top: 50%;
-      left: 50%;
-      width: 55px;
-      content: "";
-      height: 55px;
-      position: absolute;
-      border-radius: 100%;
-      box-sizing: border-box;
-      margin: -10px 0 0 -30px;
-      border: 6px solid #ffffff;
-      border-top-color: transparent;
-      animation: spinner 0.8s linear infinite;
-   }
-
-   @keyframes spinner {
-      to {
-         transform: rotate(360deg);
-      }
-   }
 </style>
 
 <svelte:head>
@@ -61,7 +41,7 @@
 </svelte:head>
 
 {#if posts === undefined}
-   <div class="spinner-1" />
+   <Spinner />
 {:else if posts.length !== 0}
    {#each posts as post}
       <Card post={post.data()} postId={post.id} />
