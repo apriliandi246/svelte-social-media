@@ -3,7 +3,7 @@
    import { goto } from "@sapper/app";
    import { scale } from "svelte/transition";
    import { user } from "../../store/user.js";
-   import Card from "../../components/Card.svelte";
+   import Card from "../../components/Post.svelte";
    import Spinner from "../../components/Spinner.svelte";
 
    let posts;
