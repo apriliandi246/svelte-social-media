@@ -44,17 +44,15 @@
       font-weight: bold;
       letter-spacing: 1px;
       text-decoration: none;
-      transition: padding-bottom 0.2s;
+      transition: color 0.1s;
    }
 
    .current__menu {
-      padding-bottom: 14.3px;
-      border-bottom: 5px solid #ffffff;
+      color: #858992;
    }
 
    a:hover {
-      padding-bottom: 14.3px;
-      border-bottom: 5px solid #ffffff;
+      color: #858992;
    }
 
    @media screen and (max-width: 599px) {

@@ -19,10 +19,10 @@
          .onSnapshot((snapshot) => {
             let changes = snapshot.docs;
 
-            if (changes.length === 0) {
-               posts = [];
-            } else {
+            if (changes.length >= 1) {
                posts = changes;
+            } else {
+               posts = [];
             }
          });
    });

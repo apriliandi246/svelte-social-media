@@ -1,9 +1,9 @@
 <script>
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
-   import { user } from "../../store/user.js";
    import { scale } from "svelte/transition";
-   import Card from "../../components/Card.svelte";
+   import { user } from "../../store/user.js";
+   import Card from "../../components/Post.svelte";
    import Profile from "../../components/Profile.svelte";
    import Spinner from "../../components/Spinner.svelte";
 
@@ -55,12 +55,12 @@
    <Profile {userData} />
 {/if}
 
-{#if posts === undefined}
-   <!-- Nothing -->
-{:else if posts.length >= 1}
-   {#each posts as post}
-      <Card post={post.data()} postId={post.id} />
-   {/each}
-{:else if posts.length === 0}
-   <h1 class="no-post" in:scale>🙅</h1>
+{#if posts !== undefined}
+   {#if posts.length >= 1}
+      {#each posts as post}
+         <Card post={post.data()} postId={post.id} />
+      {/each}
+   {:else if posts.length === 0}
+      <h1 class="no-post" in:scale>🙅</h1>
+   {/if}
 {/if}

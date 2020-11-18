@@ -2,9 +2,32 @@
    import { user } from "../store/user.js";
    import { Time } from "../utils/date.js";
    import { scale } from "svelte/transition";
+   import Comment from "./CommentPost.svelte";
+   import CommentForm from "./CommentFormPost.svelte";
 
    export let post;
    export let postId;
+
+   let comments;
+   let showAllComments = false;
+
+   function showComments() {
+      showAllComments = !showAllComments;
+
+      if (showAllComments === true) {
+         db.collection("comments")
+            .where("post", "==", postId)
+            .onSnapshot((snapshot) => {
+               let changes = snapshot.docs;
+
+               if (changes.length >= 1) {
+                  comments = changes;
+               } else {
+                  comments = [];
+               }
+            });
+      }
+   }
 
    function handleLike() {
       const currentLikes = [...post.likes];
@@ -97,8 +120,9 @@
       padding: 9px;
       color: #ffffff;
       font-size: 1rem;
-      margin-top: 55px;
+      margin-top: 48px;
       line-height: 25px;
+      word-wrap: break-word;
       letter-spacing: 0.5px;
       white-space: pre-line;
       box-sizing: border-box;
@@ -112,22 +136,39 @@
    }
 
    .card__footer {
-      float: right;
-      padding: 11px;
+      padding: 14px;
+      display: flex;
       color: #858992;
       font-size: 0.9rem;
       letter-spacing: 0.5px;
       font-family: monospace;
+      justify-content: space-between;
+   }
+
+   .card__comments:hover {
+      cursor: pointer;
+      text-decoration: underline;
    }
 
    .card__like-icon:hover {
       transform: scale(1.4);
    }
 
+   .message {
+      color: #ffffff;
+      margin-top: 30px;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 30px;
+      font-family: monospace;
+   }
+
+   hr {
+      border: 3px solid #5a5553;
+   }
+
    @media screen and (max-width: 599px) {
       .card {
-         border-right: none;
-         border-left: none;
          box-shadow: none;
          border-radius: 0;
       }
@@ -182,6 +223,7 @@
    }
 </style>
 
+<!-- the post -->
 <div class="card cf" in:scale>
    <div class="card__like">
       <span class="card__like-icon" on:click={handleLike}>
@@ -203,5 +245,34 @@
 
    <div class="card__description">{post.words}</div>
 
-   <div class="card__footer">{new Time(post.date).fromNow()}</div>
+   <div class="card__footer">
+      <p class="card__comments" on:click={showComments}>
+         {showAllComments === true ? 'hide comments' : 'show comments'}
+      </p>
+      <p class="card__date">{new Time(post.date).fromNow()}</p>
+   </div>
 </div>
+
+<!-- comments and form -->
+{#if showAllComments === true}
+   {#if comments !== undefined}
+      <h1 class="message">
+         {Intl.NumberFormat().format(comments.length)}
+         comments
+      </h1>
+   {:else}
+      <h1 class="message">Loading....</h1>
+   {/if}
+
+   {#if comments !== undefined}
+      <CommentForm {postId} />
+
+      {#if comments.length !== 0}
+         {#each comments as comment}
+            <Comment comment={comment.data()} commentId={comment.id} />
+         {/each}
+      {/if}
+   {/if}
+
+   <hr />
+{/if}

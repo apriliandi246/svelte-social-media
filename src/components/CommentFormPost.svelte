@@ -1,9 +1,8 @@
 <script>
-   import { goto } from "@sapper/app";
-   import { user } from "../../store/user.js";
-   import { scale } from "svelte/transition";
-   import Alert from "../../components/Alert.svelte";
-   import { onMount } from "svelte";
+   import { user } from "../store/user.js";
+   import Alert from "./Alert.svelte";
+
+   export let postId;
 
    let isCreate = false;
 
@@ -27,30 +26,26 @@
    function onSubmit() {
       isCreate = true;
 
-      db.collection("posts")
+      db.collection("comments")
          .add({
             likes: [],
+            post: postId,
             words: value,
             date: `${new Date()}`,
             username: $user.username,
          })
          .then(() => {
-            goto("/");
+            isCreate = false;
+            isValid = false;
+            value = "";
          });
    }
-
-   onMount(() => {
-      if ($user === null) {
-         goto("/login");
-         return;
-      }
-   });
 </script>
 
 <style>
    form {
       width: 100%;
-      margin: 40px auto 0 auto;
+      margin: 30px auto 70px auto;
    }
 
    textarea {
@@ -63,6 +58,7 @@
       font-size: 1rem;
       line-height: 22px;
       letter-spacing: 1px;
+      white-space: pre-line;
       box-sizing: border-box;
       background-color: #192734;
       border: 2px solid #858992;
@@ -139,15 +135,15 @@
    <Alert message="Words must be less than 280 characters" />
 {/if}
 
-<form spellcheck="false" on:submit|preventDefault={onSubmit} in:scale>
+<form spellcheck="false" on:submit|preventDefault={onSubmit}>
    <textarea
-      rows="18"
+      rows="10"
       required
       bind:value
-      placeholder="What do you think ?"
+      placeholder="your comment...."
       disabled={isCreate === true} />
 
-   <button type="submit" disabled={isValid === false}>
-      {isCreate === true ? 'Loading....' : 'Post'}
+   <button type="submit" disabled={isValid === false || isLimit === true}>
+      {isCreate === true ? 'Loading....' : 'Comment'}
    </button>
 </form>
