@@ -33,6 +33,7 @@
             words: value,
             date: `${new Date()}`,
             username: $user.username,
+            whenPosted: `${Date.now()}`,
          })
          .then(() => {
             goto("/");

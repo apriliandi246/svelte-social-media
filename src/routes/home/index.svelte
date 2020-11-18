@@ -15,7 +15,7 @@
       }
 
       db.collection("posts")
-         .orderBy("date", "desc")
+         .orderBy("whenPosted", "desc")
          .onSnapshot((snapshot) => {
             let changes = snapshot.docs;
 
@@ -30,7 +30,7 @@
 
 <style>
    h1 {
-      margin-top: 60px;
+      margin-top: 80px;
       font-size: 2.3rem;
       text-align: center;
    }

@@ -87,8 +87,7 @@
                   .add({
                      username: username.value,
                      password: password.value,
-                     bio: "-",
-                     joined: Date.now(),
+                     joined: new Date(),
                   })
                   .then(() => {
                      goto("/login");
