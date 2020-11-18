@@ -1,6 +1,6 @@
 {
-  "name": "TODO",
-  "description": "TODO",
+  "name": "svelte-social-media",
+  "description": "social-media-app",
   "version": "0.0.1",
   "scripts": {
     "dev": "sapper dev",
