@@ -1,6 +1,7 @@
 <script>
    import { user } from "../store/user.js";
    import { Time } from "../utils/date.js";
+   import { scale } from "svelte/transition";
 
    export let comment;
    export let commentId;
@@ -167,7 +168,7 @@
    }
 </style>
 
-<div class="card cf">
+<div class="card cf" in:scale>
    <div class="card__like">
       <span class="card__like-icon" on:click={handleLike}>
          {comment.likes.includes($user.userId) === true ? '💚' : '♡'}

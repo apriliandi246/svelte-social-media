@@ -58,7 +58,7 @@
       margin-top: 40px;
       border-left: none;
       border-right: none;
-      border-radius: 4px;
+      border-radius: 2px;
       box-sizing: border-box;
       box-shadow: 13px 13px 1px #5a5553;
       background: linear-gradient(
@@ -154,6 +154,10 @@
       transform: scale(1.4);
    }
 
+   .card__username:hover {
+      text-decoration: underline;
+   }
+
    .message {
       color: #ffffff;
       margin-top: 30px;
@@ -240,7 +244,7 @@
          alt={post.username}
          loading="lazy" />
 
-      <p class="card__username">{post.username}</p>
+      <a href="/{post.username}" class="card__username">{post.username}</a>
    </div>
 
    <div class="card__description">{post.words}</div>
@@ -253,15 +257,15 @@
    </div>
 </div>
 
-<!-- comments and form -->
+<!-- comments and form comment -->
 {#if showAllComments === true}
    {#if comments !== undefined}
-      <h1 class="message">
+      <h1 class="message" in:scale>
          {Intl.NumberFormat().format(comments.length)}
          comments
       </h1>
    {:else}
-      <h1 class="message">Loading....</h1>
+      <h1 class="message" in:scale>Loading....</h1>
    {/if}
 
    {#if comments !== undefined}

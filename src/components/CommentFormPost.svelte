@@ -1,11 +1,11 @@
 <script>
    import { user } from "../store/user.js";
+   import { scale } from "svelte/transition";
    import Alert from "./Alert.svelte";
 
    export let postId;
 
    let isCreate = false;
-
    let { value, isLimit, isValid } = {
       value: "",
       isLimit: false,
@@ -136,7 +136,7 @@
    <Alert message="Words must be less than 280 characters" />
 {/if}
 
-<form spellcheck="false" on:submit|preventDefault={onSubmit}>
+<form spellcheck="false" on:submit|preventDefault={onSubmit} in:scale>
    <textarea
       rows="10"
       required

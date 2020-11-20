@@ -1,17 +1,13 @@
 <style>
-   .logo {
-      text-align: center;
-      margin-top: 40px;
-   }
-
-   .logo img {
+   img {
       width: 160px;
       height: 160px;
+      display: block;
       color: #ffffff;
-      border-radius: 4px;
+      border-radius: 2px;
+      filter: grayscale(50%);
+      margin: 50px auto 30px auto;
    }
 </style>
 
-<div class="logo">
-   <img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />
-</div>
+<img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />

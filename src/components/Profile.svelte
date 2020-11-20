@@ -11,7 +11,7 @@
       color: #ffffff;
       margin-top: 40px;
       text-align: center;
-      border-radius: 4px;
+      border-radius: 2px;
       box-shadow: 13px 13px 1px #5a5553;
       background: linear-gradient(
          360deg,

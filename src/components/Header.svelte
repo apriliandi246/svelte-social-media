@@ -5,6 +5,7 @@
 <style>
    header {
       display: flex;
+      border-radius: 2px;
       padding-bottom: 20px;
       flex-direction: column;
       border-bottom-left-radius: 4px;
@@ -17,18 +18,13 @@
       );
    }
 
-   div {
-      display: flex;
-      margin-top: 15px;
-      margin-bottom: 32px;
-      justify-content: center;
-   }
-
    img {
       width: 150px;
       height: 150px;
-      margin-top: 13px;
-      border-radius: 4px;
+      display: block;
+      margin: 32px auto;
+      border-radius: 2px;
+      filter: grayscale(50%);
    }
 
    ul {
@@ -78,7 +74,7 @@
 </style>
 
 <header>
-   <div><img src="/images/my-logo.jpg" alt="the-logo" loading="lazy" /></div>
+   <img src="/images/my-logo.jpg" alt="the-logo" loading="lazy" />
 
    <ul>
       <li><a href="/" class:current__menu={segment === 'home'}>Home</a></li>
