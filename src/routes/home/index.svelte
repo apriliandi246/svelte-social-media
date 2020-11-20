@@ -3,7 +3,7 @@
    import { goto } from "@sapper/app";
    import { scale } from "svelte/transition";
    import { user } from "../../store/user.js";
-   import Card from "../../components/Post.svelte";
+   import Post from "../../components/Post.svelte";
    import Spinner from "../../components/Spinner.svelte";
 
    let posts;
@@ -44,7 +44,7 @@
    <Spinner />
 {:else if posts.length !== 0}
    {#each posts as post}
-      <Card post={post.data()} postId={post.id} />
+      <Post postId={post.id} post={post.data()} />
    {/each}
 {:else}
    <h1 in:scale>🙅</h1>

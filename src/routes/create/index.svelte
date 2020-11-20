@@ -1,9 +1,9 @@
 <script>
-   import { goto } from "@sapper/app";
-   import { user } from "../../store/user.js";
-   import { scale } from "svelte/transition";
-   import Alert from "../../components/Alert.svelte";
    import { onMount } from "svelte";
+   import { goto } from "@sapper/app";
+   import { scale } from "svelte/transition";
+   import { user } from "../../store/user.js";
+   import Alert from "../../components/Alert.svelte";
 
    let isCreate = false;
 

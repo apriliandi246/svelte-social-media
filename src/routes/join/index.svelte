@@ -87,7 +87,7 @@
                   .add({
                      username: username.value,
                      password: password.value,
-                     joined: new Date(),
+                     joined: `${new Date()}`,
                   })
                   .then(() => {
                      goto("/login");
@@ -177,6 +177,7 @@
    .input-form__input,
    .button-form,
    .redirect-button-form {
+      border-radius: 2px;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto,
          "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
