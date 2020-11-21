@@ -210,6 +210,7 @@
       border-color: orangered;
    }
 
+   a::disabled,
    button:disabled {
       pointer-events: none;
    }
@@ -358,7 +359,7 @@
       <button
          type="submit"
          class="button-form"
-         disabled={allInvalid === true || isJoin === true}>{isJoin === true ? 'Loading...' : 'Join'}</button>
+         disabled={allInvalid === true || isJoin === true}>{isJoin === true ? 'Loading....' : 'Join'}</button>
 
       <a
          href="/login"

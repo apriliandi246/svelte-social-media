@@ -35,11 +35,11 @@
          .get()
          .then((snapshot) => {
             if (snapshot.empty === true) {
-               error = "Username or password not found";
                username = "";
                password = "";
                isValid = false;
                isLogin = false;
+               error = "Username or password not found";
             } else {
                snapshot.docs.forEach((doc) => {
                   localStorage.setItem(
@@ -50,7 +50,7 @@
                      })
                   );
 
-                  goto("/");
+                  goto("/home");
                });
             }
          });
@@ -152,6 +152,7 @@
          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
    }
 
+   a:disabled,
    button:disabled {
       pointer-events: none;
    }
@@ -268,7 +269,7 @@
          type="submit"
          class="button-form"
          on:click={handleLogin}
-         disabled={isValid === false || isLogin === true}>{isLogin === true ? 'Loading...' : 'Login'}</button>
+         disabled={isValid === false || isLogin === true}>{isLogin === true ? 'Loading....' : 'Login'}</button>
 
       <a
          href="/join"

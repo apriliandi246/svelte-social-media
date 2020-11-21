@@ -17,10 +17,8 @@
       db.collection("posts")
          .orderBy("whenPosted", "desc")
          .onSnapshot((snapshot) => {
-            let changes = snapshot.docs;
-
-            if (changes.length >= 1) {
-               posts = changes;
+            if (snapshot.docs.length >= 1) {
+               posts = snapshot.docs;
             } else {
                posts = [];
             }

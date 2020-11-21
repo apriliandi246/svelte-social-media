@@ -18,10 +18,8 @@
          db.collection("comments")
             .where("post", "==", postId)
             .onSnapshot((snapshot) => {
-               let changes = snapshot.docs;
-
-               if (changes.length >= 1) {
-                  comments = changes;
+               if (snapshot.docs.length >= 1) {
+                  comments = snapshot.docs;
                } else {
                   comments = [];
                }
@@ -32,21 +30,17 @@
    function handleLike() {
       const currentLikes = [...post.likes];
 
-      if (currentLikes.includes($user.userId) === true) {
-         const index = currentLikes.indexOf(postId);
+      if (currentLikes.includes($user.username) === true) {
+         const index = currentLikes.indexOf($user.username);
          currentLikes.splice(index, 1);
       } else {
-         currentLikes.push($user.userId);
+         currentLikes.push($user.username);
       }
 
       db.collection("posts")
          .doc(postId)
          .update({
             likes: [...currentLikes],
-         })
-         .then()
-         .catch((ex) => {
-            console.log(ex.message);
          });
    }
 </script>
@@ -231,7 +225,7 @@
 <div class="card cf" in:scale>
    <div class="card__like">
       <span class="card__like-icon" on:click={handleLike}>
-         {post.likes.includes($user.userId) === true ? '💚' : '♡'}
+         {post.likes.includes($user.username) === true ? '💚' : '♡'}
       </span>
       <span
          class="card__like-total">{Intl.NumberFormat().format(post.likes.length)}</span>

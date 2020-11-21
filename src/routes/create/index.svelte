@@ -36,14 +36,13 @@
             whenPosted: `${Date.now()}`,
          })
          .then(() => {
-            goto("/");
+            goto("/home");
          });
    }
 
    onMount(() => {
       if ($user === null) {
          goto("/login");
-         return;
       }
    });
 </script>
