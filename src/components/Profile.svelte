@@ -73,9 +73,9 @@
 <div class="user__profile" in:scale>
    <div class="user-profile-picture">
       <img
-         src="https://www.gravatar.com/avatar/{userData.username.length}?s=120&d=robohash"
          loading="lazy"
-         alt={userData.username} />
+         alt={userData.username}
+         src="https://www.gravatar.com/avatar/{userData.username.length}?s=120&d=robohash" />
    </div>
 
    <p class="user__name">{userData.username}</p>

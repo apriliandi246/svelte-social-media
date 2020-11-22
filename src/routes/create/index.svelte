@@ -141,11 +141,11 @@
 
 <form spellcheck="false" on:submit|preventDefault={onSubmit} in:scale>
    <textarea
-      rows="18"
       required
+      rows="18"
       bind:value
-      placeholder="What do you think ?"
-      disabled={isCreate === true} />
+      disabled={isCreate === true}
+      placeholder="What do you think ?" />
 
    <button type="submit" disabled={isValid === false}>
       {isCreate === true ? 'Loading....' : 'Post'}

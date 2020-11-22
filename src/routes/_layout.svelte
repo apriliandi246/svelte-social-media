@@ -1,6 +1,7 @@
 <script>
-   import Header from "../components/Header.svelte";
    import Logo from "../components/Logo.svelte";
+   import Header from "../components/Header.svelte";
+
    export let segment;
 </script>
 

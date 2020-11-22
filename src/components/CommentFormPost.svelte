@@ -141,8 +141,8 @@
       rows="10"
       required
       bind:value
-      placeholder="your comment...."
-      disabled={isCreate === true} />
+      disabled={isCreate === true}
+      placeholder="your comment...." />
 
    <button type="submit" disabled={isValid === false || isLimit === true}>
       {isCreate === true ? 'Loading....' : 'Comment'}

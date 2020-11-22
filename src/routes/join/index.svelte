@@ -310,10 +310,10 @@
             type="text"
             id="username"
             placeholder="username"
-            bind:value={username.value}
+            class="input-form__input"
             disabled={isJoin === true}
-            class:border-invalid={username.isValid === false && username.isTyping === true}
-            class="input-form__input" />
+            bind:value={username.value}
+            class:border-invalid={username.isValid === false && username.isTyping === true} />
       </div>
 
       <div class="input-form">
@@ -328,8 +328,8 @@
             type="password"
             placeholder="password"
             class="input-form__input"
-            bind:value={password.value}
             disabled={isJoin === true}
+            bind:value={password.value}
             class:border-invalid={password.isValid === false && password.isTyping === true} />
       </div>
 

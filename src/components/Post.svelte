@@ -1,7 +1,7 @@
 <script>
    import { user } from "../store/user.js";
    import { Time } from "../utils/date.js";
-   import { scale } from "svelte/transition";
+   import { scale, slide } from "svelte/transition";
    import Comment from "./CommentPost.svelte";
    import CommentForm from "./CommentFormPost.svelte";
 
@@ -81,7 +81,7 @@
       font-size: 1.3rem;
       font-weight: bold;
       margin-right: 5px;
-      transition: transform 0.1s;
+      transition: transform 0.2s, color 0.2s;
    }
 
    .card__like-total {
@@ -145,7 +145,8 @@
    }
 
    .card__like-icon:hover {
-      transform: scale(1.4);
+      color: #77ae3f;
+      transform: scale(1.3);
    }
 
    .card__username:hover {
@@ -233,10 +234,10 @@
 
    <div class="card__head">
       <img
-         src="https://www.gravatar.com/avatar/{post.username.length}?s=47&d=robohash"
-         class="card__profile-photo"
+         loading="lazy"
          alt={post.username}
-         loading="lazy" />
+         class="card__profile-photo"
+         src="https://www.gravatar.com/avatar/{post.username.length}?s=47&d=robohash" />
 
       <a href="/{post.username}" class="card__username">{post.username}</a>
    </div>

@@ -3,7 +3,7 @@
    import { scale } from "svelte/transition";
    import Alert from "../../components/Alert.svelte";
 
-   let error;
+   let isError;
    let isLogin = false;
 
    let { username, password, isValid } = {
@@ -17,12 +17,14 @@
          isValid = false;
       } else {
          isValid = true;
+         isError = false;
       }
 
       if (password.trim() === "") {
          isValid = false;
       } else {
          isValid = true;
+         isError = false;
       }
    }
 
@@ -39,7 +41,7 @@
                password = "";
                isValid = false;
                isLogin = false;
-               error = "Username or password not found";
+               isError = true;
             } else {
                snapshot.docs.forEach((doc) => {
                   localStorage.setItem(
@@ -233,8 +235,8 @@
 </svelte:head>
 
 <div class="container" in:scale|local>
-   {#if error !== undefined}
-      <Alert message={error} />
+   {#if isError === true}
+      <Alert message="Username or password not found" />
    {/if}
 
    <form
@@ -247,10 +249,10 @@
          <input
             type="text"
             id="email"
-            placeholder="username"
             bind:value={username}
-            disabled={isLogin === true}
-            class="input-form__input" />
+            placeholder="username"
+            class="input-form__input"
+            disabled={isLogin === true} />
       </div>
 
       <div class="input-form">
@@ -259,10 +261,10 @@
          <input
             id="password"
             type="password"
-            placeholder="password"
             bind:value={password}
-            disabled={isLogin === true}
-            class="input-form__input" />
+            placeholder="password"
+            class="input-form__input"
+            disabled={isLogin === true} />
       </div>
 
       <button
@@ -273,7 +275,7 @@
 
       <a
          href="/join"
-         class="redirect-button-form"
-         disabled={isLogin === true}>Join</a>
+         disabled={isLogin === true}
+         class="redirect-button-form">Join</a>
    </form>
 </div>
