@@ -57,7 +57,7 @@
       font-size: 1.3rem;
       font-weight: bold;
       margin-right: 5px;
-      transition: transform 0.1s;
+      transition: transform 0.2s, color 0.2s;
    }
 
    .card__like-total {
@@ -115,7 +115,8 @@
    }
 
    .card__like-icon:hover {
-      transform: scale(1.4);
+      color: #77ae3f;
+      transform: scale(1.3);
    }
 
    @media screen and (max-width: 599px) {
@@ -180,10 +181,10 @@
 
    <div class="card__head">
       <img
-         src="https://www.gravatar.com/avatar/0?s=47&d=robohash"
-         class="card__profile-photo"
          loading="lazy"
-         alt={comment.username.length} />
+         class="card__profile-photo"
+         alt={comment.username.length}
+         src="https://www.gravatar.com/avatar/0?s=47&d=robohash" />
 
       <p class="card__username">{comment.username}</p>
    </div>
