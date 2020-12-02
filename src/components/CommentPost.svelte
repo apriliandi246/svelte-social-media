@@ -119,6 +119,10 @@
       transform: scale(1.3);
    }
 
+   .card__username:hover {
+      text-decoration: underline;
+   }
+
    @media screen and (max-width: 599px) {
       .card {
          border-radius: 0;
@@ -186,7 +190,9 @@
          alt={comment.username.length}
          src="https://www.gravatar.com/avatar/0?s=47&d=robohash" />
 
-      <p class="card__username">{comment.username}</p>
+      <a
+         href="/{comment.username}"
+         class="card__username">{comment.username}</a>
    </div>
 
    <div class="card__description">{comment.words}</div>

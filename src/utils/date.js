@@ -80,21 +80,18 @@ export class Time {
       let month = Math.floor(week / 4.345);
       let year = Math.floor(month / 12);
 
-      let result;
+      if (year > 0) return year === 1 ? "a year ago" : `${year} years ago`;
 
-      if (year > 0)
-         return (result = year === 1 ? "a year ago" : `${year} years ago`);
-      if (month > 0)
-         return (result = month === 1 ? "a month ago" : `${month} months ago`);
-      if (week > 0)
-         return (result = week === 1 ? "a week ago" : `${week} weeks ago`);
-      if (day > 0)
-         return (result = day === 1 ? "a day ago" : `${day} days ago`);
-      if (hour > 0)
-         return (result = hour === 1 ? "an hour ago" : `${hour} hours ago`);
+      if (month > 0) return month === 1 ? "a month ago" : `${month} months ago`;
+
+      if (week > 0) return week === 1 ? "a week ago" : `${week} weeks ago`;
+
+      if (day > 0) return day === 1 ? "a day ago" : `${day} days ago`;
+
+      if (hour > 0) return hour === 1 ? "an hour ago" : `${hour} hours ago`;
+
       if (minute > 0)
-         return (result =
-            minute === 1 ? "a minute ago" : `${minute} minutes ago`);
+         return minute === 1 ? "a minute ago" : `${minute} minutes ago`;
 
       return "a few seconds ago";
    }
