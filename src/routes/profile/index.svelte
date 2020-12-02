@@ -5,16 +5,14 @@
    import { user } from "../../store/user.js";
    import Card from "../../components/Post.svelte";
    import Profile from "../../components/Profile.svelte";
-   import Spinner from "../../components/Spinner.svelte";
+   import PostSkeleton from "../../components/PostSkeleton.svelte";
+   import ProfileSkeleton from "../../components/ProfileSkeleton.svelte";
 
    let posts;
    let userData;
 
    onMount(() => {
-      if ($user === null) {
-         goto("/login");
-         return;
-      }
+      if ($user === null) return goto("/login");
 
       db.collection("users")
          .where("username", "==", $user.username)
@@ -50,7 +48,10 @@
 </svelte:head>
 
 {#if userData === undefined}
-   <Spinner />
+   <ProfileSkeleton />
+   <PostSkeleton />
+   <PostSkeleton />
+   <PostSkeleton />
 {:else}
    <Profile {userData} />
 {/if}

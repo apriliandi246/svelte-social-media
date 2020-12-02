@@ -51,9 +51,9 @@
                         username: doc.data().username,
                      })
                   );
-
-                  goto("/home");
                });
+
+               goto("/");
             }
          });
    }

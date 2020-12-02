@@ -4,15 +4,12 @@
    import { scale } from "svelte/transition";
    import { user } from "../../store/user.js";
    import Post from "../../components/Post.svelte";
-   import Spinner from "../../components/Spinner.svelte";
+   import PostSkeleton from "../../components/PostSkeleton.svelte";
 
    let posts;
 
    onMount(() => {
-      if ($user === null) {
-         goto("/login");
-         return;
-      }
+      if ($user === null) return goto("/login");
 
       db.collection("posts")
          .orderBy("whenPosted", "desc")
@@ -39,7 +36,9 @@
 </svelte:head>
 
 {#if posts === undefined}
-   <Spinner />
+   <PostSkeleton />
+   <PostSkeleton />
+   <PostSkeleton />
 {:else if posts.length !== 0}
    {#each posts as post}
       <Post postId={post.id} post={post.data()} />
