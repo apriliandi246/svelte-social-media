@@ -1,5 +1,4 @@
 <script>
-   import { goto } from "@sapper/app";
    import { scale } from "svelte/transition";
    import Alert from "../../components/Alert.svelte";
 
@@ -53,7 +52,7 @@
                   );
                });
 
-               goto("/");
+               window.location.href = "/";
             }
          });
    }

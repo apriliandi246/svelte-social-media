@@ -1,5 +1,5 @@
 <script>
-   import { user } from "../store/user.js";
+   import { user } from "../store/store.js";
    import { Time } from "../utils/date.js";
    import { scale } from "svelte/transition";
 

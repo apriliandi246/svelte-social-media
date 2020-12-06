@@ -34,7 +34,7 @@
 
    .card__large-block {
       width: 100%;
-      height: 100px;
+      height: 140px;
       margin-top: 20px;
       border-radius: 4px;
       animation: loading 1s ease-in-out infinite;

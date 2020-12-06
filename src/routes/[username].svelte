@@ -9,10 +9,12 @@
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
    import { scale } from "svelte/transition";
-   import { user } from "../store/user.js";
+   import { user, isUserFetch } from "../store/store.js";
    import Post from "../components/Post.svelte";
    import Profile from "../components/Profile.svelte";
    import Spinner from "../components/Spinner.svelte";
+   import PostSkeleton from "../components/PostSkeleton.svelte";
+   import ProfileSkeleton from "../components/ProfileSkeleton.svelte";
 
    export let username;
 
@@ -20,10 +22,7 @@
    let userData;
 
    onMount(() => {
-      if (username === $user.username) {
-         goto("/profile");
-         return;
-      }
+      if (username === $user.username) return goto("/profile");
 
       db.collection("users")
          .where("username", "==", username)
@@ -31,16 +30,18 @@
          .then((snapshot) => {
             snapshot.docs.forEach((doc) => {
                userData = doc.data();
+
+               if ($isUserFetch === false) {
+                  $isUserFetch = true;
+               }
             });
 
             db.collection("posts")
                .where("username", "==", username)
                .onSnapshot((snapshot) => {
-                  if (snapshot.docs.length >= 1) {
-                     posts = snapshot.docs;
-                  } else {
-                     posts = [];
-                  }
+                  snapshot.docs.length >= 1
+                     ? (posts = snapshot.docs)
+                     : (posts = []);
                });
          });
    });
@@ -58,10 +59,18 @@
    <title>{username}</title>
 </svelte:head>
 
-{#if userData === undefined}
+{#if userData === undefined && $isUserFetch === false}
+   <ProfileSkeleton />
+{:else if userData === undefined && $isUserFetch === true}
    <Spinner />
 {:else}
    <Profile {userData} />
+{/if}
+
+{#if posts === undefined && $isUserFetch === false}
+   <PostSkeleton />
+   <PostSkeleton />
+   <PostSkeleton />
 {/if}
 
 {#if posts !== undefined}
@@ -69,7 +78,7 @@
       {#each posts as post}
          <Post postId={post.id} post={post.data()} />
       {/each}
-   {:else if posts.length === 0}
+   {:else}
       <h1 class="no-post" in:scale>🙅</h1>
    {/if}
 {/if}

@@ -1,7 +1,7 @@
 <script>
-   import { user } from "../store/user.js";
+   import { user } from "../store/store.js";
    import { Time } from "../utils/date.js";
-   import { scale, slide } from "svelte/transition";
+   import { scale } from "svelte/transition";
    import Comment from "./CommentPost.svelte";
    import CommentForm from "./CommentFormPost.svelte";
 
@@ -223,7 +223,7 @@
 </style>
 
 <!-- the post -->
-<div class="card cf" in:scale>
+<div class="card cf" in:scale={{ duration: 470 }}>
    <div class="card__like">
       <span class="card__like-icon" on:click={handleLike}>
          {post.likes.includes($user.username) === true ? '💚' : '♡'}

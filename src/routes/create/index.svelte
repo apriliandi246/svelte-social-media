@@ -2,7 +2,7 @@
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
    import { scale } from "svelte/transition";
-   import { user } from "../../store/user.js";
+   import { user } from "../../store/store.js";
    import Alert from "../../components/Alert.svelte";
 
    let isCreate = false;
@@ -139,7 +139,10 @@
    <Alert message="Words must be less than 280 characters" />
 {/if}
 
-<form spellcheck="false" on:submit|preventDefault={onSubmit} in:scale>
+<form
+   spellcheck="false"
+   in:scale={{ duration: 470 }}
+   on:submit|preventDefault={onSubmit}>
    <textarea
       required
       rows="18"

@@ -1,5 +1,5 @@
 <script>
-   import { user } from "../store/user.js";
+   import { user } from "../store/store.js";
    import { scale } from "svelte/transition";
    import Alert from "./Alert.svelte";
 

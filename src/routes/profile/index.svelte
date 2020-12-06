@@ -2,9 +2,10 @@
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
    import { scale } from "svelte/transition";
-   import { user } from "../../store/user.js";
-   import Card from "../../components/Post.svelte";
+   import { user, profileFtech } from "../../store/store.js";
+   import Post from "../../components/Post.svelte";
    import Profile from "../../components/Profile.svelte";
+   import Spinner from "../../components/Spinner.svelte";
    import PostSkeleton from "../../components/PostSkeleton.svelte";
    import ProfileSkeleton from "../../components/ProfileSkeleton.svelte";
 
@@ -20,16 +21,18 @@
          .then((snapshot) => {
             snapshot.docs.forEach((doc) => {
                userData = doc.data();
+
+               if ($profileFtech === false) {
+                  $profileFtech = true;
+               }
             });
 
             db.collection("posts")
                .where("username", "==", $user.username)
                .onSnapshot((snapshot) => {
-                  if (snapshot.docs.length >= 1) {
-                     posts = snapshot.docs;
-                  } else {
-                     posts = [];
-                  }
+                  snapshot.docs.length >= 1
+                     ? (posts = snapshot.docs)
+                     : (posts = []);
                });
          });
    });
@@ -37,7 +40,7 @@
 
 <style>
    .no-post {
-      margin-top: 110px;
+      margin-top: 90px;
       font-size: 2.3rem;
       text-align: center;
    }
@@ -47,21 +50,26 @@
    <title>My Profile</title>
 </svelte:head>
 
-{#if userData === undefined}
+{#if userData === undefined && $profileFtech === false}
    <ProfileSkeleton />
-   <PostSkeleton />
-   <PostSkeleton />
-   <PostSkeleton />
+{:else if userData === undefined && $profileFtech === true}
+   <Spinner />
 {:else}
    <Profile {userData} />
+{/if}
+
+{#if posts === undefined && $profileFtech === false}
+   <PostSkeleton />
+   <PostSkeleton />
+   <PostSkeleton />
 {/if}
 
 {#if posts !== undefined}
    {#if posts.length >= 1}
       {#each posts as post}
-         <Card post={post.data()} postId={post.id} />
+         <Post post={post.data()} postId={post.id} />
       {/each}
-   {:else if posts.length === 0}
+   {:else}
       <h1 class="no-post" in:scale>🙅</h1>
    {/if}
 {/if}
