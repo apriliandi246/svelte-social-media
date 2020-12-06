@@ -22,9 +22,8 @@
       width: 150px;
       height: 150px;
       display: block;
-      margin: 32px auto;
-      border-radius: 2px;
-      filter: grayscale(50%);
+      margin: 35px auto;
+      border-radius: 100%;
    }
 
    ul {

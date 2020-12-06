@@ -81,7 +81,7 @@
       font-size: 1.3rem;
       font-weight: bold;
       margin-right: 5px;
-      transition: transform 0.2s, color 0.2s;
+      transition: transform 0.1s, color 0.1s;
    }
 
    .card__like-total {
@@ -108,6 +108,7 @@
       letter-spacing: 1.5px;
       text-decoration: none;
       margin: 17px 0 0 18px;
+      transition: color 0.1s;
    }
 
    .card__description {
@@ -150,12 +151,12 @@
    }
 
    .card__username:hover {
-      text-decoration: underline;
+      color: #858992;
    }
 
    .message {
       color: #ffffff;
-      margin-top: 30px;
+      margin-top: 40px;
       font-size: 1.1rem;
       text-align: center;
       margin-bottom: 30px;
@@ -170,6 +171,10 @@
       .card {
          box-shadow: none;
          border-radius: 0;
+      }
+
+      hr {
+         margin-top: 40px;
       }
    }
 

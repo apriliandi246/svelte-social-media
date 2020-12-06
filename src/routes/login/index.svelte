@@ -233,7 +233,7 @@
    <title>Login</title>
 </svelte:head>
 
-<div class="container" in:scale|local>
+<div class="container" in:scale|local={{ duration: 460 }}>
    {#if isError === true}
       <Alert message="Username or password not found" />
    {/if}
@@ -275,6 +275,6 @@
       <a
          href="/join"
          disabled={isLogin === true}
-         class="redirect-button-form">Join</a>
+         class="redirect-button-form">You haven't joined yet?? Join</a>
    </form>
 </div>

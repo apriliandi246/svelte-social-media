@@ -4,8 +4,7 @@
       height: 160px;
       display: block;
       color: #ffffff;
-      border-radius: 2px;
-      filter: grayscale(50%);
+      border-radius: 100%;
       margin: 50px auto 30px auto;
    }
 </style>

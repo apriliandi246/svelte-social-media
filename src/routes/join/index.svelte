@@ -290,7 +290,7 @@
    <title>Join</title>
 </svelte:head>
 
-<div class="container" in:scale|local>
+<div class="container" in:scale|local={{ duration: 460 }}>
    {#if isError === true && username.value === ''}
       <Alert message="username already in use" />
    {/if}
@@ -364,6 +364,6 @@
       <a
          href="/login"
          class="redirect-button-form"
-         disabled={isJoin === true}>Login</a>
+         disabled={isJoin === true}>you have already joined?? Login</a>
    </form>
 </div>
