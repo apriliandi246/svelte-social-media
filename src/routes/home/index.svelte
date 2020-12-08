@@ -40,6 +40,7 @@
    <PostSkeleton />
    <PostSkeleton />
    <PostSkeleton />
+   <PostSkeleton />
 {:else if posts === undefined && $homeFetch === true}
    <Spinner />
 {:else if posts.length !== 0}

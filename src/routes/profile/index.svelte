@@ -62,6 +62,7 @@
    <PostSkeleton />
    <PostSkeleton />
    <PostSkeleton />
+   <PostSkeleton />
 {/if}
 
 {#if posts !== undefined}

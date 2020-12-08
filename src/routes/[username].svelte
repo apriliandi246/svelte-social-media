@@ -28,12 +28,17 @@
          .where("username", "==", username)
          .get()
          .then((snapshot) => {
+            if ($isUserFetch === false) {
+               $isUserFetch = true;
+            }
+
+            if (snapshot.docs.length === 0) {
+               userData = [];
+               return;
+            }
+
             snapshot.docs.forEach((doc) => {
                userData = doc.data();
-
-               if ($isUserFetch === false) {
-                  $isUserFetch = true;
-               }
             });
 
             db.collection("posts")
@@ -53,6 +58,14 @@
       font-size: 2.3rem;
       text-align: center;
    }
+
+   .no-user {
+      color: #ffffff;
+      font-size: 1.7rem;
+      margin-top: 140px;
+      text-align: center;
+      letter-spacing: 2px;
+   }
 </style>
 
 <svelte:head>
@@ -63,11 +76,14 @@
    <ProfileSkeleton />
 {:else if userData === undefined && $isUserFetch === true}
    <Spinner />
+{:else if userData.length === 0}
+   <h1 class="no-user" in:scale>{username} 🙅</h1>
 {:else}
    <Profile {userData} />
 {/if}
 
 {#if posts === undefined && $isUserFetch === false}
+   <PostSkeleton />
    <PostSkeleton />
    <PostSkeleton />
    <PostSkeleton />
