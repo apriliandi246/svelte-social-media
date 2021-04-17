@@ -1,4 +1,4 @@
-<img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />
+<img src="/images/my-logo.jpg" alt="my-logo" />
 
 <style>
    img {

@@ -1,5 +1,5 @@
 <div class="card">
-   <div class="card__large-block" />
+   <div class="card__large_block" />
 </div>
 
 <style>
@@ -16,7 +16,7 @@
       );
    }
 
-   .card__large-block {
+   .card__large_block {
       width: 100%;
       height: 200px;
       border-radius: 4px;

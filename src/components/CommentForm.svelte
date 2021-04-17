@@ -131,9 +131,6 @@
    textarea {
       border-radius: 4px;
       box-shadow: inset 0px 0px 2px rgba(255, 255, 255, 1);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto,
-         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
    }
 
    @media screen and (max-width: 599px) {

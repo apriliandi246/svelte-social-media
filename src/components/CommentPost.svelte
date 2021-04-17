@@ -12,7 +12,9 @@
       if (currentLikes.includes($user.userId) === true) {
          const index = currentLikes.indexOf(commentId);
          currentLikes.splice(index, 1);
-      } else {
+      }
+
+      if (currentLikes.includes($user.userId) === false) {
          currentLikes.push($user.userId);
       }
 
@@ -30,10 +32,10 @@
 
 <div class="card cf" in:scale={{ duration: 400 }}>
    <div class="card__like">
-      <span class="card__like-icon" on:click={handleLike}>
+      <span class="card__like_icon" on:click={handleLike}>
          {comment.likes.includes($user.userId) === true ? "💚" : "♡"}
       </span>
-      <span class="card__like-total"
+      <span class="card__like_total"
          >{Intl.NumberFormat().format(comment.likes.length)}
       </span>
    </div>
@@ -83,7 +85,7 @@
       align-items: center;
    }
 
-   .card__like-icon {
+   .card__like_icon {
       padding: 5px;
       color: #ffffff;
       cursor: pointer;
@@ -93,7 +95,7 @@
       transition: transform 0.1s, color 0.1s;
    }
 
-   .card__like-total {
+   .card__like_total {
       font-size: 1rem;
       color: #ffffff;
       margin-right: 5px;
@@ -132,13 +134,6 @@
       box-sizing: border-box;
    }
 
-   .card__username,
-   .card__description {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto,
-         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-   }
-
    .card__footer {
       float: right;
       padding: 11px;
@@ -148,7 +143,7 @@
       font-family: monospace;
    }
 
-   .card__like-icon:hover {
+   .card__like_icon:hover {
       color: #77ae3f;
       transform: scale(1.3);
    }
@@ -183,7 +178,7 @@
       .card__footer {
          font-size: 0.9rem;
       }
-      .card__like-total {
+      .card__like_total {
          font-size: calc(0.9rem - 2px);
       }
    }

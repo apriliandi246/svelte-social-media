@@ -4,7 +4,7 @@
    export let message;
 </script>
 
-<div class="alert" in:scale|local out:scale|local>
+<div class="alert" transition:scale|local>
    <p class="alert__message">{message}</p>
 </div>
 
@@ -26,9 +26,6 @@
    .alert__message {
       font-size: 1rem;
       letter-spacing: 0.7px;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto,
-         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
    }
 
    @media screen and (max-width: 599px) {

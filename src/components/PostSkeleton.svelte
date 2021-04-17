@@ -1,41 +1,41 @@
 <div class="card cf">
    <div class="card__head">
       <div class="card__circle" />
-      <div class="card__head-block" />
+      <div class="card__head_block" />
    </div>
 
-   <div class="card__large-block" />
-   <div class="card__footer-block" />
+   <div class="card__large_block" />
+   <div class="card__footer_block" />
 </div>
 
 <div class="card cf">
    <div class="card__head">
       <div class="card__circle" />
-      <div class="card__head-block" />
+      <div class="card__head_block" />
    </div>
 
-   <div class="card__large-block" />
-   <div class="card__footer-block" />
+   <div class="card__large_block" />
+   <div class="card__footer_block" />
 </div>
 
 <div class="card cf">
    <div class="card__head">
       <div class="card__circle" />
-      <div class="card__head-block" />
+      <div class="card__head_block" />
    </div>
 
-   <div class="card__large-block" />
-   <div class="card__footer-block" />
+   <div class="card__large_block" />
+   <div class="card__footer_block" />
 </div>
 
 <div class="card cf">
    <div class="card__head">
       <div class="card__circle" />
-      <div class="card__head-block" />
+      <div class="card__head_block" />
    </div>
 
-   <div class="card__large-block" />
-   <div class="card__footer-block" />
+   <div class="card__large_block" />
+   <div class="card__footer_block" />
 </div>
 
 <style>
@@ -64,7 +64,7 @@
       animation: loading 1s ease-in-out infinite;
    }
 
-   .card__head-block {
+   .card__head_block {
       width: 170px;
       height: 20px;
       margin-left: 20px;
@@ -72,7 +72,7 @@
       animation: loading 1s ease-in-out infinite;
    }
 
-   .card__large-block {
+   .card__large_block {
       width: 100%;
       height: 150px;
       margin-top: 20px;
@@ -80,7 +80,7 @@
       animation: loading 1s ease-in-out infinite;
    }
 
-   .card__footer-block {
+   .card__footer_block {
       width: 160px;
       height: 25px;
       float: right;

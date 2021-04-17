@@ -64,12 +64,12 @@
          <Post post={post.data()} postId={post.id} />
       {/each}
    {:else}
-      <h1 class="no-post">🙅</h1>
+      <h1>🙅</h1>
    {/if}
 {/if}
 
 <style>
-   .no-post {
+   h1 {
       margin-top: 90px;
       font-size: 2.3rem;
       text-align: center;

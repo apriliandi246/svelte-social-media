@@ -2,30 +2,33 @@
    export let segment;
 </script>
 
-<header>
+<div class="head">
    <img
       width="150px"
       height="150px"
       alt="the-logo"
       loading="lazy"
+      class="head__img"
       src="/images/my-logo.jpg"
    />
 
-   <ul>
-      <li><a href="/" class:current_menu={segment === "home"}>Home</a></li>
-      <li>
+   <ul class="head__lists">
+      <li class="head__list">
+         <a href="/" class:current_menu={segment === "home"}>Home</a>
+      </li>
+      <li class="head__list">
          <a href="/profile" class:current_menu={segment === "profile"}
             >Your profile</a
          >
       </li>
-      <li>
+      <li class="head__list">
          <a href="/create" class:current_menu={segment === "create"}> Create</a>
       </li>
    </ul>
-</header>
+</div>
 
 <style>
-   header {
+   .head {
       display: flex;
       border-radius: 4px;
       margin-bottom: 60px;
@@ -43,18 +46,18 @@
       );
    }
 
-   img {
+   .head__img {
       display: block;
       margin: 35px auto;
       border-radius: 100%;
    }
 
-   ul {
+   .head__lists {
       display: flex;
       justify-content: space-around;
    }
 
-   li,
+   .head__list,
    a {
       color: #858992;
       font-size: 1rem;

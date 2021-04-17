@@ -5,17 +5,16 @@
    export let userData;
 </script>
 
-<div class="user__profile" in:scale={{ duration: 300 }}>
-   <div class="user-profile-picture">
-      <img
-         width="100px"
-         height="100px"
-         loading="lazy"
-         alt={userData.username}
-         src="https://www.gravatar.com/avatar/{userData.username
-            .length}?s=100&d=robohash"
-      />
-   </div>
+<div class="user" in:scale={{ duration: 300 }}>
+   <img
+      width="100px"
+      height="100px"
+      loading="lazy"
+      alt={userData.username}
+      class="user__profile_picture"
+      src="https://www.gravatar.com/avatar/{userData.username
+         .length}?s=100&d=robohash"
+   />
 
    <p class="user__name">{userData.username}</p>
 
@@ -26,14 +25,19 @@
 </div>
 
 <style>
-   .user__profile {
-      padding: 25px;
+   .user {
+      display: flex;
       color: #ffffff;
       margin-top: 40px;
+      padding-top: 50px;
       text-align: center;
       border-radius: 4px;
-      border: 3px solid #5a5553;
       margin-bottom: 70px;
+      align-items: center;
+      padding-bottom: 40px;
+      flex-direction: column;
+      justify-content: center;
+      border: 3px solid #5a5553;
       box-shadow: 12px 12px 1px 1px #5a5553;
       background: linear-gradient(
          360deg,
@@ -54,21 +58,19 @@
       letter-spacing: 1.2px;
    }
 
-   .user-profile-picture {
-      font-size: 0.9rem;
-      border-radius: 4px;
-      margin-top: -17px;
-      margin-bottom: 28px;
-   }
-
-   .user-profile-picture img {
+   .user__profile_picture {
+      display: block;
       color: #ffffff;
+      font-size: 0.9rem;
+      margin-top: -17px;
+      border-radius: 4px;
+      margin-bottom: 28px;
       border-radius: 100%;
       border: 3px solid #858992;
    }
 
    @media screen and (max-width: 599px) {
-      .user__profile {
+      .user {
          padding-left: 14.8px;
          padding-right: 14.8px;
       }

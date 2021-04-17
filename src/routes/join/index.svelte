@@ -124,7 +124,7 @@
       <div class="input-form">
          <label
             for="username"
-            class="input-form__label"
+            class="input_form__label"
             class:color-invalid={username.isValid === false &&
                username.isTyping === true}>Username</label
          >
@@ -134,7 +134,7 @@
             type="text"
             id="username"
             placeholder="username"
-            class="input-form__input"
+            class="input_form__input"
             disabled={isJoin === true}
             bind:value={username.value}
             class:border-invalid={username.isValid === false &&
@@ -145,7 +145,7 @@
       <div class="input-form">
          <label
             for="password"
-            class="input-form__label"
+            class="input_form__label"
             class:color-invalid={password.isValid === false &&
                password.isTyping === true}>Password</label
          >
@@ -155,7 +155,7 @@
             id="password"
             type="password"
             placeholder="password"
-            class="input-form__input"
+            class="input_form__input"
             disabled={isJoin === true}
             bind:value={password.value}
             class:border-invalid={password.isValid === false &&
@@ -171,7 +171,7 @@
          >
             <label
                for="confirm-password"
-               class="input-form__label"
+               class="input_form__label"
                class:color-invalid={confirmPassword.isSame === false}
                >Password Confirm</label
             >
@@ -180,7 +180,7 @@
                required
                type="password"
                id="confirm-password"
-               class="input-form__input"
+               class="input_form__input"
                disabled={isJoin === true}
                placeholder="password confirm"
                bind:value={confirmPassword.value}
@@ -191,12 +191,12 @@
 
       <button
          type="submit"
-         class="button-form"
+         class="button_form"
          disabled={allInvalid === true || isJoin === true}
          >{isJoin === true ? "Loading...." : "Join"}</button
       >
 
-      <a href="/login" class="redirect-button-form" disabled={isJoin === true}
+      <a href="/login" class="redirect_button" disabled={isJoin === true}
          >you have already joined?? Login</a
       >
    </form>
@@ -216,14 +216,14 @@
       margin-top: 32px;
    }
 
-   .input-form__label {
+   .input_form__label {
       color: #ffffff;
       font-size: 1rem;
       letter-spacing: 1px;
       transition: color 0.2s;
    }
 
-   .input-form__input {
+   .input_form__input {
       width: 100%;
       outline: none;
       padding: 11px;
@@ -238,7 +238,7 @@
       transition: background-color 0.2s, border-color 0.2s;
    }
 
-   .button-form {
+   .button_form {
       width: 100%;
       padding: 10px;
       outline: none;
@@ -253,7 +253,7 @@
       transition: color 0.2s, background-color 0.2s;
    }
 
-   .redirect-button-form {
+   .redirect_button {
       width: 100%;
       padding: 11px;
       outline: none;
@@ -270,31 +270,28 @@
       transition: color 0.2s, background-color 0.2s;
    }
 
-   .input-form__input,
-   .button-form,
-   .redirect-button-form {
+   .button_form,
+   .redirect_button,
+   .input_form__input {
       border-radius: 2px;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto,
-         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
    }
 
-   .input-form__input:focus {
+   .input_form__input:focus {
       background-color: #15202b;
    }
 
-   .input-form__input::placeholder {
+   .input_form__input::placeholder {
       letter-spacing: 1px;
       font-family: monospace;
    }
 
-   .button-form:hover,
-   .redirect-button-form:hover {
+   .button_form:hover,
+   .redirect_button:hover {
       background-color: #15202b;
    }
 
-   .button-form:focus,
-   .redirect-button-form:focus {
+   .button_form:focus,
+   .redirect_button:focus {
       background-color: #273742;
    }
 
@@ -322,10 +319,10 @@
          width: 52%;
       }
 
-      .input-form__label,
-      .input-form__input,
-      .button-form,
-      .redirect-button-form {
+      .button_form,
+      .redirect_button,
+      .input_form__label,
+      .input_form__input {
          font-size: 0.9rem;
       }
    }
@@ -343,10 +340,10 @@
    }
 
    @media screen and (min-width: 1200px) {
-      .input-form__label,
-      .input-form__input,
-      .button-form,
-      .redirect-button-form {
+      .button_form,
+      .redirect_button,
+      .input_form__label,
+      .input_form__input {
          font-size: calc(0.8rem + 1px);
       }
    }

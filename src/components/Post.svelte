@@ -48,10 +48,10 @@
 <!-- the post -->
 <div class="card cf" in:scale={{ duration: 400 }}>
    <div class="card__like">
-      <span class="card__like-icon" on:click={handleLike}>
+      <span class="card__like_icon" on:click={handleLike}>
          {post.likes.includes($user.username) === true ? "💚" : "♡"}
       </span>
-      <span class="card__like-total"
+      <span class="card__like_total"
          >{Intl.NumberFormat().format(post.likes.length)}</span
       >
    </div>
@@ -62,7 +62,7 @@
          height="47px"
          loading="lazy"
          alt={post.username}
-         class="card__profile-photo"
+         class="card__profile_photo"
          src="https://www.gravatar.com/avatar/{post.username
             .length}?s=47&d=robohash"
       />
@@ -132,7 +132,7 @@
       align-items: center;
    }
 
-   .card__like-icon {
+   .card__like_icon {
       padding: 5px;
       color: #ffffff;
       cursor: pointer;
@@ -142,7 +142,7 @@
       transition: transform 0.1s, color 0.1s;
    }
 
-   .card__like-total {
+   .card__like_total {
       font-size: 1rem;
       color: #ffffff;
       margin-right: 5px;
@@ -150,7 +150,7 @@
       font-family: monospace;
    }
 
-   .card__profile-photo {
+   .card__profile_photo {
       float: left;
       color: #ffffff;
       font-size: 0.8rem;
@@ -181,13 +181,6 @@
       box-sizing: border-box;
    }
 
-   .card__username,
-   .card__description {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto,
-         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-   }
-
    .card__footer {
       padding: 14px;
       display: flex;
@@ -203,7 +196,7 @@
       text-decoration: underline;
    }
 
-   .card__like-icon:hover {
+   .card__like_icon:hover {
       color: #77ae3f;
       transform: scale(1.3);
    }
@@ -258,7 +251,7 @@
          font-size: 0.9rem;
       }
 
-      .card__like-total {
+      .card__like_total {
          font-size: calc(0.9rem - 2px);
       }
    }

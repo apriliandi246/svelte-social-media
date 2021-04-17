@@ -61,7 +61,7 @@
 {:else if userData === undefined && $isUserFetch === true}
    <ProfileSkeleton />
 {:else if userData.length === 0}
-   <h1 class="no-user">{username} 🙅</h1>
+   <h1 class="no_user">{username} 🙅</h1>
 {:else}
    <Profile {userData} />
 {/if}
@@ -76,18 +76,18 @@
          <Post postId={post.id} post={post.data()} />
       {/each}
    {:else}
-      <h1 class="no-post">🙅</h1>
+      <h1 class="no_post">🙅</h1>
    {/if}
 {/if}
 
 <style>
-   .no-post {
+   .no_post {
       margin-top: 110px;
       font-size: 2.3rem;
       text-align: center;
    }
 
-   .no-user {
+   .no_user {
       color: #ffffff;
       font-size: 1.7rem;
       margin-top: 140px;

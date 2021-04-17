@@ -73,41 +73,41 @@
       in:scale={{ duration: 400 }}
       on:submit|preventDefault={handleLogin}
    >
-      <div class="input-form">
-         <label for="email" class="input-form__label">Username</label>
+      <div class="input_form">
+         <label for="email" class="input_form__label">Username</label>
 
          <input
-            type="text"
             id="email"
+            type="text"
             bind:value={username}
             placeholder="username"
-            class="input-form__input"
+            class="input_form__input"
             disabled={isLogin === true}
          />
       </div>
 
-      <div class="input-form">
-         <label for="password" class="input-form__label">Password</label>
+      <div class="input_form">
+         <label for="password" class="input_form__label">Password</label>
 
          <input
             id="password"
             type="password"
             bind:value={password}
             placeholder="password"
-            class="input-form__input"
+            class="input_form__input"
             disabled={isLogin === true}
          />
       </div>
 
       <button
          type="submit"
-         class="button-form"
+         class="button_form"
          on:click={handleLogin}
          disabled={isValid === false || isLogin === true}
          >{isLogin === true ? "Loading...." : "Login"}</button
       >
 
-      <a href="/join" disabled={isLogin === true} class="redirect-button-form"
+      <a href="/join" disabled={isLogin === true} class="redirect_button"
          >You haven't joined yet?? Join</a
       >
    </form>
@@ -123,17 +123,17 @@
       width: 100%;
    }
 
-   .input-form {
+   .input_form {
       margin-top: 32px;
    }
 
-   .input-form__label {
+   .input_form__label {
       color: #ffffff;
       font-size: 1rem;
       letter-spacing: 1px;
    }
 
-   .input-form__input {
+   .input_form__input {
       width: 100%;
       outline: none;
       padding: 11px;
@@ -148,7 +148,7 @@
       transition: background-color 0.2s;
    }
 
-   .button-form {
+   .button_form {
       width: 100%;
       padding: 10px;
       outline: none;
@@ -163,7 +163,7 @@
       transition: color 0.2s, background-color 0.2s;
    }
 
-   .redirect-button-form {
+   .redirect_button {
       width: 100%;
       padding: 11px;
       outline: none;
@@ -180,32 +180,29 @@
       transition: color 0.2s, background-color 0.2s;
    }
 
-   .input-form__input:focus {
+   .input_form__input:focus {
       background-color: #15202b;
    }
 
-   .input-form__input::placeholder {
+   .input_form__input::placeholder {
       letter-spacing: 1px;
       font-family: monospace;
    }
 
-   .button-form:hover,
-   .redirect-button-form:hover {
+   .button_form:hover,
+   .redirect_button:hover {
       background-color: #15202b;
    }
 
-   .button-form:focus,
-   .redirect-button-form:focus {
+   .button_form:focus,
+   .redirect_button:focus {
       background-color: #273742;
    }
 
-   .input-form__input,
-   .button-form,
-   .redirect-button-form {
+   .button_form,
+   .redirect_button,
+   .input_form__input {
       border-radius: 2px;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto,
-         "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
-         "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
    }
 
    a:disabled,
@@ -224,10 +221,10 @@
          width: 52%;
       }
 
-      .input-form__label,
-      .input-form__input,
-      .button-form,
-      .redirect-button-form {
+      .button_form,
+      .redirect_button,
+      .input_form__label,
+      .input_form__input {
          font-size: 0.9rem;
       }
    }
@@ -245,10 +242,10 @@
    }
 
    @media screen and (min-width: 1200px) {
-      .input-form__label,
-      .input-form__input,
-      .button-form,
-      .redirect-button-form {
+      .button_form,
+      .redirect_button,
+      .input_form__label,
+      .input_form__input {
          font-size: calc(0.8rem + 1px);
       }
    }
