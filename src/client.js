@@ -1,9 +1,7 @@
 import * as sapper from "@sapper/app";
-import { firebaseConfig } from "./firebaseConfig";
+import fire from "./config/firebaseConfig";
 
-const app = firebase.initializeApp(firebaseConfig);
-
-window.db = app.firestore();
+window.db = fire.firestore();
 
 sapper.start({
    target: document.querySelector("#sapper"),

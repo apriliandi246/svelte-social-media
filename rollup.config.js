@@ -25,13 +25,17 @@ export default {
       output: config.client.output(),
       plugins: [
          replace({
-            "process.browser": true,
-            "process.env.NODE_ENV": JSON.stringify(mode),
+            preventAssignment: true,
+            values: {
+               "process.browser": true,
+               "process.env.NODE_ENV": JSON.stringify(mode),
+            },
          }),
          svelte({
-            dev,
-            hydratable: true,
-            emitCss: true,
+            compilerOptions: {
+               dev,
+               hydratable: true,
+            },
          }),
          url({
             sourceDir: path.resolve(__dirname, "src/node_modules/images"),
@@ -82,13 +86,19 @@ export default {
       output: config.server.output(),
       plugins: [
          replace({
-            "process.browser": false,
-            "process.env.NODE_ENV": JSON.stringify(mode),
+            preventAssignment: true,
+            values: {
+               "process.browser": false,
+               "process.env.NODE_ENV": JSON.stringify(mode),
+            },
          }),
          svelte({
-            generate: "ssr",
-            hydratable: true,
-            dev,
+            compilerOptions: {
+               dev,
+               generate: "ssr",
+               hydratable: true,
+            },
+            emitCss: false,
          }),
          url({
             sourceDir: path.resolve(__dirname, "src/node_modules/images"),
@@ -103,7 +113,6 @@ export default {
       external: Object.keys(pkg.dependencies).concat(
          require("module").builtinModules
       ),
-
       preserveEntrySignatures: "strict",
       onwarn,
    },
@@ -114,13 +123,15 @@ export default {
       plugins: [
          resolve(),
          replace({
-            "process.browser": true,
-            "process.env.NODE_ENV": JSON.stringify(mode),
+            preventAssignment: true,
+            values: {
+               "process.browser": true,
+               "process.env.NODE_ENV": JSON.stringify(mode),
+            },
          }),
          commonjs(),
          !dev && terser(),
       ],
-
       preserveEntrySignatures: false,
       onwarn,
    },
