@@ -8,21 +8,21 @@
 <script>
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
-   import { scale } from "svelte/transition";
-   import { user, isUserFetch } from "../store/store.js";
    import Post from "../components/Post.svelte";
    import Profile from "../components/Profile.svelte";
-   import Spinner from "../components/Spinner.svelte";
+   import { user, isUserFetch } from "../store/store.js";
    import PostSkeleton from "../components/PostSkeleton.svelte";
    import ProfileSkeleton from "../components/ProfileSkeleton.svelte";
 
-   export let username;
-
    let posts;
    let userData;
+   export let username;
 
    onMount(() => {
-      if (username === $user.username) return goto("/profile");
+      if (username === $user.username) {
+         goto("/profile");
+         return;
+      }
 
       db.collection("users")
          .where("username", "==", username)
@@ -52,6 +52,34 @@
    });
 </script>
 
+<svelte:head>
+   <title>{username}</title>
+</svelte:head>
+
+{#if userData === undefined && $isUserFetch === false}
+   <ProfileSkeleton />
+{:else if userData === undefined && $isUserFetch === true}
+   <ProfileSkeleton />
+{:else if userData.length === 0}
+   <h1 class="no-user">{username} 🙅</h1>
+{:else}
+   <Profile {userData} />
+{/if}
+
+{#if posts === undefined && $isUserFetch === false}
+   <PostSkeleton />
+{/if}
+
+{#if posts !== undefined}
+   {#if posts.length >= 1}
+      {#each posts as post}
+         <Post postId={post.id} post={post.data()} />
+      {/each}
+   {:else}
+      <h1 class="no-post">🙅</h1>
+   {/if}
+{/if}
+
 <style>
    .no-post {
       margin-top: 110px;
@@ -67,34 +95,3 @@
       letter-spacing: 2px;
    }
 </style>
-
-<svelte:head>
-   <title>{username}</title>
-</svelte:head>
-
-{#if userData === undefined && $isUserFetch === false}
-   <ProfileSkeleton />
-{:else if userData === undefined && $isUserFetch === true}
-   <Spinner />
-{:else if userData.length === 0}
-   <h1 class="no-user" in:scale>{username} 🙅</h1>
-{:else}
-   <Profile {userData} />
-{/if}
-
-{#if posts === undefined && $isUserFetch === false}
-   <PostSkeleton />
-   <PostSkeleton />
-   <PostSkeleton />
-   <PostSkeleton />
-{/if}
-
-{#if posts !== undefined}
-   {#if posts.length >= 1}
-      {#each posts as post}
-         <Post postId={post.id} post={post.data()} />
-      {/each}
-   {:else}
-      <h1 class="no-post" in:scale>🙅</h1>
-   {/if}
-{/if}

@@ -58,6 +58,61 @@
    }
 </script>
 
+<svelte:head>
+   <title>Login</title>
+</svelte:head>
+
+<div class="container">
+   {#if isError === true}
+      <Alert message="Username or password not found" />
+   {/if}
+
+   <form
+      spellcheck="false"
+      autocomplete="off"
+      in:scale={{ duration: 400 }}
+      on:submit|preventDefault={handleLogin}
+   >
+      <div class="input-form">
+         <label for="email" class="input-form__label">Username</label>
+
+         <input
+            type="text"
+            id="email"
+            bind:value={username}
+            placeholder="username"
+            class="input-form__input"
+            disabled={isLogin === true}
+         />
+      </div>
+
+      <div class="input-form">
+         <label for="password" class="input-form__label">Password</label>
+
+         <input
+            id="password"
+            type="password"
+            bind:value={password}
+            placeholder="password"
+            class="input-form__input"
+            disabled={isLogin === true}
+         />
+      </div>
+
+      <button
+         type="submit"
+         class="button-form"
+         on:click={handleLogin}
+         disabled={isValid === false || isLogin === true}
+         >{isLogin === true ? "Loading...." : "Login"}</button
+      >
+
+      <a href="/join" disabled={isLogin === true} class="redirect-button-form"
+         >You haven't joined yet?? Join</a
+      >
+   </form>
+</div>
+
 <style>
    .container {
       width: 88%;
@@ -228,53 +283,3 @@
       }
    }
 </style>
-
-<svelte:head>
-   <title>Login</title>
-</svelte:head>
-
-<div class="container" in:scale|local={{ duration: 460 }}>
-   {#if isError === true}
-      <Alert message="Username or password not found" />
-   {/if}
-
-   <form
-      spellcheck="false"
-      autocomplete="off"
-      on:submit|preventDefault={handleLogin}>
-      <div class="input-form">
-         <label for="email" class="input-form__label">Username</label>
-
-         <input
-            type="text"
-            id="email"
-            bind:value={username}
-            placeholder="username"
-            class="input-form__input"
-            disabled={isLogin === true} />
-      </div>
-
-      <div class="input-form">
-         <label for="password" class="input-form__label">Password</label>
-
-         <input
-            id="password"
-            type="password"
-            bind:value={password}
-            placeholder="password"
-            class="input-form__input"
-            disabled={isLogin === true} />
-      </div>
-
-      <button
-         type="submit"
-         class="button-form"
-         on:click={handleLogin}
-         disabled={isValid === false || isLogin === true}>{isLogin === true ? 'Loading....' : 'Login'}</button>
-
-      <a
-         href="/join"
-         disabled={isLogin === true}
-         class="redirect-button-form">You haven't joined yet?? Join</a>
-   </form>
-</div>

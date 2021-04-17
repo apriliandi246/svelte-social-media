@@ -1,7 +1,7 @@
 <script>
+   import Alert from "./Alert.svelte";
    import { user } from "../store/store.js";
    import { scale } from "svelte/transition";
-   import Alert from "./Alert.svelte";
 
    export let postId;
 
@@ -42,6 +42,32 @@
          });
    }
 </script>
+
+<svelte:head>
+   <title>Post</title>
+</svelte:head>
+
+{#if isLimit === true}
+   <Alert message="Words must be less than 280 characters" />
+{/if}
+
+<form
+   spellcheck="false"
+   in:scale={{ duration: 400 }}
+   on:submit|preventDefault={onSubmit}
+>
+   <textarea
+      rows="10"
+      required
+      bind:value
+      disabled={isCreate === true}
+      placeholder="your comment...."
+   />
+
+   <button type="submit" disabled={isValid === false || isLimit === true}>
+      {isCreate === true ? "Loading...." : "Comment"}
+   </button>
+</form>
 
 <style>
    form {
@@ -127,24 +153,3 @@
       }
    }
 </style>
-
-<svelte:head>
-   <title>Post</title>
-</svelte:head>
-
-{#if isLimit === true}
-   <Alert message="Words must be less than 280 characters" />
-{/if}
-
-<form spellcheck="false" on:submit|preventDefault={onSubmit} in:scale>
-   <textarea
-      rows="10"
-      required
-      bind:value
-      disabled={isCreate === true}
-      placeholder="your comment...." />
-
-   <button type="submit" disabled={isValid === false || isLimit === true}>
-      {isCreate === true ? 'Loading....' : 'Comment'}
-   </button>
-</form>

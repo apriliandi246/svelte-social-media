@@ -1,3 +1,5 @@
+<img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />
+
 <style>
    img {
       width: 160px;
@@ -8,5 +10,3 @@
       margin: 50px auto 30px auto;
    }
 </style>
-
-<img src="/images/my-logo.jpg" loading="lazy" alt="my_logo" />

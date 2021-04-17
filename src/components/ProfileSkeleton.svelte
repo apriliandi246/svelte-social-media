@@ -1,9 +1,13 @@
+<div class="card">
+   <div class="card__large-block" />
+</div>
+
 <style>
    .card {
       width: 100%;
       padding: 23px;
       margin-top: 40px;
-      border-radius: 2px;
+      border-radius: 4px;
       box-sizing: border-box;
       background: linear-gradient(
          360deg,
@@ -36,7 +40,3 @@
       }
    }
 </style>
-
-<div class="card">
-   <div class="card__large-block" />
-</div>

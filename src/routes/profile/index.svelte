@@ -1,11 +1,9 @@
 <script>
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
-   import { scale } from "svelte/transition";
-   import { user, profileFtech } from "../../store/store.js";
    import Post from "../../components/Post.svelte";
    import Profile from "../../components/Profile.svelte";
-   import Spinner from "../../components/Spinner.svelte";
+   import { user, profileFtech } from "../../store/store.js";
    import PostSkeleton from "../../components/PostSkeleton.svelte";
    import ProfileSkeleton from "../../components/ProfileSkeleton.svelte";
 
@@ -38,30 +36,19 @@
    });
 </script>
 
-<style>
-   .no-post {
-      margin-top: 90px;
-      font-size: 2.3rem;
-      text-align: center;
-   }
-</style>
-
 <svelte:head>
-   <title>My Profile</title>
+   <title>My profile</title>
 </svelte:head>
 
 {#if userData === undefined && $profileFtech === false}
    <ProfileSkeleton />
 {:else if userData === undefined && $profileFtech === true}
-   <Spinner />
+   <ProfileSkeleton />
 {:else}
    <Profile {userData} />
 {/if}
 
 {#if posts === undefined && $profileFtech === false}
-   <PostSkeleton />
-   <PostSkeleton />
-   <PostSkeleton />
    <PostSkeleton />
 {/if}
 
@@ -71,6 +58,14 @@
          <Post post={post.data()} postId={post.id} />
       {/each}
    {:else}
-      <h1 class="no-post" in:scale>🙅</h1>
+      <h1 class="no-post">🙅</h1>
    {/if}
 {/if}
+
+<style>
+   .no-post {
+      margin-top: 90px;
+      font-size: 2.3rem;
+      text-align: center;
+   }
+</style>

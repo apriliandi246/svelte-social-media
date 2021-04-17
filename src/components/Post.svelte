@@ -1,8 +1,8 @@
 <script>
-   import { user } from "../store/store.js";
    import { Time } from "../utils/date.js";
-   import { scale } from "svelte/transition";
+   import { user } from "../store/store.js";
    import Comment from "./CommentPost.svelte";
+   import { scale } from "svelte/transition";
    import CommentForm from "./CommentFormPost.svelte";
 
    export let post;
@@ -45,6 +45,65 @@
    }
 </script>
 
+<!-- the post -->
+<div class="card cf" in:scale={{ duration: 400 }}>
+   <div class="card__like">
+      <span class="card__like-icon" on:click={handleLike}>
+         {post.likes.includes($user.username) === true ? "💚" : "♡"}
+      </span>
+      <span class="card__like-total"
+         >{Intl.NumberFormat().format(post.likes.length)}</span
+      >
+   </div>
+
+   <div class="card__head">
+      <img
+         width="47px"
+         height="47px"
+         loading="lazy"
+         alt={post.username}
+         class="card__profile-photo"
+         src="https://www.gravatar.com/avatar/{post.username
+            .length}?s=47&d=robohash"
+      />
+
+      <a href="/{post.username}" class="card__username">{post.username}</a>
+   </div>
+
+   <div class="card__description">{post.words}</div>
+
+   <div class="card__footer">
+      <p class="card__comments" on:click={showComments}>
+         {showAllComments === true ? "hide comments" : "show comments"}
+      </p>
+      <p class="card__date">{new Time(post.date).fromNow()}</p>
+   </div>
+</div>
+
+<!-- comments and form comment -->
+{#if showAllComments === true}
+   {#if comments !== undefined}
+      <h1 class="message">
+         {Intl.NumberFormat().format(comments.length)}
+         comments
+      </h1>
+   {:else}
+      <h1 class="message">Loading....</h1>
+   {/if}
+
+   {#if comments !== undefined}
+      <CommentForm {postId} />
+
+      {#if comments.length !== 0}
+         {#each comments as comment}
+            <Comment comment={comment.data()} commentId={comment.id} />
+         {/each}
+      {/if}
+   {/if}
+
+   <hr />
+{/if}
+
 <style>
    .card {
       width: 100%;
@@ -52,9 +111,9 @@
       margin-top: 40px;
       border-left: none;
       border-right: none;
-      border-radius: 2px;
+      border-radius: 4px;
       box-sizing: border-box;
-      box-shadow: 13px 13px 1px #5a5553;
+      box-shadow: 14px 14px 1px 1px #5a5553;
       background: linear-gradient(
          360deg,
          rgba(2, 0, 36, 1) 0%,
@@ -97,7 +156,7 @@
       color: #ffffff;
       font-size: 0.8rem;
       border-radius: 100%;
-      border: 2px solid #ffffff;
+      border: 3px solid #858992;
    }
 
    .card__username {
@@ -169,8 +228,7 @@
 
    @media screen and (max-width: 599px) {
       .card {
-         box-shadow: none;
-         border-radius: 0;
+         box-shadow: 10px 10px 1px 1px #5a5553;
       }
 
       hr {
@@ -226,57 +284,3 @@
       }
    }
 </style>
-
-<!-- the post -->
-<div class="card cf" in:scale={{ duration: 470 }}>
-   <div class="card__like">
-      <span class="card__like-icon" on:click={handleLike}>
-         {post.likes.includes($user.username) === true ? '💚' : '♡'}
-      </span>
-      <span
-         class="card__like-total">{Intl.NumberFormat().format(post.likes.length)}</span>
-   </div>
-
-   <div class="card__head">
-      <img
-         loading="lazy"
-         alt={post.username}
-         class="card__profile-photo"
-         src="https://www.gravatar.com/avatar/{post.username.length}?s=47&d=robohash" />
-
-      <a href="/{post.username}" class="card__username">{post.username}</a>
-   </div>
-
-   <div class="card__description">{post.words}</div>
-
-   <div class="card__footer">
-      <p class="card__comments" on:click={showComments}>
-         {showAllComments === true ? 'hide comments' : 'show comments'}
-      </p>
-      <p class="card__date">{new Time(post.date).fromNow()}</p>
-   </div>
-</div>
-
-<!-- comments and form comment -->
-{#if showAllComments === true}
-   {#if comments !== undefined}
-      <h1 class="message" in:scale>
-         {Intl.NumberFormat().format(comments.length)}
-         comments
-      </h1>
-   {:else}
-      <h1 class="message" in:scale>Loading....</h1>
-   {/if}
-
-   {#if comments !== undefined}
-      <CommentForm {postId} />
-
-      {#if comments.length !== 0}
-         {#each comments as comment}
-            <Comment comment={comment.data()} commentId={comment.id} />
-         {/each}
-      {/if}
-   {/if}
-
-   <hr />
-{/if}

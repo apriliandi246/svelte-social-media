@@ -1,8 +1,8 @@
 <script>
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
-   import { scale } from "svelte/transition";
    import { user } from "../../store/store.js";
+   import { scale } from "svelte/transition";
    import Alert from "../../components/Alert.svelte";
 
    let isCreate = false;
@@ -46,6 +46,32 @@
       }
    });
 </script>
+
+<svelte:head>
+   <title>Post</title>
+</svelte:head>
+
+{#if isLimit === true}
+   <Alert message="Words must be less than 280 characters" />
+{/if}
+
+<form
+   spellcheck="false"
+   in:scale={{ duration: 400 }}
+   on:submit|preventDefault={onSubmit}
+>
+   <textarea
+      required
+      rows="18"
+      bind:value
+      disabled={isCreate === true}
+      placeholder="What do you think ?"
+   />
+
+   <button type="submit" disabled={isValid === false}>
+      {isCreate === true ? "Loading...." : "Post"}
+   </button>
+</form>
 
 <style>
    form {
@@ -130,27 +156,3 @@
       }
    }
 </style>
-
-<svelte:head>
-   <title>Post</title>
-</svelte:head>
-
-{#if isLimit === true}
-   <Alert message="Words must be less than 280 characters" />
-{/if}
-
-<form
-   spellcheck="false"
-   in:scale={{ duration: 470 }}
-   on:submit|preventDefault={onSubmit}>
-   <textarea
-      required
-      rows="18"
-      bind:value
-      disabled={isCreate === true}
-      placeholder="What do you think ?" />
-
-   <button type="submit" disabled={isValid === false}>
-      {isCreate === true ? 'Loading....' : 'Post'}
-   </button>
-</form>

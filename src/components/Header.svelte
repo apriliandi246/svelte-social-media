@@ -2,6 +2,22 @@
    export let segment;
 </script>
 
+<header>
+   <img src="/images/my-logo.jpg" alt="the-logo" loading="lazy" />
+
+   <ul>
+      <li><a href="/" class:current_menu={segment === "home"}>Home</a></li>
+      <li>
+         <a href="/profile" class:current_menu={segment === "profile"}
+            >Your profile</a
+         >
+      </li>
+      <li>
+         <a href="/create" class:current_menu={segment === "create"}> Create</a>
+      </li>
+   </ul>
+</header>
+
 <style>
    header {
       display: flex;
@@ -10,7 +26,7 @@
       flex-direction: column;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
-      box-shadow: 13px 13px 1px #5a5553;
+      box-shadow: 14px 14px 1px 1px #5a5553;
       background: linear-gradient(
          4deg,
          rgba(2, 0, 36, 1) 0%,
@@ -33,7 +49,7 @@
 
    li,
    a {
-      color: #ffffff;
+      color: #858992;
       font-size: 1rem;
       cursor: pointer;
       font-weight: bold;
@@ -42,20 +58,20 @@
       transition: color 0.1s;
    }
 
-   .current__menu {
-      color: #858992;
+   .current_menu {
+      color: #ffffff;
    }
 
    a:hover {
-      color: #858992;
+      color: #ffffff;
    }
 
    @media screen and (max-width: 599px) {
       header {
-         border-right: none;
-         border-left: none;
          box-shadow: none;
          border-radius: 0;
+         border-left: none;
+         border-right: none;
       }
    }
 
@@ -71,19 +87,3 @@
       }
    }
 </style>
-
-<header>
-   <img src="/images/my-logo.jpg" alt="the-logo" loading="lazy" />
-
-   <ul>
-      <li><a href="/" class:current__menu={segment === 'home'}>Home</a></li>
-      <li>
-         <a href="/profile" class:current__menu={segment === 'profile'}>Your
-            profile</a>
-      </li>
-      <li>
-         <a href="/create" class:current__menu={segment === 'create'}>
-            Create</a>
-      </li>
-   </ul>
-</header>

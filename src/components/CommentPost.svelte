@@ -1,6 +1,6 @@
 <script>
-   import { user } from "../store/store.js";
    import { Time } from "../utils/date.js";
+   import { user } from "../store/store.js";
    import { scale } from "svelte/transition";
 
    export let comment;
@@ -28,6 +28,35 @@
    }
 </script>
 
+<div class="card cf" in:scale={{ duration: 400 }}>
+   <div class="card__like">
+      <span class="card__like-icon" on:click={handleLike}>
+         {comment.likes.includes($user.userId) === true ? "💚" : "♡"}
+      </span>
+      <span class="card__like-total"
+         >{Intl.NumberFormat().format(comment.likes.length)}
+      </span>
+   </div>
+
+   <div class="card__head">
+      <img
+         width="47px"
+         height="47px"
+         loading="lazy"
+         class="card__profile-photo"
+         alt={comment.username}
+         src="https://www.gravatar.com/avatar/{comment.username
+            .length}?s=47&d=robohash"
+      />
+
+      <a href="/{comment.username}" class="card__username">{comment.username}</a
+      >
+   </div>
+
+   <div class="card__description">{comment.words}</div>
+   <div class="card__footer">{new Time(comment.date).fromNow()}</div>
+</div>
+
 <style>
    .card {
       width: 100%;
@@ -36,7 +65,11 @@
       border-left: none;
       border-right: none;
       border-radius: 4px;
-      background: #212e3b;
+      background: linear-gradient(
+         360deg,
+         rgba(2, 0, 36, 1) 0%,
+         rgba(48, 30, 60, 1) 0%
+      );
    }
    .card__head {
       padding: 13px;
@@ -73,7 +106,7 @@
       color: #ffffff;
       font-size: 0.8rem;
       border-radius: 100%;
-      border: 2px solid #ffffff;
+      border: 3px solid #858992;
    }
 
    .card__username {
@@ -173,29 +206,3 @@
       }
    }
 </style>
-
-<div class="card cf" in:scale>
-   <div class="card__like">
-      <span class="card__like-icon" on:click={handleLike}>
-         {comment.likes.includes($user.userId) === true ? '💚' : '♡'}
-      </span>
-      <span
-         class="card__like-total">{Intl.NumberFormat().format(comment.likes.length)}
-      </span>
-   </div>
-
-   <div class="card__head">
-      <img
-         loading="lazy"
-         class="card__profile-photo"
-         alt={comment.username.length}
-         src="https://www.gravatar.com/avatar/0?s=47&d=robohash" />
-
-      <a
-         href="/{comment.username}"
-         class="card__username">{comment.username}</a>
-   </div>
-
-   <div class="card__description">{comment.words}</div>
-   <div class="card__footer">{new Time(comment.date).fromNow()}</div>
-</div>

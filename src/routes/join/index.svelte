@@ -106,6 +106,102 @@
    }
 </script>
 
+<svelte:head>
+   <title>Join</title>
+</svelte:head>
+
+<div class="container">
+   {#if isError === true && username.value === ""}
+      <Alert message="username already in use" />
+   {/if}
+
+   <form
+      spellcheck="false"
+      autocomplete="off"
+      in:scale={{ duration: 400 }}
+      on:submit|preventDefault={handleJoin}
+   >
+      <div class="input-form">
+         <label
+            for="username"
+            class="input-form__label"
+            class:color-invalid={username.isValid === false &&
+               username.isTyping === true}>Username</label
+         >
+
+         <input
+            required
+            type="text"
+            id="username"
+            placeholder="username"
+            class="input-form__input"
+            disabled={isJoin === true}
+            bind:value={username.value}
+            class:border-invalid={username.isValid === false &&
+               username.isTyping === true}
+         />
+      </div>
+
+      <div class="input-form">
+         <label
+            for="password"
+            class="input-form__label"
+            class:color-invalid={password.isValid === false &&
+               password.isTyping === true}>Password</label
+         >
+
+         <input
+            required
+            id="password"
+            type="password"
+            placeholder="password"
+            class="input-form__input"
+            disabled={isJoin === true}
+            bind:value={password.value}
+            class:border-invalid={password.isValid === false &&
+               password.isTyping === true}
+         />
+      </div>
+
+      {#if password.isValid === true}
+         <div
+            class="input-form"
+            in:slide|local={{ duration: 210 }}
+            out:slide|local={{ duration: 210 }}
+         >
+            <label
+               for="confirm-password"
+               class="input-form__label"
+               class:color-invalid={confirmPassword.isSame === false}
+               >Password Confirm</label
+            >
+
+            <input
+               required
+               type="password"
+               id="confirm-password"
+               class="input-form__input"
+               disabled={isJoin === true}
+               placeholder="password confirm"
+               bind:value={confirmPassword.value}
+               class:border-invalid={confirmPassword.isSame === false}
+            />
+         </div>
+      {/if}
+
+      <button
+         type="submit"
+         class="button-form"
+         disabled={allInvalid === true || isJoin === true}
+         >{isJoin === true ? "Loading...." : "Join"}</button
+      >
+
+      <a href="/login" class="redirect-button-form" disabled={isJoin === true}
+         >you have already joined?? Login</a
+      >
+   </form>
+</div>
+
 <style>
    .container {
       width: 88%;
@@ -285,85 +381,3 @@
       }
    }
 </style>
-
-<svelte:head>
-   <title>Join</title>
-</svelte:head>
-
-<div class="container" in:scale|local={{ duration: 460 }}>
-   {#if isError === true && username.value === ''}
-      <Alert message="username already in use" />
-   {/if}
-
-   <form
-      spellcheck="false"
-      autocomplete="off"
-      on:submit|preventDefault={handleJoin}>
-      <div class="input-form">
-         <label
-            for="username"
-            class="input-form__label"
-            class:color-invalid={username.isValid === false && username.isTyping === true}>Username</label>
-
-         <input
-            required
-            type="text"
-            id="username"
-            placeholder="username"
-            class="input-form__input"
-            disabled={isJoin === true}
-            bind:value={username.value}
-            class:border-invalid={username.isValid === false && username.isTyping === true} />
-      </div>
-
-      <div class="input-form">
-         <label
-            for="password"
-            class="input-form__label"
-            class:color-invalid={password.isValid === false && password.isTyping === true}>Password</label>
-
-         <input
-            required
-            id="password"
-            type="password"
-            placeholder="password"
-            class="input-form__input"
-            disabled={isJoin === true}
-            bind:value={password.value}
-            class:border-invalid={password.isValid === false && password.isTyping === true} />
-      </div>
-
-      {#if password.isValid === true}
-         <div
-            class="input-form"
-            in:slide|local={{ duration: 210 }}
-            out:slide|local={{ duration: 210 }}>
-            <label
-               for="confirm-password"
-               class="input-form__label"
-               class:color-invalid={confirmPassword.isSame === false}>Password
-               Confirm</label>
-
-            <input
-               required
-               type="password"
-               id="confirm-password"
-               class="input-form__input"
-               disabled={isJoin === true}
-               placeholder="password confirm"
-               bind:value={confirmPassword.value}
-               class:border-invalid={confirmPassword.isSame === false} />
-         </div>
-      {/if}
-
-      <button
-         type="submit"
-         class="button-form"
-         disabled={allInvalid === true || isJoin === true}>{isJoin === true ? 'Loading....' : 'Join'}</button>
-
-      <a
-         href="/login"
-         class="redirect-button-form"
-         disabled={isJoin === true}>you have already joined?? Login</a>
-   </form>
-</div>

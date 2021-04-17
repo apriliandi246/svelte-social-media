@@ -4,6 +4,10 @@
    export let message;
 </script>
 
+<div class="alert" in:scale|local out:scale|local>
+   <p class="alert__message">{message}</p>
+</div>
+
 <style>
    .alert {
       width: 100%;
@@ -45,7 +49,3 @@
       }
    }
 </style>
-
-<div class="alert" in:scale|local out:scale|local>
-   <p class="alert__message">{message}</p>
-</div>

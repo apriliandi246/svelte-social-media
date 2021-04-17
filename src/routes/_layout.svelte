@@ -5,17 +5,27 @@
    export let segment;
 </script>
 
+{#if segment === "join" || segment === "login"}
+   <Logo />
+   <slot />
+{:else}
+   <div class="container">
+      <Header {segment} />
+      <slot />
+   </div>
+{/if}
+
 <style>
    .container {
-      width: 100%;
+      width: 90%;
       margin: 0 auto 80px auto;
    }
 
    @media screen and (min-width: 600px) {
       .container {
-         border-bottom: none;
-         border-top: none;
          width: 90%;
+         border-top: none;
+         border-bottom: none;
       }
    }
 
@@ -85,13 +95,3 @@
       }
    }
 </style>
-
-{#if segment === 'join' || segment === 'login'}
-   <Logo />
-   <slot />
-{:else}
-   <div class="container">
-      <Header {segment} />
-      <slot />
-   </div>
-{/if}

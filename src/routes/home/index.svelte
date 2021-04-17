@@ -1,10 +1,8 @@
 <script>
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
-   import { scale } from "svelte/transition";
-   import { user, homeFetch } from "../../store/store.js";
    import Post from "../../components/Post.svelte";
-   import Spinner from "../../components/Spinner.svelte";
+   import { user, homeFetch } from "../../store/store.js";
    import PostSkeleton from "../../components/PostSkeleton.svelte";
 
    let posts;
@@ -24,6 +22,22 @@
    });
 </script>
 
+<svelte:head>
+   <title>Home</title>
+</svelte:head>
+
+{#if posts === undefined && $homeFetch === false}
+   <PostSkeleton />
+{:else if posts === undefined && $homeFetch === true}
+   <PostSkeleton />
+{:else if posts.length !== 0}
+   {#each posts as post}
+      <Post postId={post.id} post={post.data()} />
+   {/each}
+{:else}
+   <h1>🙅</h1>
+{/if}
+
 <style>
    h1 {
       margin-top: 80px;
@@ -31,22 +45,3 @@
       text-align: center;
    }
 </style>
-
-<svelte:head>
-   <title>Home</title>
-</svelte:head>
-
-{#if posts === undefined && $homeFetch === false}
-   <PostSkeleton />
-   <PostSkeleton />
-   <PostSkeleton />
-   <PostSkeleton />
-{:else if posts === undefined && $homeFetch === true}
-   <Spinner />
-{:else if posts.length !== 0}
-   {#each posts as post}
-      <Post postId={post.id} post={post.data()} />
-   {/each}
-{:else}
-   <h1 in:scale>🙅</h1>
-{/if}
