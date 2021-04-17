@@ -1,6 +1,6 @@
 {
    "name": "svelte-social-media",
-   "description": "social-media-app",
+   "description": "Social media app buitl with Svelte",
    "version": "0.0.1",
    "scripts": {
       "dev": "sapper dev",
