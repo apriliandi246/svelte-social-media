@@ -3,7 +3,7 @@
    import { goto } from "@sapper/app";
    import Post from "../../components/Post.svelte";
    import Profile from "../../components/Profile.svelte";
-   import { user, profileFtech } from "../../store/store.js";
+   import { user, profileFetch } from "../../store/store.js";
    import PostSkeleton from "../../components/PostSkeleton.svelte";
    import ProfileSkeleton from "../../components/ProfileSkeleton.svelte";
 
@@ -11,7 +11,10 @@
    let userData;
 
    onMount(() => {
-      if ($user === null) return goto("/login");
+      if ($user === null) {
+         goto("/login");
+         return;
+      }
 
       db.collection("users")
          .where("username", "==", $user.username)
@@ -20,19 +23,22 @@
             snapshot.docs.forEach((doc) => {
                userData = doc.data();
 
-               if ($profileFtech === false) {
-                  $profileFtech = true;
+               if ($profileFetch === false) {
+                  $profileFetch = true;
                }
             });
-
-            db.collection("posts")
-               .where("username", "==", $user.username)
-               .onSnapshot((snapshot) => {
-                  snapshot.docs.length >= 1
-                     ? (posts = snapshot.docs)
-                     : (posts = []);
-               });
          });
+
+      const unsubscribe = db
+         .collection("posts")
+         .where("username", "==", $user.username)
+         .onSnapshot((snapshot) => {
+            snapshot.docs.length >= 1 ? (posts = snapshot.docs) : (posts = []);
+         });
+
+      return () => {
+         unsubscribe();
+      };
    });
 </script>
 
@@ -40,15 +46,15 @@
    <title>My profile</title>
 </svelte:head>
 
-{#if userData === undefined && $profileFtech === false}
+{#if userData === undefined && $profileFetch === false}
    <ProfileSkeleton />
-{:else if userData === undefined && $profileFtech === true}
+{:else if userData === undefined && $profileFetch === true}
    <ProfileSkeleton />
 {:else}
    <Profile {userData} />
 {/if}
 
-{#if posts === undefined && $profileFtech === false}
+{#if posts === undefined}
    <PostSkeleton />
 {/if}
 

@@ -1,8 +1,8 @@
 <script>
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
-   import { user } from "../../store/store.js";
    import { scale } from "svelte/transition";
+   import { user } from "../../store/store.js";
    import Alert from "../../components/Alert.svelte";
 
    let isCreate = false;
@@ -24,6 +24,12 @@
       isLimit = false;
    }
 
+   onMount(() => {
+      if ($user === null) {
+         goto("/login");
+      }
+   });
+
    function onSubmit() {
       isCreate = true;
 
@@ -39,12 +45,6 @@
             goto("/home");
          });
    }
-
-   onMount(() => {
-      if ($user === null) {
-         goto("/login");
-      }
-   });
 </script>
 
 <svelte:head>

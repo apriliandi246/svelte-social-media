@@ -43,10 +43,6 @@
    }
 </script>
 
-<svelte:head>
-   <title>Post</title>
-</svelte:head>
-
 {#if isLimit === true}
    <Alert message="Words must be less than 280 characters" />
 {/if}

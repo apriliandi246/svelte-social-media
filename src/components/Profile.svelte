@@ -31,8 +31,10 @@
       color: #ffffff;
       margin-top: 40px;
       text-align: center;
-      border-radius: 2px;
-      box-shadow: 14px 14px 1px 1px #5a5553;
+      border-radius: 4px;
+      border: 3px solid #5a5553;
+      margin-bottom: 70px;
+      box-shadow: 12px 12px 1px 1px #5a5553;
       background: linear-gradient(
          360deg,
          rgba(2, 0, 36, 1) 0%,
@@ -66,14 +68,6 @@
    }
 
    @media screen and (max-width: 599px) {
-      .user__profile,
-      .user-profile-picture {
-         box-shadow: none;
-         border-radius: 0;
-         border-left: none;
-         border-right: none;
-      }
-
       .user__profile {
          padding-left: 14.8px;
          padding-right: 14.8px;

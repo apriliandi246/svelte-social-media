@@ -3,7 +3,13 @@
 </script>
 
 <header>
-   <img src="/images/my-logo.jpg" alt="the-logo" loading="lazy" />
+   <img
+      width="150px"
+      height="150px"
+      alt="the-logo"
+      loading="lazy"
+      src="/images/my-logo.jpg"
+   />
 
    <ul>
       <li><a href="/" class:current_menu={segment === "home"}>Home</a></li>
@@ -21,12 +27,15 @@
 <style>
    header {
       display: flex;
-      border-radius: 2px;
+      border-radius: 4px;
+      margin-bottom: 60px;
       padding-bottom: 20px;
       flex-direction: column;
+      border: 3px solid #5a5553;
+      border-top: none;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
-      box-shadow: 14px 14px 1px 1px #5a5553;
+      box-shadow: 12px 12px 1px 1px #5a5553;
       background: linear-gradient(
          4deg,
          rgba(2, 0, 36, 1) 0%,
@@ -35,8 +44,6 @@
    }
 
    img {
-      width: 150px;
-      height: 150px;
       display: block;
       margin: 35px auto;
       border-radius: 100%;
@@ -64,15 +71,6 @@
 
    a:hover {
       color: #ffffff;
-   }
-
-   @media screen and (max-width: 599px) {
-      header {
-         box-shadow: none;
-         border-radius: 0;
-         border-left: none;
-         border-right: none;
-      }
    }
 
    @media screen and (min-width: 600px) {

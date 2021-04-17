@@ -8,9 +8,13 @@
    let posts;
 
    onMount(() => {
-      if ($user === null) return goto("/login");
+      if ($user === null) {
+         goto("/login");
+         return;
+      }
 
-      db.collection("posts")
+      const unsubscribe = db
+         .collection("posts")
          .orderBy("whenPosted", "desc")
          .onSnapshot((snapshot) => {
             snapshot.docs.length >= 1 ? (posts = snapshot.docs) : (posts = []);
@@ -19,6 +23,10 @@
                $homeFetch = true;
             }
          });
+
+      return () => {
+         unsubscribe();
+      };
    });
 </script>
 

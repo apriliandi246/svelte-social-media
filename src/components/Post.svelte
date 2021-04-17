@@ -3,7 +3,7 @@
    import { user } from "../store/store.js";
    import Comment from "./CommentPost.svelte";
    import { scale } from "svelte/transition";
-   import CommentForm from "./CommentFormPost.svelte";
+   import CommentForm from "./CommentForm.svelte";
 
    export let post;
    export let postId;
@@ -109,11 +109,10 @@
       width: 100%;
       padding: 4px;
       margin-top: 40px;
-      border-left: none;
-      border-right: none;
       border-radius: 4px;
       box-sizing: border-box;
-      box-shadow: 14px 14px 1px 1px #5a5553;
+      border: 3px solid #5a5553;
+      box-shadow: 13px 13px 1px 1px #5a5553;
       background: linear-gradient(
          360deg,
          rgba(2, 0, 36, 1) 0%,
