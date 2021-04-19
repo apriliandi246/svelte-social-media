@@ -150,6 +150,7 @@
 
    .card__username:hover {
       color: #858992;
+      text-decoration: underline;
    }
 
    @media screen and (max-width: 599px) {

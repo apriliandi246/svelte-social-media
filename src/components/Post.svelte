@@ -203,6 +203,7 @@
 
    .card__username:hover {
       color: #858992;
+      text-decoration: underline;
    }
 
    .message {
@@ -215,7 +216,7 @@
    }
 
    hr {
-      border: 3px solid #5a5553;
+      border: 1px solid #5a5553;
    }
 
    @media screen and (max-width: 599px) {
