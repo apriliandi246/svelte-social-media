@@ -1,6 +1,7 @@
 <script>
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
+   import { scale } from "svelte/transition";
    import Post from "../../components/Post.svelte";
    import Profile from "../../components/Profile.svelte";
    import { user, profileFetch } from "../../store/store.js";
@@ -46,9 +47,7 @@
    <title>My profile</title>
 </svelte:head>
 
-{#if userData === undefined && $profileFetch === false}
-   <ProfileSkeleton />
-{:else if userData === undefined && $profileFetch === true}
+{#if userData === undefined}
    <ProfileSkeleton />
 {:else}
    <Profile {userData} />
@@ -64,7 +63,7 @@
          <Post post={post.data()} postId={post.id} />
       {/each}
    {:else}
-      <h1>🙅</h1>
+      <h1 in:scale={{ duration: 200 }}>🙅</h1>
    {/if}
 {/if}
 

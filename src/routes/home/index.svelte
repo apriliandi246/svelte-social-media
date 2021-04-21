@@ -1,6 +1,7 @@
 <script>
    import { onMount } from "svelte";
    import { goto } from "@sapper/app";
+   import { scale } from "svelte/transition";
    import Post from "../../components/Post.svelte";
    import { user, homeFetch } from "../../store/store.js";
    import PostSkeleton from "../../components/PostSkeleton.svelte";
@@ -34,16 +35,14 @@
    <title>Home</title>
 </svelte:head>
 
-{#if posts === undefined && $homeFetch === false}
-   <PostSkeleton />
-{:else if posts === undefined && $homeFetch === true}
+{#if posts === undefined}
    <PostSkeleton />
 {:else if posts.length !== 0}
    {#each posts as post}
       <Post postId={post.id} post={post.data()} />
    {/each}
 {:else}
-   <h1>🙅</h1>
+   <h1 in:scale>🙅</h1>
 {/if}
 
 <style>

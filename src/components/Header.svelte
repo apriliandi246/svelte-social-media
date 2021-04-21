@@ -7,9 +7,8 @@
       width="150px"
       height="150px"
       alt="the-logo"
-      loading="lazy"
       class="head__img"
-      src="/images/my-logo.jpg"
+      src="/my-logo.jpg"
    />
 
    <ul class="head__lists">
