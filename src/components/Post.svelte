@@ -1,5 +1,5 @@
 <script>
-   import { Time } from "../utils/date.js";
+   import Time from "../util/date.js";
    import { user } from "../store/store.js";
    import Comment from "./CommentPost.svelte";
    import { scale } from "svelte/transition";
@@ -76,7 +76,7 @@
       <p class="card__comments" on:click={showComments}>
          {showAllComments === true ? "hide comments" : "show comments"}
       </p>
-      <p class="card__date">{new Time(post.date).fromNow()}</p>
+      <p class="card__date">{new Time(post.date).fromNow("normal")}</p>
    </div>
 </div>
 

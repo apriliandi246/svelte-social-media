@@ -1,5 +1,5 @@
 <script>
-   import { Time } from "../utils/date.js";
+   import Time from "../util/date.js";
    import { user } from "../store/store.js";
    import { scale } from "svelte/transition";
 
@@ -56,7 +56,7 @@
    </div>
 
    <div class="card__description">{comment.words}</div>
-   <div class="card__footer">{new Time(comment.date).fromNow()}</div>
+   <div class="card__footer">{new Time(comment.date).fromNow("normal")}</div>
 </div>
 
 <style>

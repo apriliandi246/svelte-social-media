@@ -1,4 +1,4 @@
-<img src="/images/my-logo.jpg" alt="my-logo" />
+<img src="/my-logo.jpg" alt="my-logo" />
 
 <style>
    img {
