@@ -140,6 +140,6 @@ export default class Time {
             : `${this.minute} minutes ago`;
       }
 
-      return `${Math.floor(this.difference)} seconds ago`;
+      return "Just now";
    }
 }
