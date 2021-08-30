@@ -19,7 +19,6 @@
    export let username;
 
    onMount(() => {
-      console.log(username === $user.username);
       if (username === $user.username) {
          goto("/profile");
          return;
