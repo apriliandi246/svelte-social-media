@@ -10,24 +10,24 @@
 
 <script>
   import { onMount } from "svelte";
-  import { isUserFetch } from "../store/store";
-  import Post from "../components/Post.svelte";
-  import Profile from "../components/Profile.svelte";
-  import PostSkeleton from "../components/PostSkeleton.svelte";
-  import ProfileSkeleton from "../components/ProfileSkeleton.svelte";
+  import { isUserFetch } from "$store";
+  import Post from "$components/Post.svelte";
+  import Profile from "$components/Profile.svelte";
+  import PostSkeleton from "$components/PostSkeleton.svelte";
+  import ProfileSkeleton from "$components/ProfileSkeleton.svelte";
 
-  let posts;
-  let userData;
   export let username;
 
+  let userData;
+  let posts = [];
+
   onMount(async () => {
-    db.collection("users")
+    fire
+      .collection("users")
       .where("username", "==", username)
       .get()
       .then((snapshot) => {
-        if (!$isUserFetch) {
-          $isUserFetch = true;
-        }
+        if (!$isUserFetch) $isUserFetch = true;
 
         if (snapshot.docs.length === 0) {
           userData = [];
@@ -38,10 +38,11 @@
           userData = doc.data();
         });
 
-        db.collection("posts")
+        fire
+          .collection("posts")
           .where("username", "==", username)
           .onSnapshot((snapshot) => {
-            snapshot.docs.length >= 1 ? (posts = snapshot.docs) : (posts = []);
+            if (snapshot.docs.length > 0) posts = snapshot.docs;
           });
       });
   });
@@ -66,7 +67,7 @@
 {/if}
 
 {#if posts}
-  {#if posts.length >= 1}
+  {#if posts.length > 0}
     {#each posts as post}
       <Post postId={post.id} post={post.data()} />
     {/each}

@@ -7,7 +7,7 @@
 </script>
 
 <script>
-  import Time from "../util/date";
+  import Time from "$utils/date";
   import { scale } from "svelte/transition";
 
   export let userId;
@@ -17,14 +17,15 @@
   function handleLike() {
     const currentLikes = [...comment.likes];
 
-    if (currentLikes.includes(userId) === true) {
+    if (currentLikes.includes(userId)) {
       const index = currentLikes.indexOf(commentId);
       currentLikes.splice(index, 1);
     } else {
       currentLikes.push(userId);
     }
 
-    db.collection("comments")
+    fire
+      .collection("comments")
       .doc(commentId)
       .update({
         likes: [...currentLikes],
@@ -35,7 +36,7 @@
 <div class="card cf" in:scale={{ duration: 400 }}>
   <div class="card__like">
     <div class="card__like_icon" on:click={handleLike}>
-      {#if comment.likes.includes(userId) === true}
+      {#if comment.likes.includes(userId)}
         <svg
           width="26px"
           height="26px"
@@ -64,8 +65,8 @@
       {/if}
     </div>
 
-    <span class="card__like_total"
-      >{Intl.NumberFormat().format(comment.likes.length)}
+    <span class="card__like_total">
+      {Intl.NumberFormat().format(comment.likes.length)}
     </span>
   </div>
 
@@ -74,8 +75,8 @@
       width="47px"
       height="47px"
       loading="lazy"
-      class="card__profile-photo"
       alt={comment.username}
+      class="card__profile-photo"
       src="https://www.gravatar.com/avatar/{comment.username
         .length}?s=47&d=robohash"
     />

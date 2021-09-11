@@ -12,23 +12,22 @@
 
 <script>
   import { onMount } from "svelte";
+  import { homeFetch } from "$store";
   import { scale } from "svelte/transition";
-  import Post from "../../components/Post.svelte";
-  import { homeFetch } from "../../store/store";
-  import PostSkeleton from "../../components/PostSkeleton.svelte";
+  import Post from "$components/Post.svelte";
+  import PostSkeleton from "$components/PostSkeleton.svelte";
 
   export let username;
 
   let posts;
 
   onMount(async () => {
-    const unsubscribe = db
+    const unsubscribe = fire
       .collection("posts")
       .orderBy("whenPosted", "desc")
       .onSnapshot((snapshot) => {
-        snapshot.docs.length >= 1 ? (posts = snapshot.docs) : (posts = []);
-
         if (!$homeFetch) $homeFetch = true;
+        if (snapshot.docs.length > 0) posts = snapshot.docs;
       });
 
     return () => {
@@ -43,7 +42,7 @@
 
 {#if !posts}
   <PostSkeleton />
-{:else if posts.length !== 0}
+{:else if posts.length > 0}
   {#each posts as post}
     <Post {username} postId={post.id} post={post.data()} />
   {/each}

@@ -20,10 +20,10 @@
     isValid: false,
   };
 
-  $: if (value.trim() === "") {
+  $: if (!value.trim()) {
     isValid = false;
     isLimit = false;
-  } else if (value.trim() !== "" && value.trim().length >= 280) {
+  } else if (value.trim() && value.trim().length >= 280) {
     isLimit = true;
     isValid = false;
   } else {
@@ -31,10 +31,11 @@
     isLimit = false;
   }
 
-  function onSubmit() {
+  function submitComment() {
     isCreate = true;
 
-    db.collection("comments")
+    fire
+      .collection("comments")
       .add({
         username,
         likes: [],
@@ -44,32 +45,32 @@
         whenCommented: `${Date.now()}`,
       })
       .then(() => {
-        isCreate = false;
-        isValid = false;
         value = "";
+        isValid = false;
+        isCreate = false;
       });
   }
 </script>
 
-{#if isLimit === true}
+{#if isLimit}
   <Alert message="Words must be less than 280 characters" />
 {/if}
 
 <form
   spellcheck="false"
   in:scale={{ duration: 400 }}
-  on:submit|preventDefault={onSubmit}
+  on:submit|preventDefault={submitComment}
 >
   <textarea
     rows="10"
     required
     bind:value
-    disabled={isCreate === true}
+    disabled={isCreate}
     placeholder="your comment...."
   />
 
-  <button type="submit" disabled={isValid === false || isLimit === true}>
-    {isCreate === true ? "Loading...." : "Comment"}
+  <button type="submit" disabled={!isValid || isLimit}>
+    {isCreate ? "Loading...." : "Comment"}
   </button>
 </form>
 

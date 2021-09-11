@@ -13,7 +13,7 @@
 <script>
   import { goto } from "@sapper/app";
   import { scale } from "svelte/transition";
-  import Alert from "../../components/Alert.svelte";
+  import Alert from "$components/Alert.svelte";
 
   export let username;
 
@@ -36,10 +36,11 @@
     isLimit = false;
   }
 
-  function onSubmit() {
+  function createPost() {
     isCreate = true;
 
-    db.collection("posts")
+    fire
+      .collection("posts")
       .add({
         username,
         likes: [],
@@ -62,7 +63,7 @@
 <form
   spellcheck="false"
   in:scale={{ duration: 400 }}
-  on:submit|preventDefault={onSubmit}
+  on:submit|preventDefault={createPost}
 >
   <textarea
     required

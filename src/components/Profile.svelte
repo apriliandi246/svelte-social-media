@@ -1,5 +1,5 @@
 <script>
-  import Time from "../util/date";
+  import Time from "$utils/date";
   import { scale } from "svelte/transition";
 
   export let userData;

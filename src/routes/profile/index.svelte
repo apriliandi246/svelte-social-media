@@ -12,20 +12,21 @@
 
 <script>
   import { onMount } from "svelte";
+  import { profileFetch } from "$store";
   import { scale } from "svelte/transition";
-  import Post from "../../components/Post.svelte";
-  import { profileFetch } from "../../store/store";
-  import Profile from "../../components/Profile.svelte";
-  import PostSkeleton from "../../components/PostSkeleton.svelte";
-  import ProfileSkeleton from "../../components/ProfileSkeleton.svelte";
+  import Post from "$components/Post.svelte";
+  import Profile from "$components/Profile.svelte";
+  import PostSkeleton from "$components/PostSkeleton.svelte";
+  import ProfileSkeleton from "$components/ProfileSkeleton.svelte";
 
   export let username;
 
-  let posts;
   let userData;
+  let posts = [];
 
   onMount(async () => {
-    db.collection("users")
+    fire
+      .collection("users")
       .where("username", "==", username)
       .get()
       .then((snapshot) => {
@@ -40,7 +41,7 @@
       .collection("posts")
       .where("username", "==", username)
       .onSnapshot((snapshot) => {
-        snapshot.docs.length >= 1 ? (posts = snapshot.docs) : (posts = []);
+        if (snapshot.docs.length > 0) posts = snapshot.docs;
       });
 
     return () => {
@@ -64,7 +65,7 @@
 {/if}
 
 {#if posts}
-  {#if posts.length >= 1}
+  {#if posts.length > 0}
     {#each posts as post}
       <Post {username} post={post.data()} postId={post.id} />
     {/each}

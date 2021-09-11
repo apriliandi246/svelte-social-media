@@ -1,13 +1,14 @@
 import path from "path";
-import resolve from "@rollup/plugin-node-resolve";
-import replace from "@rollup/plugin-replace";
-import commonjs from "@rollup/plugin-commonjs";
-import url from "@rollup/plugin-url";
-import svelte from "rollup-plugin-svelte";
-import babel from "@rollup/plugin-babel";
-import { terser } from "rollup-plugin-terser";
-import config from "sapper/config/rollup.js";
 import pkg from "./package.json";
+import url from "@rollup/plugin-url";
+import babel from "@rollup/plugin-babel";
+import svelte from "rollup-plugin-svelte";
+import replace from "@rollup/plugin-replace";
+import config from "sapper/config/rollup.js";
+import { terser } from "rollup-plugin-terser";
+import commonjs from "@rollup/plugin-commonjs";
+import aliasFactory from "@rollup/plugin-alias";
+import resolve from "@rollup/plugin-node-resolve";
 
 const mode = process.env.NODE_ENV;
 const dev = mode === "development";
@@ -18,6 +19,28 @@ const onwarn = (warning, onwarn) =>
   (warning.code === "CIRCULAR_DEPENDENCY" &&
     /[/\\]@sapper[/\\]/.test(warning.message)) ||
   onwarn(warning);
+
+const rootPath = require("path").resolve(__dirname, "src");
+const alias = aliasFactory({
+  entries: [
+    {
+      find: "$components",
+      replacement: `${rootPath}/components`,
+    },
+    {
+      find: "$store",
+      replacement: `${rootPath}/store`,
+    },
+    {
+      find: "$utils",
+      replacement: `${rootPath}/utils`,
+    },
+    {
+      find: "$config",
+      replacement: `${rootPath}/config`,
+    },
+  ],
+});
 
 export default {
   client: {
@@ -46,6 +69,7 @@ export default {
         dedupe: ["svelte"],
       }),
       commonjs(),
+      alias,
 
       legacy &&
         babel({
@@ -109,6 +133,7 @@ export default {
         dedupe: ["svelte"],
       }),
       commonjs(),
+      alias,
     ],
     external: Object.keys(pkg.dependencies).concat(
       require("module").builtinModules

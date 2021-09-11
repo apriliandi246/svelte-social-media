@@ -1,7 +1,7 @@
 export default class Time {
-  constructor(date) {
+  constructor(currentDate) {
     this.now = new Date();
-    this.past = new Date(date);
+    this.past = new Date(currentDate);
     this.difference = this.now.getTime() / 1000 - this.past.getTime() / 1000;
     this.hour = Math.floor(this.difference / 3600);
     this.diff = this.difference - this.hour * 3600;
@@ -14,13 +14,8 @@ export default class Time {
 
   // the feature
   format(level, format) {
-    if (["easy", "medium", "hard"].includes(level) === false) {
-      throw new Error("Level Not Found");
-    }
-
-    if (["normal", "short"].includes(format) === false) {
-      throw new Error("Format Not Found");
-    }
+    if (!["normal", "short"].includes(format)) throw new Error("Format Not Found");
+    if (!["easy", "medium", "hard"].includes(level)) throw new Error("Level Not Found");
 
     const date = this.past.getDate();
     const year = this.past.getFullYear();
@@ -38,18 +33,13 @@ export default class Time {
 
   // the feature
   fromNow(format) {
-    if (["normal", "short"].includes(format) === false) {
-      throw new Error("Format Not Found");
-    }
-
+    if (!["normal", "short"].includes(format)) throw new Error("Format Not Found");
     if (format === "short") return this.getShortRt();
     if (format === "normal") return this.getNormalRt();
   }
 
   getNameOfDay(numberOfDay, format) {
-    if (["normal", "short"].includes(format) === false) {
-      throw new Error("Format Not Found");
-    }
+    if (!["normal", "short"].includes(format)) throw new Error("Format Not Found");
 
     const days = {
       1: format === "normal" ? "Sunday" : "Sun",
@@ -65,9 +55,7 @@ export default class Time {
   }
 
   getNameOfMonth(numberOfMonth, format) {
-    if (["normal", "short"].includes(format) === false) {
-      throw new Error("Format Not Found");
-    }
+    if (!["normal", "short"].includes(format)) throw new Error("Format Not Found");
 
     const months = {
       1: format === "normal" ? "January" : "Jan",
@@ -89,54 +77,23 @@ export default class Time {
 
   getShortRt() {
     if (this.now.getFullYear() !== this.past.getFullYear()) {
-      return `${this.getNameOfMonth(
-        this.past.getMonth(),
-        "short"
-      )} ${this.past.getDate()}, ${this.past.getFullYear()}`;
+      return `${this.getNameOfMonth(this.past.getMonth(), "short")} ${this.past.getDate()}, ${this.past.getFullYear()}`;
     }
 
-    if (this.month > 0 || this.day > 0) {
-      return `${this.getNameOfMonth(
-        this.past.getMonth(),
-        "short"
-      )} ${this.past.getDate()}`;
-    }
-
-    if (this.hour > 0) {
-      return `${this.hour}h`;
-    }
-
-    if (this.minute > 0) {
-      return `${this.minute}m`;
-    }
+    if (this.month > 0 || this.day > 0) return `${this.getNameOfMonth(this.past.getMonth(), "short")} ${this.past.getDate()}`;
+    if (this.hour > 0) return `${this.hour}h`;
+    if (this.minute > 0) return `${this.minute}m`;
 
     return `${Math.floor(this.difference)} seconds ago`;
   }
 
   getNormalRt() {
-    if (this.year > 0) {
-      return this.year === 1 ? "a year ago" : `${this.year} years ago`;
-    }
-
-    if (this.month > 0) {
-      return this.month === 1 ? "a month ago" : `${this.month} months ago`;
-    }
-
-    if (this.week > 0) {
-      return this.week === 1 ? "a week ago" : `${this.week} weeks ago`;
-    }
-
-    if (this.day > 0) {
-      return this.day === 1 ? "a day ago" : `${this.day} days ago`;
-    }
-
-    if (this.hour > 0) {
-      return this.hour === 1 ? "an hour ago" : `${this.hour} hours ago`;
-    }
-
-    if (this.minute > 0) {
-      return this.minute === 1 ? "a minute ago" : `${this.minute} minutes ago`;
-    }
+    if (this.year > 0) return this.year === 1 ? "a year ago" : `${this.year} years ago`;
+    if (this.month > 0) return this.month === 1 ? "a month ago" : `${this.month} months ago`;
+    if (this.week > 0) return this.week === 1 ? "a week ago" : `${this.week} weeks ago`;
+    if (this.day > 0) return this.day === 1 ? "a day ago" : `${this.day} days ago`;
+    if (this.hour > 0) return this.hour === 1 ? "an hour ago" : `${this.hour} hours ago`;
+    if (this.minute > 0) return this.minute === 1 ? "a minute ago" : `${this.minute} minutes ago`;
 
     return "Just now";
   }

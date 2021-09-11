@@ -7,9 +7,9 @@
 </script>
 
 <script>
-  import { scale } from "svelte/transition";
   import cookieCutter from "cookie-cutter";
-  import Alert from "../../components/Alert.svelte";
+  import { scale } from "svelte/transition";
+  import Alert from "$components/Alert.svelte";
 
   let isError;
   let isLogin = false;
@@ -36,10 +36,11 @@
     }
   }
 
-  function handleLogin() {
+  function signIn() {
     isLogin = true;
 
-    db.collection("users")
+    fire
+      .collection("users")
       .where("username", "==", username)
       .where("password", "==", password)
       .get()
@@ -47,9 +48,9 @@
         if (snapshot.empty) {
           username = "";
           password = "";
+          isError = true;
           isValid = false;
           isLogin = false;
-          isError = true;
         } else {
           snapshot.docs.forEach((doc) => {
             cookieCutter.set("_userId", doc.id);
@@ -75,7 +76,7 @@
     spellcheck="false"
     autocomplete="off"
     in:scale={{ duration: 400 }}
-    on:submit|preventDefault={handleLogin}
+    on:submit|preventDefault={signIn}
   >
     <div class="input_form">
       <label for="email" class="input_form__label">Username</label>
@@ -106,15 +107,15 @@
     <button
       type="submit"
       class="button_form"
-      on:click={handleLogin}
+      on:click={signIn}
       disabled={!isValid || isLogin}
     >
       {isLogin ? "Loading...." : "Login"}
     </button>
 
-    <a href="/join" disabled={isLogin} class="redirect_button"
-      >You haven't joined yet?? Join</a
-    >
+    <a href="/join" disabled={isLogin} class="redirect_button">
+      You haven't joined yet?? Join
+    </a>
   </form>
 </div>
 

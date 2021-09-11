@@ -1,5 +1,5 @@
 <script>
-  import Time from "../util/date";
+  import Time from "$utils/date";
   import { scale } from "svelte/transition";
   import Comment from "./CommentPost.svelte";
   import CommentForm from "./CommentForm.svelte";
@@ -11,11 +11,12 @@
   let comments;
   let showAllComments = false;
 
-  function showComments() {
+  function showCommentsPost() {
     showAllComments = !showAllComments;
 
     if (showAllComments === true) {
-      db.collection("comments")
+      fire
+        .collection("comments")
         .where("post", "==", postId)
         .onSnapshot((snapshot) => {
           if (snapshot.docs.length >= 1) {
@@ -27,17 +28,18 @@
     }
   }
 
-  function handleLike() {
+  function likePost() {
     const currentLikes = [...post.likes];
 
-    if (currentLikes.includes(username) === true) {
+    if (currentLikes.includes(username)) {
       const index = currentLikes.indexOf(username);
       currentLikes.splice(index, 1);
     } else {
       currentLikes.push(username);
     }
 
-    db.collection("posts")
+    fire
+      .collection("posts")
       .doc(postId)
       .update({
         likes: [...currentLikes],
@@ -47,8 +49,8 @@
 
 <div class="card cf" in:scale={{ duration: 400 }}>
   <div class="card__like">
-    <div class="card__like_icon" on:click={handleLike}>
-      {#if post.likes.includes(username) === true}
+    <div class="card__like_icon" on:click={likePost}>
+      {#if post.likes.includes(username)}
         <svg
           width="26px"
           height="26px"
@@ -99,8 +101,8 @@
   <div class="card__description">{post.words}</div>
 
   <div class="card__footer">
-    <p class="card__comments" on:click={showComments}>
-      {showAllComments === true ? "hide comments" : "show comments"}
+    <p class="card__comments" on:click={showCommentsPost}>
+      {showAllComments ? "hide comments" : "show comments"}
     </p>
 
     <p class="card__date">{new Time(post.date).fromNow("normal")}</p>
@@ -108,17 +110,16 @@
 </div>
 
 <!-- comments and form comment -->
-{#if showAllComments === true}
-  {#if comments !== undefined}
+{#if showAllComments}
+  {#if comments}
     <h1 class="message">
-      {Intl.NumberFormat().format(comments.length)}
-      comments
+      {Intl.NumberFormat().format(comments.length)} comments
     </h1>
   {:else}
     <h1 class="message">Loading....</h1>
   {/if}
 
-  {#if comments !== undefined}
+  {#if comments}
     <CommentForm {postId} />
 
     {#if comments.length !== 0}

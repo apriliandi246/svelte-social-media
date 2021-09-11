@@ -8,8 +8,8 @@
 
 <script>
   import { goto } from "@sapper/app";
+  import Alert from "$components/Alert.svelte";
   import { slide, scale } from "svelte/transition";
-  import Alert from "../../components/Alert.svelte";
 
   let isJoin = false;
   let isError = false;
@@ -72,33 +72,33 @@
     }
   }
 
-  function handleJoin() {
-    isError = false;
+  function signUp() {
     isJoin = true;
+    isError = false;
 
-    db.collection("users")
+    fire
+      .collection("users")
       .where("username", "==", username.value)
       .get()
       .then((snapshot) => {
         if (snapshot.empty) {
-          db.collection("users")
+          fire
+            .collection("users")
             .add({
+              joined: `${new Date()}`,
               username: username.value,
               password: password.value,
-              joined: `${new Date()}`,
             })
-            .then(async () => {
-              await goto("/login");
-            });
+            .then(async () => await goto("/login"));
         } else {
-          confirmPassword.isSame = false;
-          confirmPassword.value = "";
-          password.isTyping = false;
-          password.isValid = false;
-          password.value = "";
-          username.value = "";
           isJoin = false;
           isError = true;
+          password.value = "";
+          username.value = "";
+          password.isValid = false;
+          password.isTyping = false;
+          confirmPassword.value = "";
+          confirmPassword.isSame = false;
         }
       });
   }
@@ -117,7 +117,7 @@
     spellcheck="false"
     autocomplete="off"
     in:scale={{ duration: 400 }}
-    on:submit|preventDefault={handleJoin}
+    on:submit|preventDefault={signUp}
   >
     <div class="input-form">
       <label
