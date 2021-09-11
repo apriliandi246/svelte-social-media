@@ -1,6 +1,5 @@
 <script context="module">
-  export async function preload(page, session) {
-    const { username } = page.params;
+  export async function preload({ username }, _) {
     return { username };
   }
 </script>
@@ -10,7 +9,7 @@
   import { goto } from "@sapper/app";
   import Post from "../components/Post.svelte";
   import Profile from "../components/Profile.svelte";
-  import { user, isUserFetch } from "../store/store.js";
+  import { user, isUserFetch } from "../store/store";
   import PostSkeleton from "../components/PostSkeleton.svelte";
   import ProfileSkeleton from "../components/ProfileSkeleton.svelte";
 
@@ -18,17 +17,14 @@
   let userData;
   export let username;
 
-  onMount(() => {
-    if (username === $user.username) {
-      goto("/profile");
-      return;
-    }
+  onMount(async () => {
+    if (username === $user.username) await goto("/profile");
 
     db.collection("users")
       .where("username", "==", username)
       .get()
       .then((snapshot) => {
-        if ($isUserFetch === false) {
+        if (!$isUserFetch) {
           $isUserFetch = true;
         }
 
@@ -54,9 +50,9 @@
   <title>{username}</title>
 </svelte:head>
 
-{#if userData === undefined && $isUserFetch === false}
+{#if !userData && !$isUserFetch}
   <ProfileSkeleton />
-{:else if userData === undefined && $isUserFetch === true}
+{:else if !userData && $isUserFetch}
   <ProfileSkeleton />
 {:else if userData.length === 0}
   <h1 class="no_user">{username} 🙅</h1>
@@ -64,11 +60,11 @@
   <Profile {userData} />
 {/if}
 
-{#if posts === undefined && $isUserFetch === false}
+{#if !posts && !$isUserFetch}
   <PostSkeleton />
 {/if}
 
-{#if posts !== undefined}
+{#if posts}
   {#if posts.length >= 1}
     {#each posts as post}
       <Post postId={post.id} post={post.data()} />

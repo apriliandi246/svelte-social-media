@@ -12,14 +12,14 @@
   };
 
   $: {
-    if (username.trim() === "") {
+    if (!username.trim()) {
       isValid = false;
     } else {
       isValid = true;
       isError = false;
     }
 
-    if (password.trim() === "") {
+    if (!password.trim()) {
       isValid = false;
     } else {
       isValid = true;
@@ -35,7 +35,7 @@
       .where("password", "==", password)
       .get()
       .then((snapshot) => {
-        if (snapshot.empty === true) {
+        if (snapshot.empty) {
           username = "";
           password = "";
           isValid = false;
@@ -63,7 +63,7 @@
 </svelte:head>
 
 <div class="container">
-  {#if isError === true}
+  {#if isError}
     <Alert message="Username or password not found" />
   {/if}
 
@@ -79,10 +79,10 @@
       <input
         id="email"
         type="text"
+        disabled={isLogin}
         bind:value={username}
         placeholder="username"
         class="input_form__input"
-        disabled={isLogin === true}
       />
     </div>
 
@@ -92,10 +92,10 @@
       <input
         id="password"
         type="password"
+        disabled={isLogin}
         bind:value={password}
         placeholder="password"
         class="input_form__input"
-        disabled={isLogin === true}
       />
     </div>
 
@@ -103,11 +103,12 @@
       type="submit"
       class="button_form"
       on:click={handleLogin}
-      disabled={isValid === false || isLogin === true}
-      >{isLogin === true ? "Loading...." : "Login"}</button
+      disabled={!isValid || isLogin}
     >
+      {isLogin ? "Loading...." : "Login"}
+    </button>
 
-    <a href="/join" disabled={isLogin === true} class="redirect_button"
+    <a href="/join" disabled={isLogin} class="redirect_button"
       >You haven't joined yet?? Join</a
     >
   </form>

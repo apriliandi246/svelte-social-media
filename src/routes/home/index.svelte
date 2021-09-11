@@ -3,16 +3,13 @@
   import { goto } from "@sapper/app";
   import { scale } from "svelte/transition";
   import Post from "../../components/Post.svelte";
-  import { user, homeFetch } from "../../store/store.js";
+  import { user, homeFetch } from "../../store/store";
   import PostSkeleton from "../../components/PostSkeleton.svelte";
 
   let posts;
 
-  onMount(() => {
-    if ($user === null) {
-      goto("/login");
-      return;
-    }
+  onMount(async () => {
+    if (!$user) await goto("/login");
 
     const unsubscribe = db
       .collection("posts")
@@ -20,9 +17,7 @@
       .onSnapshot((snapshot) => {
         snapshot.docs.length >= 1 ? (posts = snapshot.docs) : (posts = []);
 
-        if ($homeFetch === false) {
-          $homeFetch = true;
-        }
+        if (!$homeFetch) $homeFetch = true;
       });
 
     return () => {

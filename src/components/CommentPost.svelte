@@ -1,6 +1,6 @@
 <script>
-  import Time from "../util/date.js";
-  import { user } from "../store/store.js";
+  import Time from "../util/date";
+  import { user } from "../store/store";
   import { scale } from "svelte/transition";
 
   export let comment;

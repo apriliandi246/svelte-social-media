@@ -30,29 +30,23 @@
 
   $: {
     // username
-    if (
-      username.regexPattern.test(username.value) === false &&
-      username.value !== ""
-    ) {
+    if (!username.regexPattern.test(username.value) && username.value) {
       username.isValid = false;
       username.isTyping = true;
-    } else if (username.value !== "") {
+    } else if (username.value) {
       username.isValid = true;
-    } else if (username.value === "" && username.isTyping === true) {
+    } else if (username.value && username.isTyping) {
       username.isValid = false;
     }
 
     // password
-    if (
-      password.regexPattern.test(password.value) === false &&
-      password.value !== ""
-    ) {
+    if (!password.regexPattern.test(password.value) && password.value) {
       password.isValid = false;
       password.isTyping = true;
       confirmPassword.value = "";
-    } else if (password.value !== "") {
+    } else if (password.value) {
       password.isValid = true;
-    } else if (password.value === "" && password.isTyping === true) {
+    } else if (password.value && password.isTyping) {
       password.isValid = false;
     }
 
@@ -63,11 +57,7 @@
       confirmPassword.isSame = false;
     }
 
-    if (
-      username.isValid === true &&
-      password.isValid === true &&
-      confirmPassword.isSame === true
-    ) {
+    if (username.isValid && password.isValid && confirmPassword.isSame) {
       allInvalid = false;
     } else {
       allInvalid = true;
@@ -82,16 +72,14 @@
       .where("username", "==", username.value)
       .get()
       .then((snapshot) => {
-        if (snapshot.empty === true) {
+        if (snapshot.empty) {
           db.collection("users")
             .add({
               username: username.value,
               password: password.value,
               joined: `${new Date()}`,
             })
-            .then(() => {
-              goto("/login");
-            });
+            .then(async () => await goto("/login"));
         } else {
           confirmPassword.isSame = false;
           confirmPassword.value = "";
@@ -111,7 +99,7 @@
 </svelte:head>
 
 <div class="container">
-  {#if isError === true && username.value === ""}
+  {#if isError && !username.value}
     <Alert message="username already in use" />
   {/if}
 
@@ -125,20 +113,20 @@
       <label
         for="username"
         class="input_form__label"
-        class:color-invalid={username.isValid === false &&
-          username.isTyping === true}>Username</label
+        class:color-invalid={!username.isValid && username.isTyping}
       >
+        Username
+      </label>
 
       <input
         required
         type="text"
         id="username"
+        disabled={isJoin}
         placeholder="username"
         class="input_form__input"
-        disabled={isJoin === true}
         bind:value={username.value}
-        class:border-invalid={username.isValid === false &&
-          username.isTyping === true}
+        class:border-invalid={!username.isValid && username.isTyping}
       />
     </div>
 
@@ -146,24 +134,24 @@
       <label
         for="password"
         class="input_form__label"
-        class:color-invalid={password.isValid === false &&
-          password.isTyping === true}>Password</label
+        class:color-invalid={!password.isValid && password.isTyping}
       >
+        Password
+      </label>
 
       <input
         required
         id="password"
         type="password"
+        disabled={isJoin}
         placeholder="password"
         class="input_form__input"
-        disabled={isJoin === true}
         bind:value={password.value}
-        class:border-invalid={password.isValid === false &&
-          password.isTyping === true}
+        class:border-invalid={!password.isValid && password.isTyping}
       />
     </div>
 
-    {#if password.isValid === true}
+    {#if password.isValid}
       <div
         class="input-form"
         in:slide|local={{ duration: 210 }}
@@ -172,33 +160,31 @@
         <label
           for="confirm-password"
           class="input_form__label"
-          class:color-invalid={confirmPassword.isSame === false}
-          >Password Confirm</label
+          class:color-invalid={!confirmPassword.isSame}
         >
+          Password Confirm
+        </label>
 
         <input
           required
           type="password"
+          disabled={isJoin}
           id="confirm-password"
           class="input_form__input"
-          disabled={isJoin === true}
           placeholder="password confirm"
           bind:value={confirmPassword.value}
-          class:border-invalid={confirmPassword.isSame === false}
+          class:border-invalid={!confirmPassword.isSame}
         />
       </div>
     {/if}
 
-    <button
-      type="submit"
-      class="button_form"
-      disabled={allInvalid === true || isJoin === true}
-      >{isJoin === true ? "Loading...." : "Join"}</button
-    >
+    <button type="submit" class="button_form" disabled={allInvalid || isJoin}>
+      {isJoin ? "Loading...." : "Join"}
+    </button>
 
-    <a href="/login" class="redirect_button" disabled={isJoin === true}
-      >you have already joined?? Login</a
-    >
+    <a href="/login" disabled={isJoin} class="redirect_button">
+      you have already joined?? Login
+    </a>
   </form>
 </div>
 

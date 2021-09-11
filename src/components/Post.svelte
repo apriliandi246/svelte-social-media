@@ -1,8 +1,8 @@
 <script>
-  import Time from "../util/date.js";
-  import { user } from "../store/store.js";
-  import Comment from "./CommentPost.svelte";
+  import Time from "../util/date";
+  import { user } from "../store/store";
   import { scale } from "svelte/transition";
+  import Comment from "./CommentPost.svelte";
   import CommentForm from "./CommentForm.svelte";
 
   export let post;
@@ -77,9 +77,9 @@
       {/if}
     </div>
 
-    <span class="card__like_total"
-      >{Intl.NumberFormat().format(post.likes.length)}</span
-    >
+    <span class="card__like_total">
+      {Intl.NumberFormat().format(post.likes.length)}
+    </span>
   </div>
 
   <div class="card__head">

@@ -4,18 +4,15 @@
   import { scale } from "svelte/transition";
   import Post from "../../components/Post.svelte";
   import Profile from "../../components/Profile.svelte";
-  import { user, profileFetch } from "../../store/store.js";
+  import { user, profileFetch } from "../../store/store";
   import PostSkeleton from "../../components/PostSkeleton.svelte";
   import ProfileSkeleton from "../../components/ProfileSkeleton.svelte";
 
   let posts;
   let userData;
 
-  onMount(() => {
-    if ($user === null) {
-      goto("/login");
-      return;
-    }
+  onMount(async () => {
+    if ($user === null) await goto("/login");
 
     db.collection("users")
       .where("username", "==", $user.username)
@@ -24,9 +21,7 @@
         snapshot.docs.forEach((doc) => {
           userData = doc.data();
 
-          if ($profileFetch === false) {
-            $profileFetch = true;
-          }
+          if (!$profileFetch) $profileFetch = true;
         });
       });
 
@@ -47,17 +42,17 @@
   <title>My profile</title>
 </svelte:head>
 
-{#if userData === undefined}
+{#if !userData}
   <ProfileSkeleton />
 {:else}
   <Profile {userData} />
 {/if}
 
-{#if posts === undefined}
+{#if !posts}
   <PostSkeleton />
 {/if}
 
-{#if posts !== undefined}
+{#if posts}
   {#if posts.length >= 1}
     {#each posts as post}
       <Post post={post.data()} postId={post.id} />

@@ -1,8 +1,8 @@
 <script>
   import { onMount } from "svelte";
   import { goto } from "@sapper/app";
+  import { user } from "../../store/store";
   import { scale } from "svelte/transition";
-  import { user } from "../../store/store.js";
   import Alert from "../../components/Alert.svelte";
 
   let isCreate = false;
@@ -13,10 +13,10 @@
     isValid: false,
   };
 
-  $: if (value.trim() === "") {
+  $: if (!value.trim()) {
     isValid = false;
     isLimit = false;
-  } else if (value.trim() !== "" && value.trim().length >= 280) {
+  } else if (value.trim() && value.trim().length >= 280) {
     isLimit = true;
     isValid = false;
   } else {
@@ -24,10 +24,8 @@
     isLimit = false;
   }
 
-  onMount(() => {
-    if ($user === null) {
-      goto("/login");
-    }
+  onMount(async () => {
+    if (!$user) await goto("/login");
   });
 
   function onSubmit() {
@@ -41,9 +39,7 @@
         username: $user.username,
         whenPosted: `${Date.now()}`,
       })
-      .then(() => {
-        goto("/home");
-      });
+      .then(async () => await goto("/home"));
   }
 </script>
 
@@ -51,7 +47,7 @@
   <title>Post</title>
 </svelte:head>
 
-{#if isLimit === true}
+{#if isLimit}
   <Alert message="Words must be less than 280 characters" />
 {/if}
 
@@ -64,12 +60,12 @@
     required
     rows="18"
     bind:value
-    disabled={isCreate === true}
+    disabled={isCreate}
     placeholder="What do you think ?"
   />
 
-  <button type="submit" disabled={isValid === false}>
-    {isCreate === true ? "Loading...." : "Post"}
+  <button type="submit" disabled={!isValid}>
+    {isCreate ? "Loading...." : "Post"}
   </button>
 </form>
 
