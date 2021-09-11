@@ -3,5 +3,5 @@
 /src/node_modules/@sapper/
 yarn-error.log
 /__sapper__/
-firebaseConfig.js
 .vercel
+firebaseConfig.js

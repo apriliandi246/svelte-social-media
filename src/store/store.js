@@ -6,5 +6,5 @@ export const isUserFetch = writable(false);
 export const profileFetch = writable(false);
 
 if (typeof window !== "undefined") {
-   user = writable(JSON.parse(localStorage.getItem("userData")));
+  user = writable(JSON.parse(localStorage.getItem("userData")));
 }

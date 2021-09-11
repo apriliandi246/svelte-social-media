@@ -1,7 +1,7 @@
-firebaseSampleConfig.js
 /__sapper__
 __sapper__/dev
 __sapper__/export
 /cypress
 !node_modules
 /node_modules/*
+firebaseSampleConfig.js
