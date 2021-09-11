@@ -1,21 +1,32 @@
+<script context="module">
+  export async function preload(_, session) {
+    const { _userId, _username } = session;
+
+    if (!_userId && !_username) this.redirect(302, "/login");
+
+    return {
+      username: _username,
+    };
+  }
+</script>
+
 <script>
   import { onMount } from "svelte";
-  import { goto } from "@sapper/app";
   import { scale } from "svelte/transition";
   import Post from "../../components/Post.svelte";
+  import { profileFetch } from "../../store/store";
   import Profile from "../../components/Profile.svelte";
-  import { user, profileFetch } from "../../store/store";
   import PostSkeleton from "../../components/PostSkeleton.svelte";
   import ProfileSkeleton from "../../components/ProfileSkeleton.svelte";
+
+  export let username;
 
   let posts;
   let userData;
 
   onMount(async () => {
-    if ($user === null) await goto("/login");
-
     db.collection("users")
-      .where("username", "==", $user.username)
+      .where("username", "==", username)
       .get()
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
@@ -27,7 +38,7 @@
 
     const unsubscribe = db
       .collection("posts")
-      .where("username", "==", $user.username)
+      .where("username", "==", username)
       .onSnapshot((snapshot) => {
         snapshot.docs.length >= 1 ? (posts = snapshot.docs) : (posts = []);
       });
@@ -55,7 +66,7 @@
 {#if posts}
   {#if posts.length >= 1}
     {#each posts as post}
-      <Post post={post.data()} postId={post.id} />
+      <Post {username} post={post.data()} postId={post.id} />
     {/each}
   {:else}
     <h1 in:scale={{ duration: 200 }}>🙅</h1>

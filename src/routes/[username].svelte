@@ -1,15 +1,18 @@
 <script context="module">
-  export async function preload({ username }, _) {
-    return { username };
+  export async function preload(_, session) {
+    const { _userId, _username } = session;
+
+    if (!_userId && !_username) this.redirect(302, "/login");
+
+    return { username: _username };
   }
 </script>
 
 <script>
   import { onMount } from "svelte";
-  import { goto } from "@sapper/app";
+  import { isUserFetch } from "../store/store";
   import Post from "../components/Post.svelte";
   import Profile from "../components/Profile.svelte";
-  import { user, isUserFetch } from "../store/store";
   import PostSkeleton from "../components/PostSkeleton.svelte";
   import ProfileSkeleton from "../components/ProfileSkeleton.svelte";
 
@@ -18,8 +21,6 @@
   export let username;
 
   onMount(async () => {
-    if (username === $user.username) await goto("/profile");
-
     db.collection("users")
       .where("username", "==", username)
       .get()

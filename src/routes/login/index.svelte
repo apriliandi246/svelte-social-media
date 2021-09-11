@@ -1,5 +1,14 @@
+<script context="module">
+  export async function preload(_, session) {
+    const { _userId, _username } = session;
+
+    if (_userId && _username) this.redirect(302, "/home");
+  }
+</script>
+
 <script>
   import { scale } from "svelte/transition";
+  import cookieCutter from "cookie-cutter";
   import Alert from "../../components/Alert.svelte";
 
   let isError;
@@ -43,13 +52,8 @@
           isError = true;
         } else {
           snapshot.docs.forEach((doc) => {
-            localStorage.setItem(
-              "userData",
-              JSON.stringify({
-                userId: doc.id,
-                username: doc.data().username,
-              })
-            );
+            cookieCutter.set("_userId", doc.id);
+            cookieCutter.set("_username", doc.data().username);
           });
 
           window.location.href = "/";

@@ -1,3 +1,11 @@
+<script context="module">
+  export async function preload(_, session) {
+    const { _userId, _username } = session;
+
+    if (_userId && _username) this.redirect(302, "/home");
+  }
+</script>
+
 <script>
   import { goto } from "@sapper/app";
   import { slide, scale } from "svelte/transition";
@@ -79,7 +87,9 @@
               password: password.value,
               joined: `${new Date()}`,
             })
-            .then(async () => await goto("/login"));
+            .then(async () => {
+              await goto("/login");
+            });
         } else {
           confirmPassword.isSame = false;
           confirmPassword.value = "";

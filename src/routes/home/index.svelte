@@ -1,16 +1,27 @@
+<script context="module">
+  export async function preload(_, session) {
+    const { _userId, _username } = session;
+
+    if (!_userId && !_username) this.redirect(302, "/login");
+
+    return {
+      username: _username,
+    };
+  }
+</script>
+
 <script>
   import { onMount } from "svelte";
-  import { goto } from "@sapper/app";
   import { scale } from "svelte/transition";
   import Post from "../../components/Post.svelte";
-  import { user, homeFetch } from "../../store/store";
+  import { homeFetch } from "../../store/store";
   import PostSkeleton from "../../components/PostSkeleton.svelte";
+
+  export let username;
 
   let posts;
 
   onMount(async () => {
-    if (!$user) await goto("/login");
-
     const unsubscribe = db
       .collection("posts")
       .orderBy("whenPosted", "desc")
@@ -30,11 +41,11 @@
   <title>Home</title>
 </svelte:head>
 
-{#if posts === undefined}
+{#if !posts}
   <PostSkeleton />
 {:else if posts.length !== 0}
   {#each posts as post}
-    <Post postId={post.id} post={post.data()} />
+    <Post {username} postId={post.id} post={post.data()} />
   {/each}
 {:else}
   <h1 in:scale>🙅</h1>

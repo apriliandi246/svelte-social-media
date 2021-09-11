@@ -1,12 +1,12 @@
 <script>
   import Time from "../util/date";
-  import { user } from "../store/store";
   import { scale } from "svelte/transition";
   import Comment from "./CommentPost.svelte";
   import CommentForm from "./CommentForm.svelte";
 
   export let post;
   export let postId;
+  export let username;
 
   let comments;
   let showAllComments = false;
@@ -30,11 +30,11 @@
   function handleLike() {
     const currentLikes = [...post.likes];
 
-    if (currentLikes.includes($user.username) === true) {
-      const index = currentLikes.indexOf($user.username);
+    if (currentLikes.includes(username) === true) {
+      const index = currentLikes.indexOf(username);
       currentLikes.splice(index, 1);
     } else {
-      currentLikes.push($user.username);
+      currentLikes.push(username);
     }
 
     db.collection("posts")
@@ -48,7 +48,7 @@
 <div class="card cf" in:scale={{ duration: 400 }}>
   <div class="card__like">
     <div class="card__like_icon" on:click={handleLike}>
-      {#if post.likes.includes($user.username) === true}
+      {#if post.likes.includes(username) === true}
         <svg
           width="26px"
           height="26px"

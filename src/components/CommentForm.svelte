@@ -1,9 +1,17 @@
+<script context="module">
+  export async function preload(_, session) {
+    return {
+      username: session._username,
+    };
+  }
+</script>
+
 <script>
   import Alert from "./Alert.svelte";
-  import { user } from "../store/store.js";
   import { scale } from "svelte/transition";
 
   export let postId;
+  export let username;
 
   let isCreate = false;
   let { value, isLimit, isValid } = {
@@ -28,11 +36,11 @@
 
     db.collection("comments")
       .add({
+        username,
         likes: [],
         post: postId,
         words: value,
         date: `${new Date()}`,
-        username: $user.username,
         whenCommented: `${Date.now()}`,
       })
       .then(() => {

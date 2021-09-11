@@ -1,9 +1,21 @@
+<script context="module">
+  export async function preload(_, session) {
+    const { _userId, _username } = session;
+
+    if (!_userId && !_username) this.redirect(302, "/login");
+
+    return {
+      username: session._username,
+    };
+  }
+</script>
+
 <script>
-  import { onMount } from "svelte";
   import { goto } from "@sapper/app";
-  import { user } from "../../store/store";
   import { scale } from "svelte/transition";
   import Alert from "../../components/Alert.svelte";
+
+  export let username;
 
   let isCreate = false;
 
@@ -24,19 +36,15 @@
     isLimit = false;
   }
 
-  onMount(async () => {
-    if (!$user) await goto("/login");
-  });
-
   function onSubmit() {
     isCreate = true;
 
     db.collection("posts")
       .add({
+        username,
         likes: [],
         words: value,
         date: `${new Date()}`,
-        username: $user.username,
         whenPosted: `${Date.now()}`,
       })
       .then(async () => await goto("/home"));
