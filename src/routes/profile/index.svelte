@@ -21,8 +21,8 @@
 
   export let username;
 
+  let posts;
   let userData;
-  let posts = [];
 
   onMount(async () => {
     fire
@@ -37,7 +37,7 @@
         });
       });
 
-    const unsubscribe = db
+    const unsubscribe = fire
       .collection("posts")
       .where("username", "==", username)
       .onSnapshot((snapshot) => {
@@ -64,13 +64,15 @@
   <PostSkeleton />
 {/if}
 
-{#if posts}
-  {#if posts.length > 0}
-    {#each posts as post}
-      <Post {username} post={post.data()} postId={post.id} />
-    {/each}
-  {:else}
-    <h1 in:scale={{ duration: 200 }}>🙅</h1>
+{#if userData}
+  {#if posts}
+    {#if posts.length > 0}
+      {#each posts as post}
+        <Post {username} post={post.data()} postId={post.id} />
+      {/each}
+    {:else}
+      <h1 in:scale={{ duration: 200 }}>🙅</h1>
+    {/if}
   {/if}
 {/if}
 

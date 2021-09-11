@@ -26,8 +26,9 @@
       .collection("posts")
       .orderBy("whenPosted", "desc")
       .onSnapshot((snapshot) => {
+        snapshot.docs.length > 0 ? (posts = snapshot.docs) : (posts = []);
+
         if (!$homeFetch) $homeFetch = true;
-        if (snapshot.docs.length > 0) posts = snapshot.docs;
       });
 
     return () => {

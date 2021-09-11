@@ -21,6 +21,7 @@ const onwarn = (warning, onwarn) =>
   onwarn(warning);
 
 const rootPath = require("path").resolve(__dirname, "src");
+
 const alias = aliasFactory({
   entries: [
     {
@@ -139,25 +140,6 @@ export default {
       require("module").builtinModules
     ),
     preserveEntrySignatures: "strict",
-    onwarn,
-  },
-
-  serviceworker: {
-    input: config.serviceworker.input(),
-    output: config.serviceworker.output(),
-    plugins: [
-      resolve(),
-      replace({
-        preventAssignment: true,
-        values: {
-          "process.browser": true,
-          "process.env.NODE_ENV": JSON.stringify(mode),
-        },
-      }),
-      commonjs(),
-      !dev && terser(),
-    ],
-    preserveEntrySignatures: false,
     onwarn,
   },
 };

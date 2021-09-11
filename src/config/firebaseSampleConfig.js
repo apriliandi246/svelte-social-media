@@ -1,3 +1,4 @@
+// Chnage this filename to "firebaseConfig.js"
 const firebaseConfig = {
   apiKey: "API KEY",
   authDomain: "AUTH DOMAIN",
@@ -17,5 +18,4 @@ try {
 }
 
 const fire = firebase;
-
 export default fire;
