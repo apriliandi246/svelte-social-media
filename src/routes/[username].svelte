@@ -84,7 +84,7 @@
   }
 
   .no_user {
-    color: #ffffff;
+    color: #fff;
     font-size: 1.7rem;
     margin-top: 140px;
     text-align: center;

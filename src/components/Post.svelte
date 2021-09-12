@@ -161,8 +161,8 @@
   }
 
   .card__like_icon {
+    color: #fff;
     padding: 5px;
-    color: #ffffff;
     cursor: pointer;
     font-size: 1.3rem;
     font-weight: bold;
@@ -171,7 +171,7 @@
   }
 
   .card__like_total {
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     margin-top: -6px;
     margin-right: 5px;
@@ -181,7 +181,7 @@
 
   .card__profile_photo {
     float: left;
-    color: #ffffff;
+    color: #fff;
     font-size: 0.8rem;
     border-radius: 100%;
     border: 3px solid #858992;
@@ -189,7 +189,7 @@
 
   .card__username {
     float: left;
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     text-align: center;
     letter-spacing: 1.5px;
@@ -200,7 +200,7 @@
 
   .card__description {
     padding: 9px;
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     margin-top: 48px;
     line-height: 25px;
@@ -236,7 +236,7 @@
   }
 
   .message {
-    color: #ffffff;
+    color: #fff;
     margin-top: 40px;
     font-size: 1.1rem;
     text-align: center;
@@ -273,11 +273,8 @@
       font-size: 1rem;
     }
 
+    .card__footer,
     .card__description {
-      font-size: 0.9rem;
-    }
-
-    .card__footer {
       font-size: 0.9rem;
     }
 

@@ -90,7 +90,7 @@
     outline: none;
     padding: 18px;
     display: block;
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     line-height: 22px;
     letter-spacing: 1px;
@@ -104,7 +104,7 @@
     width: 100%;
     padding: 10px;
     outline: none;
-    color: #ffffff;
+    color: #fff;
     cursor: pointer;
     font-size: 1rem;
     margin: 28px 0 10px 0;
@@ -142,7 +142,7 @@
   button,
   textarea {
     border-radius: 4px;
-    box-shadow: inset 0px 0px 2px rgba(255, 255, 255, 1);
+    box-shadow: inset 0px 0px 2px #fff;
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
       Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol", "Noto Color Emoji";

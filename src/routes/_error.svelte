@@ -18,7 +18,7 @@
 
 <style>
   h1 {
-    color: #ffffff;
+    color: #fff;
     margin-top: 130px;
     font-size: 2rem;
     text-align: center;
@@ -27,7 +27,7 @@
   }
 
   h2 {
-    color: #ffffff;
+    color: #fff;
     margin-top: 14px;
     font-size: 1.5rem;
     text-align: center;
@@ -35,7 +35,7 @@
   }
 
   pre {
-    color: #ffffff;
+    color: #fff;
     margin-top: 130px;
     text-align: center;
   }

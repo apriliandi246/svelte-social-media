@@ -134,7 +134,7 @@
   }
 
   .input_form__label {
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     letter-spacing: 1px;
   }
@@ -144,7 +144,7 @@
     outline: none;
     padding: 11px;
     display: block;
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     margin-top: 15px;
     letter-spacing: 1.2px;
@@ -156,9 +156,9 @@
 
   .button_form {
     width: 100%;
+    color: #fff;
     padding: 10px;
     outline: none;
-    color: #ffffff;
     cursor: pointer;
     font-size: 1rem;
     letter-spacing: 1px;
@@ -171,10 +171,10 @@
 
   .redirect_button {
     width: 100%;
+    color: #fff;
     padding: 11px;
     outline: none;
     display: block;
-    color: #ffffff;
     font-size: 1rem;
     margin-top: 16px;
     text-align: center;

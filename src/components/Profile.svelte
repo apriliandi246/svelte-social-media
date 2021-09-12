@@ -26,7 +26,7 @@
 <style>
   .user {
     display: flex;
-    color: #ffffff;
+    color: #fff;
     margin-top: 40px;
     padding-top: 50px;
     text-align: center;
@@ -59,7 +59,7 @@
 
   .user__profile_picture {
     display: block;
-    color: #ffffff;
+    color: #fff;
     font-size: 0.9rem;
     margin-top: -17px;
     border-radius: 4px;

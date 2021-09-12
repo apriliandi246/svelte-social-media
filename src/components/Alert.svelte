@@ -11,9 +11,9 @@
 <style>
   .alert {
     width: 100%;
+    color: #fff;
     display: flex;
     padding: 13px;
-    color: #ffffff;
     border-radius: 2px;
     font-weight: bolder;
     align-items: center;

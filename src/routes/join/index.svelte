@@ -213,7 +213,7 @@
   }
 
   .input_form__label {
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     letter-spacing: 1px;
     transition: color 0.2s;
@@ -224,7 +224,7 @@
     outline: none;
     padding: 11px;
     display: block;
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     margin-top: 15px;
     letter-spacing: 1px;
@@ -236,9 +236,9 @@
 
   .button_form {
     width: 100%;
+    color: #fff;
     padding: 10px;
     outline: none;
-    color: #ffffff;
     cursor: pointer;
     font-size: 1rem;
     letter-spacing: 1.2px;
@@ -251,10 +251,10 @@
 
   .redirect_button {
     width: 100%;
+    color: #fff;
     padding: 11px;
     outline: none;
     display: block;
-    color: #ffffff;
     font-size: 1rem;
     margin-top: 16px;
     text-align: center;
@@ -292,11 +292,11 @@
   }
 
   .color-invalid {
-    color: orangered;
+    color: #ff4500;
   }
 
   .border-invalid {
-    border-color: orangered;
+    border-color: #ff4500;
   }
 
   a::disabled,

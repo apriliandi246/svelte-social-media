@@ -13,10 +13,7 @@
 
   <ul class="head__lists">
     <li class="head__list">
-      <a 
-        href="/" 
-        class="head__link" 
-        class:current_menu={segment === "home"}>
+      <a href="/" class="head__link" class:current_menu={segment === "home"}>
         Home
       </a>
     </li>
@@ -83,12 +80,9 @@
     transition: color 0.1s;
   }
 
-  .current_menu {
-    color: #ffffff;
-  }
-
+  .current_menu,
   .head__link:hover {
-    color: #ffffff;
+    color: #fff;
   }
 
   @media screen and (min-width: 600px) {

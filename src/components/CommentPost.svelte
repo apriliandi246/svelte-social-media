@@ -116,7 +116,7 @@
 
   .card__like_icon {
     padding: 5px;
-    color: #ffffff;
+    color: #fff;
     cursor: pointer;
     font-size: 1.3rem;
     font-weight: bold;
@@ -125,7 +125,7 @@
   }
 
   .card__like_total {
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     margin-top: -5px;
     margin-right: 5px;
@@ -135,7 +135,7 @@
 
   .card__profile-photo {
     float: left;
-    color: #ffffff;
+    color: #fff;
     font-size: 0.8rem;
     border-radius: 100%;
     border: 3px solid #858992;
@@ -143,7 +143,7 @@
 
   .card__username {
     float: left;
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     text-align: center;
     letter-spacing: 1.5px;
@@ -154,7 +154,7 @@
 
   .card__description {
     padding: 9px;
-    color: #ffffff;
+    color: #fff;
     font-size: 1rem;
     margin-top: 55px;
     line-height: 25px;
