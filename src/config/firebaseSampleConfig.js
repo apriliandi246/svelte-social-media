@@ -1,4 +1,4 @@
-// Chnage this filename to "firebaseConfig.js"
+// Change this filename to "firebaseConfig.js"
 const firebaseConfig = {
   apiKey: "API KEY",
   authDomain: "AUTH DOMAIN",
