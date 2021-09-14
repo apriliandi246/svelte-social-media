@@ -47,7 +47,7 @@
   }
 </script>
 
-<div class="card cf" in:scale={{ duration: 400 }}>
+<div class="card cf" in:scale={{ duration: 300 }}>
   <div class="card__like">
     <div class="card__like_icon" on:click={likePost}>
       {#if post.likes.includes(username)}

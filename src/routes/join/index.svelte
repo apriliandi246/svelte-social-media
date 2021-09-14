@@ -9,7 +9,6 @@
 <script>
   import { goto } from "@sapper/app";
   import Alert from "$components/Alert.svelte";
-  import { slide, scale } from "svelte/transition";
 
   let isJoin = false;
   let isError = false;
@@ -113,12 +112,7 @@
     <Alert message="username already in use" />
   {/if}
 
-  <form
-    spellcheck="false"
-    autocomplete="off"
-    in:scale={{ duration: 400 }}
-    on:submit|preventDefault={signUp}
-  >
+  <form spellcheck="false" autocomplete="off" on:submit|preventDefault={signUp}>
     <div class="input-form">
       <label
         for="username"
@@ -162,11 +156,7 @@
     </div>
 
     {#if password.isValid}
-      <div
-        class="input-form"
-        in:slide|local={{ duration: 210 }}
-        out:slide|local={{ duration: 210 }}
-      >
+      <div class="input-form">
         <label
           for="confirm-password"
           class="input_form__label"

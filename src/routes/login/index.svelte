@@ -8,7 +8,6 @@
 
 <script>
   import cookieCutter from "cookie-cutter";
-  import { scale } from "svelte/transition";
   import Alert from "$components/Alert.svelte";
 
   let isError;
@@ -72,12 +71,7 @@
     <Alert message="Username or password not found" />
   {/if}
 
-  <form
-    spellcheck="false"
-    autocomplete="off"
-    in:scale={{ duration: 400 }}
-    on:submit|preventDefault={signIn}
-  >
+  <form spellcheck="false" autocomplete="off" on:submit|preventDefault={signIn}>
     <div class="input_form">
       <label for="email" class="input_form__label">Username</label>
 

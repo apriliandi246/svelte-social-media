@@ -1,10 +1,8 @@
 <script>
-  import { scale } from "svelte/transition";
-
   export let message;
 </script>
 
-<div class="alert" transition:scale|local>
+<div class="alert">
   <p class="alert__message">{message}</p>
 </div>
 
