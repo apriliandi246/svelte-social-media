@@ -1,25 +1,31 @@
 <script>
   import Time from "$utils/date";
+  import { sessionUsername } from "$store";
   import { scale } from "svelte/transition";
   import Comment from "./CommentPost.svelte";
   import CommentForm from "./CommentForm.svelte";
 
   export let post;
   export let postId;
-  export let username;
 
   let comments;
-  let showAllComments = false;
+  let isCommentsShow = false;
+  const POST_DATE = new Time(post.date).fromNow("normal");
+
+  $: statusShowComments = isCommentsShow ? "hide comments" : "show comments";
+  $: totalComments = comments
+    ? `${Intl.NumberFormat().format(comments.length)} comments`
+    : "Loading....";
 
   function showCommentsPost() {
-    showAllComments = !showAllComments;
+    isCommentsShow = !isCommentsShow;
 
-    if (showAllComments === true) {
+    if (isCommentsShow === true) {
       fire
         .collection("comments")
         .where("post", "==", postId)
         .onSnapshot((snapshot) => {
-          if (snapshot.docs.length >= 1) {
+          if (snapshot.docs.length > 0) {
             comments = snapshot.docs;
           } else {
             comments = [];
@@ -31,11 +37,11 @@
   function likePost() {
     const currentLikes = [...post.likes];
 
-    if (currentLikes.includes(username)) {
-      const index = currentLikes.indexOf(username);
+    if (currentLikes.includes($sessionUsername)) {
+      const index = currentLikes.indexOf($sessionUsername);
       currentLikes.splice(index, 1);
     } else {
-      currentLikes.push(username);
+      currentLikes.push($sessionUsername);
     }
 
     fire
@@ -50,7 +56,7 @@
 <div class="card cf" in:scale={{ duration: 300 }}>
   <div class="card__like">
     <div class="card__like_icon" on:click={likePost}>
-      {#if post.likes.includes(username)}
+      {#if post.likes.includes($sessionUsername)}
         <svg
           width="26px"
           height="26px"
@@ -102,22 +108,16 @@
 
   <div class="card__footer">
     <p class="card__comments" on:click={showCommentsPost}>
-      {showAllComments ? "hide comments" : "show comments"}
+      {statusShowComments}
     </p>
 
-    <p class="card__date">{new Time(post.date).fromNow("normal")}</p>
+    <p class="card__date">{POST_DATE}</p>
   </div>
 </div>
 
 <!-- comments and form comment -->
-{#if showAllComments}
-  {#if comments}
-    <h1 class="message">
-      {Intl.NumberFormat().format(comments.length)} comments
-    </h1>
-  {:else}
-    <h1 class="message">Loading....</h1>
-  {/if}
+{#if isCommentsShow}
+  <h1 class="message">{totalComments}</h1>
 
   {#if comments}
     <CommentForm {postId} />

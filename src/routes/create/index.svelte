@@ -3,20 +3,17 @@
     const { _userId, _username } = session;
 
     if (!_userId && !_username) this.redirect(302, "/login");
-
-    return {
-      username: session._username,
-    };
   }
 </script>
 
 <script>
   import { goto } from "@sapper/app";
+  import { sessionUsername } from "$store";
   import Alert from "$components/Alert.svelte";
 
-  export let username;
-
   let isCreate = false;
+
+  $: submitBtnContent = isCreate ? "Loading...." : "Post";
 
   let { value, isLimit, isValid } = {
     value: "",
@@ -41,10 +38,10 @@
     fire
       .collection("posts")
       .add({
-        username,
         likes: [],
         words: value,
         date: `${new Date()}`,
+        username: $sessionUsername,
         whenPosted: `${Date.now()}`,
       })
       .then(async () => await goto("/home"));
@@ -69,7 +66,7 @@
   />
 
   <button type="submit" disabled={!isValid}>
-    {isCreate ? "Loading...." : "Post"}
+    {submitBtnContent}
   </button>
 </form>
 

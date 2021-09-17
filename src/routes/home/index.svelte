@@ -3,21 +3,15 @@
     const { _userId, _username } = session;
 
     if (!_userId && !_username) this.redirect(302, "/login");
-
-    return {
-      username: _username,
-    };
   }
 </script>
 
 <script>
   import { onMount } from "svelte";
-  import { homeFetch } from "$store";
   import { scale } from "svelte/transition";
   import Post from "$components/Post.svelte";
+  import { homeFetch, sessionUsername } from "$store";
   import PostSkeleton from "$components/PostSkeleton.svelte";
-
-  export let username;
 
   let posts;
 
@@ -45,7 +39,7 @@
   <PostSkeleton />
 {:else if posts.length > 0}
   {#each posts as post}
-    <Post {username} postId={post.id} post={post.data()} />
+    <Post postId={post.id} post={post.data()} />
   {/each}
 {:else}
   <h1 in:scale>🙅</h1>

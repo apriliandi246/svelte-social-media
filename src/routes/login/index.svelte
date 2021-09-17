@@ -19,6 +19,9 @@
     isValid: false,
   };
 
+  $: isBtnDisabled = !isValid || isLogin;
+  $: submitBtnContent = isLogin ? "Loading...." : "Login";
+
   $: {
     if (!username.trim()) {
       isValid = false;
@@ -100,11 +103,11 @@
 
     <button
       type="submit"
-      class="button_form"
       on:click={signIn}
-      disabled={!isValid || isLogin}
+      class="button_form"
+      disabled={isBtnDisabled}
     >
-      {isLogin ? "Loading...." : "Login"}
+      {submitBtnContent}
     </button>
 
     <a href="/join" disabled={isLogin} class="redirect_button">

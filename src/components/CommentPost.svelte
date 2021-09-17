@@ -1,27 +1,21 @@
-<script context="module">
-  export async function preload(_, session) {
-    return {
-      userId: session._userId,
-    };
-  }
-</script>
-
 <script>
   import Time from "$utils/date";
+  import { sessionUserId } from "$store";
   import { scale } from "svelte/transition";
 
-  export let userId;
   export let comment;
   export let commentId;
+
+  const COMMENT_DATE = new Time(comment.date).fromNow("normal");
 
   function handleLike() {
     const currentLikes = [...comment.likes];
 
-    if (currentLikes.includes(userId)) {
+    if (currentLikes.includes($sessionUserId)) {
       const index = currentLikes.indexOf(commentId);
       currentLikes.splice(index, 1);
     } else {
-      currentLikes.push(userId);
+      currentLikes.push($sessionUserId);
     }
 
     fire
@@ -36,7 +30,7 @@
 <div class="card cf" in:scale={{ duration: 300 }}>
   <div class="card__like">
     <div class="card__like_icon" on:click={handleLike}>
-      {#if comment.likes.includes(userId)}
+      {#if comment.likes.includes($sessionUserId)}
         <svg
           width="26px"
           height="26px"
@@ -85,7 +79,7 @@
   </div>
 
   <div class="card__description">{comment.words}</div>
-  <div class="card__footer">{new Time(comment.date).fromNow("normal")}</div>
+  <div class="card__footer">{COMMENT_DATE}</div>
 </div>
 
 <style>

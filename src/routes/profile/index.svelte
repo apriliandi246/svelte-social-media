@@ -3,23 +3,17 @@
     const { _userId, _username } = session;
 
     if (!_userId && !_username) this.redirect(302, "/login");
-
-    return {
-      username: _username,
-    };
   }
 </script>
 
 <script>
   import { onMount } from "svelte";
-  import { profileFetch } from "$store";
   import { scale } from "svelte/transition";
   import Post from "$components/Post.svelte";
   import Profile from "$components/Profile.svelte";
+  import { profileFetch, sessionUsername } from "$store";
   import PostSkeleton from "$components/PostSkeleton.svelte";
   import ProfileSkeleton from "$components/ProfileSkeleton.svelte";
-
-  export let username;
 
   let posts;
   let userData;
@@ -27,7 +21,7 @@
   onMount(async () => {
     fire
       .collection("users")
-      .where("username", "==", username)
+      .where("username", "==", $sessionUsername)
       .get()
       .then((snapshot) => {
         snapshot.docs.forEach((doc) => {
@@ -39,7 +33,7 @@
 
     const unsubscribe = fire
       .collection("posts")
-      .where("username", "==", username)
+      .where("username", "==", $sessionUsername)
       .onSnapshot((snapshot) => {
         if (snapshot.docs.length > 0) posts = snapshot.docs;
       });
@@ -51,7 +45,7 @@
 </script>
 
 <svelte:head>
-  <title>My profile</title>
+  <title>My profile • {$sessionUsername}</title>
 </svelte:head>
 
 {#if !userData}
@@ -68,7 +62,7 @@
   {#if posts}
     {#if posts.length > 0}
       {#each posts as post}
-        <Post {username} post={post.data()} postId={post.id} />
+        <Post post={post.data()} postId={post.id} />
       {/each}
     {:else}
       <h1 in:scale={{ duration: 200 }}>🙅</h1>

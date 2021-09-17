@@ -1,24 +1,20 @@
-<script context="module">
-  export async function preload(_, session) {
-    return {
-      username: session._username,
-    };
-  }
-</script>
-
 <script>
   import Alert from "./Alert.svelte";
+  import { sessionUsername } from "$store";
   import { scale } from "svelte/transition";
 
   export let postId;
-  export let username;
 
   let isCreate = false;
+
   let { value, isLimit, isValid } = {
     value: "",
     isLimit: false,
     isValid: false,
   };
+
+  $: btnDisabledStatus = !isValid || isLimit;
+  $: submitBtnContent = isCreate ? "Loading...." : "Comment";
 
   $: if (!value.trim()) {
     isValid = false;
@@ -37,11 +33,11 @@
     fire
       .collection("comments")
       .add({
-        username,
         likes: [],
         post: postId,
         words: value,
         date: `${new Date()}`,
+        username: $sessionUsername,
         whenCommented: `${Date.now()}`,
       })
       .then(() => {
@@ -58,7 +54,7 @@
 
 <form
   spellcheck="false"
-  in:scale={{ duration: 400 }}
+  in:scale={{ duration: 300 }}
   on:submit|preventDefault={submitComment}
 >
   <textarea
@@ -69,8 +65,8 @@
     placeholder="your comment...."
   />
 
-  <button type="submit" disabled={!isValid || isLimit}>
-    {isCreate ? "Loading...." : "Comment"}
+  <button type="submit" disabled={btnDisabledStatus}>
+    {submitBtnContent}
   </button>
 </form>
 
@@ -121,6 +117,7 @@
   }
 
   button:disabled {
+    cursor: default;
     pointer-events: none;
   }
 

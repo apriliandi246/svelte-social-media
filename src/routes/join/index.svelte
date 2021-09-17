@@ -35,6 +35,9 @@
     },
   };
 
+  $: isBtnDisabled = allInvalid || isJoin;
+  $: submitBtnContent = isJoin ? "Loading...." : "Join";
+
   $: {
     // username
     if (!username.regexPattern.test(username.value) && username.value) {
@@ -178,8 +181,8 @@
       </div>
     {/if}
 
-    <button type="submit" class="button_form" disabled={allInvalid || isJoin}>
-      {isJoin ? "Loading...." : "Join"}
+    <button type="submit" class="button_form" disabled={isBtnDisabled}>
+      {submitBtnContent}
     </button>
 
     <a href="/login" disabled={isJoin} class="redirect_button">

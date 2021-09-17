@@ -3,20 +3,16 @@
     const { _userId, _username } = session;
 
     if (!_userId && !_username) this.redirect(302, "/login");
-
-    return { username: _username };
   }
 </script>
 
 <script>
   import { onMount } from "svelte";
-  import { isUserFetch } from "$store";
   import Post from "$components/Post.svelte";
   import Profile from "$components/Profile.svelte";
+  import { isUserFetch, sessionUsername } from "$store";
   import PostSkeleton from "$components/PostSkeleton.svelte";
   import ProfileSkeleton from "$components/ProfileSkeleton.svelte";
-
-  export let username;
 
   let userData;
   let posts = [];
@@ -24,7 +20,7 @@
   onMount(async () => {
     fire
       .collection("users")
-      .where("username", "==", username)
+      .where("username", "==", $sessionUsername)
       .get()
       .then((snapshot) => {
         if (!$isUserFetch) $isUserFetch = true;
@@ -40,7 +36,7 @@
 
         fire
           .collection("posts")
-          .where("username", "==", username)
+          .where("username", "==", $sessionUsername)
           .onSnapshot((snapshot) => {
             if (snapshot.docs.length > 0) posts = snapshot.docs;
           });
@@ -49,7 +45,7 @@
 </script>
 
 <svelte:head>
-  <title>{username}</title>
+  <title>Profile • {$sessionUsername}</title>
 </svelte:head>
 
 {#if !userData && !$isUserFetch}
@@ -57,7 +53,7 @@
 {:else if !userData && $isUserFetch}
   <ProfileSkeleton />
 {:else if userData.length === 0}
-  <h1 class="no_user">{username} 🙅</h1>
+  <h1 class="no_user">{$sessionUsername} 🙅</h1>
 {:else}
   <Profile {userData} />
 {/if}

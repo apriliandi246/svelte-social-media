@@ -1,11 +1,26 @@
+<script context="module">
+  import { sessionUserId, sessionUsername } from "$store";
+
+  export async function preload(_, session) {
+    const { _userId, _username } = session;
+
+    if (_userId && _username) {
+      sessionUserId.set(_userId);
+      sessionUsername.set(_username);
+    }
+  }
+</script>
+
 <script>
   import Logo from "$components/Logo.svelte";
   import Header from "$components/Header.svelte";
 
   export let segment;
+
+  $: isAuthPage = segment === "join" || segment === "login";
 </script>
 
-{#if segment === "join" || segment === "login"}
+{#if isAuthPage}
   <Logo />
   <slot />
 {:else}
